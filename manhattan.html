@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Death in Manhattan</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Georgia', serif;
+      background-image: url('escaperoom.jpg');
+      background-size: cover;
+      background-position: center;
+      color: #000000;
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+    .container { width: 100%; max-width: 680px; }
+    h1 {
+      text-align: center;
+      font-size: 34px;
+      color: #ffffff;
+      text-shadow: 2px 2px 0px #000000;
+      letter-spacing: 5px;
+      margin-bottom: 4px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #ffffff;
+      font-size: 12px;
+      margin-bottom: 28px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(0,0,0,0.2);
+    }
+    .card-label {
+      font-size: 11px;
+      color: #666666;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 14px;
+    }
+    .story-text {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #000000;
+      margin-bottom: 20px;
+    }
+    .riddle-box {
+      background: rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.2);
+      border-radius: 8px;
+      padding: 20px;
+      font-size: 16px;
+      line-height: 1.9;
+      color: #000000;
+      font-style: italic;
+      margin-bottom: 16px;
+      white-space: pre-line;
+    }
+    .cipher-box {
+      background: rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.2);
+      border-radius: 8px;
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 18px;
+      letter-spacing: 4px;
+      color: #000000;
+      text-align: center;
+      margin-bottom: 16px;
+      word-break: break-all;
+      line-height: 1.8;
+    }
+    .type-badge {
+      display: inline-block;
+      background: rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.2);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 11px;
+      color: #333333;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .timer-bar {
+      background: rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.2);
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Courier New', monospace;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .timer-bar.warning { background: rgba(255,165,0,0.2); border-color: orange; }
+    .timer-bar.danger { background: rgba(150,0,0,0.15); border-color: #8B0000; color: #8B0000; }
+    .lives {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 16px;
+      font-size: 14px;
+      color: #333333;
+    }
+    .life { font-size: 20px; transition: opacity 0.3s; }
+    .life.lost { opacity: 0.15; }
+    .progress {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+    .progress-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #cccccc;
+      border: 1px solid #999999;
+      transition: background 0.3s;
+    }
+    .progress-dot.done { background: #000000; }
+    .progress-dot.current { background: #666666; border: 2px solid #000000; }
+    .progress-label {
+      font-size: 11px;
+      color: #666666;
+      margin-left: 8px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.2);
+      background: #ffffff;
+      color: #000000;
+      font-size: 15px;
+      resize: vertical;
+      min-height: 70px;
+      margin-bottom: 12px;
+      font-family: 'Georgia', serif;
+    }
+    textarea::placeholder { color: #999999; }
+    .row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    button {
+      padding: 10px 22px;
+      border: 1px solid rgba(0,0,0,0.3);
+      border-radius: 8px;
+      background: #000000;
+      color: #ffffff;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+      letter-spacing: 1px;
+      font-family: 'Georgia', serif;
+    }
+    button:hover { background: #333333; }
+    .secondary-btn {
+      background: transparent;
+      border: 1px solid rgba(0,0,0,0.3);
+      color: #333333;
+      font-size: 13px;
+      padding: 8px 14px;
+    }
+    .secondary-btn:hover { background: #000000; color: #ffffff; }
+    .feedback {
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+      line-height: 1.6;
+    }
+    .feedback.correct { background: rgba(0,100,0,0.1); border: 1px solid #006400; color: #000000; display: block; }
+    .feedback.wrong { background: rgba(150,0,0,0.1); border: 1px solid #8B0000; color: #000000; display: block; }
+    .feedback.info { background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.2); color: #000000; display: block; }
+    .final-message {
+      background: rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.2);
+      border-radius: 8px;
+      padding: 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 15px;
+      color: #000000;
+      text-align: center;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+    .rank-name { font-size: 28px; color: #000000; text-align: center; margin-bottom: 8px; letter-spacing: 3px; }
+    .rank-desc { font-size: 14px; color: #000000; line-height: 1.7; text-align: center; margin-bottom: 24px; }
+    .stars { font-size: 26px; text-align: center; margin-bottom: 16px; }
+    .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+      padding: 10px 22px;
+      border: 1px solid rgba(0,0,0,0.3);
+      border-radius: 8px;
+      background: transparent;
+      color: #000000;
+      font-size: 13px;
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+      letter-spacing: 1px;
+      transition: background 0.2s;
+      width: 100%;
+    }
+    .back-btn:hover { background: #000000; color: #ffffff; }
+    .hidden { display: none; }
+    .seal { text-align: center; font-size: 48px; margin-bottom: 12px; }
+    .suspect-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .suspect {
+      background: rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 14px;
+      color: #000000;
+    }
+    .name-input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.2);
+      background: #ffffff;
+      color: #000000;
+      font-size: 16px;
+      margin-bottom: 16px;
+      font-family: 'Georgia', serif;
+      text-align: center;
+      letter-spacing: 2px;
+    }
+    .time-display {
+      background: rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.2);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      font-family: 'Courier New', monospace;
+      font-size: 20px;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+    .leaderboard-preview {
+      margin-top: 16px;
+      text-align: left;
+    }
+    .lb-entry {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      font-size: 14px;
+      background: rgba(0,0,0,0.05);
+      font-family: 'Courier New', monospace;
+    }
+    .lb-entry.gold { background: rgba(255,215,0,0.3); font-weight: bold; }
+    .lb-entry.silver { background: rgba(192,192,192,0.3); }
+    .lb-entry.bronze { background: rgba(205,127,50,0.3); }
+    .lb-dropdown-label {
+      cursor: pointer;
+      font-size: 13px;
+      color: #666;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .lb-dropdown { display: none; }
+    .lb-dropdown.open { display: block; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>DEATH IN MANHATTAN</h1>
+  <p class="subtitle">— Case 01 — Hotel Belmont — A Rainy Thursday Night —</p>
+
+  <!-- INTRO -->
+  <div class="card" id="intro-card">
+    <div class="seal">🌧️</div>
+    <div class="card-label">Case Briefing — Detective Eyes Only</div>
+    <div class="story-text">
+      It is 11:47pm on a Thursday in October. The rain has not stopped since morning.<br><br>
+      <strong>Victor Crane</strong>, 68, one of Manhattan's wealthiest real estate developers, has been found dead in his suite at the Hotel Belmont on Park Avenue. The door was locked from the inside. The window was open despite the storm.<br><br>
+      Four people were on his guest list that evening. One of them never left.
+    </div>
+    <div class="suspect-list">
+      <div class="suspect"><strong>Diana Crane</strong> — Victor's wife of 22 years. Stood to inherit everything.</div>
+      <div class="suspect"><strong>Roland Fitch</strong> — Victor's business partner. Owed Victor $4 million.</div>
+      <div class="suspect"><strong>Sylvia Moss</strong> — Victor's personal attorney. Drafted his will three times this year.</div>
+      <div class="suspect"><strong>James Whitmore</strong> — A stranger. No one knows why Victor invited him.</div>
+    </div>
+    <div class="story-text">Five clues are hidden in this hotel. Find them all and name the killer.<br><br>You have <strong>20 minutes</strong>. Enter your name for the leaderboard:</div>
+    <input class="name-input" type="text" id="player-name" placeholder="YOUR NAME" maxlength="20">
+    <button onclick="startGame()">Begin Investigation</button>
+  </div>
+
+  <!-- GAME -->
+  <div class="hidden" id="game-card">
+    <div class="card">
+      <div class="timer-bar" id="timer-bar">
+        <span>⏱ TIME LEFT</span>
+        <span id="timer-display">20:00</span>
+      </div>
+      <div class="progress" id="progress-dots"></div>
+      <div class="lives" id="lives-display"></div>
+      <div class="card-label" id="clue-label"></div>
+      <div class="type-badge" id="type-badge"></div>
+      <div class="story-text" id="story-text"></div>
+      <div class="riddle-box" id="riddle-box"></div>
+      <div class="cipher-box" id="cipher-box"></div>
+      <textarea id="player-input" placeholder="Enter your answer..."></textarea>
+      <div class="row">
+        <button onclick="submitAnswer()">Submit</button>
+        <button class="secondary-btn" onclick="showHint()">Request Hint (−1 life)</button>
+      </div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+  </div>
+
+  <!-- ENDING -->
+  <div class="hidden card" id="ending-card">
+    <div class="seal">🔍</div>
+    <div class="card-label" style="text-align:center">Case Closed</div>
+    <div class="final-message" id="final-message"></div>
+    <div class="stars" id="ending-stars"></div>
+    <div class="rank-name" id="rank-name"></div>
+    <div class="rank-desc" id="rank-desc"></div>
+    <div class="leaderboard-preview" id="leaderboard-preview"></div>
+    <div style="text-align:center;margin-top:20px">
+      <button onclick="restartGame()">Reinvestigate</button>
+      <button class="back-btn" onclick="window.location.href='escape_room.html'">Return to Mystery Room</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const CASE_KEY = "lb_manhattan";
+  const TIME_LIMIT = 20 * 60 * 1000;
+
+  function caesarShift(text, shift) {
+    return text.split("").map(ch => {
+      if (/[a-zA-Z]/.test(ch)) {
+        const base = ch >= 'a' ? 97 : 65;
+        return String.fromCharCode((ch.charCodeAt(0) - base + shift + 26) % 26 + base);
+      }
+      return ch;
+    }).join("");
+  }
+
+  function buildThirdLetter(answer, totalLen) {
+    const clean = answer.replace(/\s/g, "").toUpperCase();
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let result = [], ansIdx = 0;
+    for (let i = 1; i <= totalLen; i++) {
+      if (i % 3 === 0 && ansIdx < clean.length) result.push(clean[ansIdx++]);
+      else result.push(chars[Math.floor(Math.random() * chars.length)]);
+    }
+    return result.join("");
+  }
+
+  function scramble(word) {
+    const arr = word.toUpperCase().split("");
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr.join("");
+  }
+
+  const puzzles = [
+    {
+      label: "Clue 01 — The Front Desk",
+      type: "Word Scramble",
+      story: "The night manager hands you a crumpled note found near the elevator. Someone checked into the hotel under a false name. The name is scrambled — unscramble it to find the alias.",
+      riddle: "A guest checked in at 9:47pm under this name.\nUnscramble it to reveal the alias.\nThe truth is always hidden in plain sight.\n\nSuspects:\n— Diana Crane\n— Roland Fitch\n— Sylvia Moss\n— James Whitmore",
+      buildCipher: () => scramble("WHITMORE"),
+      answer: "whitmore",
+      hint: "It is one of the four suspects' last names. Eight letters. Unscramble them."
+    },
+    {
+      label: "Clue 02 — The Hotel Bar",
+      type: "Every 3rd Letter",
+      story: "The bartender remembers a conversation. One guest spoke quietly into their phone for several minutes. He wrote down what he heard — but the real message is hidden inside his notes.",
+      riddle: "The bartender's notes are below.\nThere are always three — isolate every third letter\nto find what was said.",
+      buildCipher: () => buildThirdLetter("thewillisforged", 45),
+      answer: "the will is forged",
+      hint: "Take every third letter in order. The 3rd, 6th, 9th, 12th... ignore spaces."
+    },
+    {
+      label: "Clue 03 — Victor's Suite",
+      type: "Caesar Cipher",
+      story: "Inside Victor's jacket pocket you find a torn note in code. His housekeeper once told police: he always shifted by three.",
+      riddle: "Victor's encrypted note is below.\nTo encode you go forward, to decode you go backward.\nHe always shifted by three. There are always three.\n\nA B C D E F G H I J K L M\nD E F G H I J K L M N O P\n\nN O P Q R S T U V W X Y Z\nQ R S T U V W X Y Z A B C",
+      buildCipher: () => caesarShift("JAMES IS MY SON HE WANTS EVERYTHING", 3),
+      answer: "james is my son he wants everything",
+      hint: "Shift every letter back by 3. D becomes A, E becomes B, F becomes C."
+    },
+    {
+      label: "Clue 04 — The Attorney's Briefcase",
+      type: "Word Scramble",
+      story: "Sylvia Moss left her briefcase in the lobby. Inside you find a document with three words circled in red. Each word has been scrambled separately.",
+      riddle: "Three scrambled words below.\nUnscramble each one and put them together.\nThe truth is always hidden in plain sight.",
+      buildCipher: () => "EHT" + " " + scramble("SECRET").replace(/\s/g,"") + " " + scramble("HEIR").replace(/\s/g,""),
+      answer: "the secret heir",
+      hint: "Three separate scrambled words. Unscramble each one individually then put them together."
+    },
+    {
+      label: "Clue 05 — The Open Window",
+      type: "Every 3rd Letter",
+      story: "On the windowsill, barely visible in the rain, someone scratched letters into the paint with a ring. Victor left one final message — his killer's full name.",
+      riddle: "Victor's final message is scratched into the paint below.\nThere are always three.\nIsolate every third letter to name the killer.",
+      buildCipher: () => buildThirdLetter("jameswhitmore", 39),
+      answer: "james whitmore",
+      hint: "Every third letter spells the killer's full name. First and last. You have met them already."
+    }
+  ];
+
+  let current = 0, lives = 3, livesLost = 0;
+  let builtCiphers = [], caseSolved = false;
+  let startTime, timerInterval, timeUsed = 0;
+  let playerName = "";
+
+  function formatTime(ms) {
+    const totalSec = Math.floor(ms / 1000);
+    const min = Math.floor(totalSec / 60);
+    const sec = totalSec % 60;
+    const msec = Math.floor((ms % 1000) / 10);
+    return `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}.${String(msec).padStart(2,"0")}`;
+  }
+
+  function formatCountdown(ms) {
+    const totalSec = Math.ceil(ms / 1000);
+    const min = Math.floor(totalSec / 60);
+    const sec = totalSec % 60;
+    return `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
+  }
+
+  function startGame() {
+    playerName = document.getElementById("player-name").value.trim() || "UNKNOWN";
+    builtCiphers = puzzles.map(p => p.buildCipher());
+    document.getElementById("intro-card").classList.add("hidden");
+    document.getElementById("game-card").classList.remove("hidden");
+    startTime = Date.now();
+    timerInterval = setInterval(updateTimer, 100);
+    loadPuzzle();
+  }
+
+  function updateTimer() {
+    const elapsed = Date.now() - startTime;
+    const remaining = TIME_LIMIT - elapsed;
+    const bar = document.getElementById("timer-bar");
+    const display = document.getElementById("timer-display");
+
+    if (remaining <= 0) {
+      clearInterval(timerInterval);
+      display.textContent = "00:00";
+      bar.className = "timer-bar danger";
+      timeUsed = TIME_LIMIT;
+      showEnding();
+      return;
+    }
+
+    display.textContent = formatCountdown(remaining);
+
+    if (remaining < 60000) bar.className = "timer-bar danger";
+    else if (remaining < 180000) bar.className = "timer-bar warning";
+    else bar.className = "timer-bar";
+  }
+
+  function loadPuzzle() {
+    const p = puzzles[current];
+    updateProgress();
+    updateLives();
+    document.getElementById("clue-label").textContent = p.label;
+    document.getElementById("type-badge").textContent = p.type;
+    document.getElementById("story-text").textContent = p.story;
+    document.getElementById("riddle-box").textContent = p.riddle;
+    document.getElementById("cipher-box").textContent = builtCiphers[current];
+    document.getElementById("player-input").value = "";
+    document.getElementById("feedback").className = "feedback";
+    document.getElementById("feedback").textContent = "";
+  }
+
+  function updateProgress() {
+    const dots = document.getElementById("progress-dots");
+    dots.innerHTML = puzzles.map((_, i) => {
+      let cls = i < current ? "done" : i === current ? "current" : "";
+      return `<div class="progress-dot ${cls}"></div>`;
+    }).join("") + `<span class="progress-label">Clue ${current + 1} of ${puzzles.length}</span>`;
+  }
+
+  function updateLives() {
+    document.getElementById("lives-display").innerHTML =
+      "Lives: " + [0,1,2].map(i =>
+        `<span class="life ${i >= lives ? 'lost' : ''}">🔍</span>`
+      ).join("");
+  }
+
+  function submitAnswer() {
+    const guess = document.getElementById("player-input").value.trim().toLowerCase();
+    const correct = puzzles[current].answer.toLowerCase();
+    const fb = document.getElementById("feedback");
+
+    if (guess === correct) {
+      fb.className = "feedback correct";
+      fb.textContent = "✓ Correct. Another piece of the puzzle falls into place.";
+      current++;
+      if (current >= puzzles.length) {
+        caseSolved = true;
+        clearInterval(timerInterval);
+        timeUsed = Date.now() - startTime;
+        setTimeout(showEnding, 1800);
+      } else {
+        setTimeout(loadPuzzle, 1800);
+      }
+    } else {
+      lives--;
+      livesLost++;
+      updateLives();
+      if (lives <= 0) {
+        clearInterval(timerInterval);
+        timeUsed = Date.now() - startTime;
+        fb.className = "feedback wrong";
+        fb.textContent = "✗ The case has gone cold. The killer walks free.";
+        setTimeout(showEnding, 2200);
+      } else {
+        fb.className = "feedback wrong";
+        fb.textContent = `✗ Wrong. The evidence doesn't add up. ${lives} chance${lives === 1 ? "" : "s"} remaining.`;
+      }
+    }
+  }
+
+  function showHint() {
+    if (lives <= 1) {
+      const fb = document.getElementById("feedback");
+      fb.className = "feedback info";
+      fb.textContent = "Not enough lives to use a hint.";
+      return;
+    }
+    lives--;
+    livesLost++;
+    updateLives();
+    const fb = document.getElementById("feedback");
+    fb.className = "feedback info";
+    fb.textContent = "💡 " + puzzles[current].hint;
+  }
+
+  function getLeaderboard() {
+    try {
+      return JSON.parse(localStorage.getItem(CASE_KEY) || "[]");
+    } catch { return []; }
+  }
+
+  function saveScore(name, ms) {
+    let board = getLeaderboard();
+    board.push({ name, ms });
+    board.sort((a, b) => a.ms - b.ms);
+    board = board.slice(0, 20);
+    try { localStorage.setItem(CASE_KEY, JSON.stringify(board)); } catch {}
+    return board;
+  }
+
+  function renderLeaderboard(board, myMs) {
+    if (board.length === 0) return "";
+    const top5 = board.slice(0, 5);
+    const rest = board.slice(5);
+    const medals = ["🥇", "🥈", "🥉", "4.", "5."];
+    const classes = ["gold", "silver", "bronze", "", ""];
+
+    let html = `<div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;color:#666">🏆 Leaderboard — Death in Manhattan</div>`;
+
+    top5.forEach((e, i) => {
+      const highlight = e.ms === myMs && e.name === playerName ? "border:2px solid #000;" : "";
+      html += `<div class="lb-entry ${classes[i]}" style="${highlight}">${medals[i]} ${e.name}<span>${formatTime(e.ms)}</span></div>`;
+    });
+
+    if (rest.length > 0) {
+      html += `<div class="lb-dropdown-label" onclick="toggleLbDropdown()">▶ Show all scores</div>`;
+      html += `<div class="lb-dropdown" id="lb-dropdown">`;
+      rest.forEach((e, i) => {
+        html += `<div class="lb-entry">${i + 6}. ${e.name}<span>${formatTime(e.ms)}</span></div>`;
+      });
+      html += `</div>`;
+    }
+
+    return html;
+  }
+
+  function toggleLbDropdown() {
+    const el = document.getElementById("lb-dropdown");
+    const label = document.querySelector(".lb-dropdown-label");
+    el.classList.toggle("open");
+    label.textContent = el.classList.contains("open") ? "▼ Hide scores" : "▶ Show all scores";
+  }
+
+  function showEnding() {
+    document.getElementById("game-card").classList.add("hidden");
+    document.getElementById("ending-card").classList.remove("hidden");
+
+    let rank, desc, stars, msg;
+
+    if (!caseSolved) {
+      rank = "CASE UNSOLVED";
+      desc = "Too many mistakes. James Whitmore walked out of the hotel and disappeared into the rain. Victor Crane's death has been ruled accidental.";
+      stars = "💀";
+      msg = "CASE COLD\nKILLER UNKNOWN\nFILE CLOSED";
+    } else if (livesLost === 0) {
+      rank = "MASTER DETECTIVE";
+      desc = "Flawless. Every clue decoded without hesitation. James Whitmore has been arrested. Justice is served.";
+      stars = "🔍🔍🔍🔍🔍";
+      msg = "CASE CLOSED\nJAMES WHITMORE — GUILTY\nSENTENCED TO LIFE";
+    } else if (livesLost <= 2) {
+      rank = "SENIOR DETECTIVE";
+      desc = "Good work. You stumbled but got there. James Whitmore is in custody.";
+      stars = "🔍🔍🔍🔍";
+      msg = "CASE CLOSED\nJAMES WHITMORE — GUILTY\nAWAITING TRIAL";
+    } else {
+      rank = "JUNIOR DETECTIVE";
+      desc = "You solved it but left too many loose ends. James Whitmore's lawyer may get him off.";
+      stars = "🔍🔍🔍";
+      msg = "CASE CLOSED\nJAMES WHITMORE — SUSPECT\nEVIDENCE UNDER REVIEW";
+    }
+
+    const pwHint = caseSolved ? `<br><br><div style="font-size:12px;color:#666;margin-top:12px;letter-spacing:2px">PASSWORD TO UNLOCK CASE 02:</div><div style="font-size:18px;font-weight:bold;letter-spacing:2px;margin-top:6px">THE WILL</div>` : "";
+    const timeStr = caseSolved ? `<br><div style="font-size:13px;color:#333;margin-top:12px;letter-spacing:2px">YOUR TIME: <strong>${formatTime(timeUsed)}</strong></div>` : "";
+
+    document.getElementById("final-message").innerHTML =
+      `<div style="color:#666;font-size:11px;letter-spacing:3px;margin-bottom:12px">CASE REPORT</div>${msg}${timeStr}${pwHint}`;
+    document.getElementById("ending-stars").textContent = stars;
+    document.getElementById("rank-name").textContent = rank;
+    document.getElementById("rank-desc").textContent = desc;
+
+    if (caseSolved) {
+      const board = saveScore(playerName, timeUsed);
+      document.getElementById("leaderboard-preview").innerHTML = renderLeaderboard(board, timeUsed);
+    }
+  }
+
+  function restartGame() {
+    current = 0; lives = 3; livesLost = 0;
+    caseSolved = false; builtCiphers = []; timeUsed = 0;
+    clearInterval(timerInterval);
+    document.getElementById("ending-card").classList.add("hidden");
+    document.getElementById("intro-card").classList.remove("hidden");
+    document.getElementById("leaderboard-preview").innerHTML = "";
+  }
+</script>
+</body>
+</html>

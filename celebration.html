@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Celebration!</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #000;
+      overflow-x: hidden;
+      font-family: 'Georgia', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .confetti-piece {
+      position: fixed;
+      top: -20px;
+      animation: fall linear infinite;
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% { top: -20px; transform: rotate(0deg); opacity: 1; }
+      100% { top: 110vh; transform: rotate(720deg); opacity: 0; }
+    }
+
+    .nyan-container {
+      position: fixed;
+      top: 15%;
+      left: -400px;
+      animation: nyanRun 5s linear infinite;
+      display: flex;
+      align-items: center;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .nyan-container img {
+      height: 80px;
+    }
+
+    @keyframes nyanRun {
+      0% { left: -400px; }
+      100% { left: 110vw; }
+    }
+
+    .nyan-container2 {
+      position: fixed;
+      top: 55%;
+      left: -400px;
+      animation: nyanRun 7s linear infinite;
+      animation-delay: 2.5s;
+      display: flex;
+      align-items: center;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .nyan-container2 img {
+      height: 60px;
+    }
+
+    .content {
+      position: relative;
+      z-index: 20;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .congrats {
+      font-size: 48px;
+      font-weight: bold;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      animation: rainbowText 1s linear infinite;
+      margin-bottom: 12px;
+    }
+
+    @keyframes rainbowText {
+      0% { color: #ff0000; }
+      16% { color: #ff9900; }
+      33% { color: #ffff00; }
+      50% { color: #00cc00; }
+      66% { color: #0000ff; }
+      83% { color: #9900cc; }
+      100% { color: #ff0000; }
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #ffffff;
+      letter-spacing: 3px;
+      margin-bottom: 32px;
+      text-transform: uppercase;
+    }
+
+    .happy-cat-container {
+      margin: 0 auto 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .happy-cat-container img {
+      height: 160px;
+      border-radius: 12px;
+      animation: happyBounce 0.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes happyBounce {
+      from { transform: scale(1) rotate(-2deg); }
+      to { transform: scale(1.05) rotate(2deg); }
+    }
+
+    .happy-text {
+      font-size: 32px;
+      color: #FFD700;
+      letter-spacing: 4px;
+      font-weight: bold;
+      animation: bounce 0.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-12px); }
+    }
+
+    .party-cats {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .party-cat {
+      font-size: 48px;
+      animation: partySpin 0.8s ease-in-out infinite alternate;
+    }
+
+    .party-cat:nth-child(1) { animation-delay: 0s; }
+    .party-cat:nth-child(2) { animation-delay: 0.16s; }
+    .party-cat:nth-child(3) { animation-delay: 0.32s; }
+    .party-cat:nth-child(4) { animation-delay: 0.48s; }
+    .party-cat:nth-child(5) { animation-delay: 0.64s; }
+
+    @keyframes partySpin {
+      from { transform: rotate(-15deg) scale(1); }
+      to { transform: rotate(15deg) scale(1.2); }
+    }
+
+    .home-btn {
+      padding: 14px 32px;
+      background: #FFD700;
+      color: #000000;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-family: 'Georgia', serif;
+      letter-spacing: 2px;
+      cursor: pointer;
+      margin-top: 24px;
+      animation: btnPop 1s ease-in-out infinite alternate;
+    }
+
+    .home-btn:hover { transform: scale(1.1); background: #ffc200; }
+
+    @keyframes btnPop {
+      from { transform: scale(1); box-shadow: 0 0 10px #FFD700; }
+      to { transform: scale(1.05); box-shadow: 0 0 30px #FFD700; }
+    }
+
+    .star {
+      position: fixed;
+      font-size: 20px;
+      animation: starFloat linear infinite;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @keyframes starFloat {
+      0% { opacity: 0; transform: scale(0) rotate(0deg); }
+      20% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+      80% { opacity: 1; transform: scale(1) rotate(360deg); }
+      100% { opacity: 0; transform: scale(0) rotate(540deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NYAN CATS -->
+  <div class="nyan-container">
+    <img src="nyancat.gif" alt="Nyan Cat">
+  </div>
+  <div class="nyan-container2">
+    <img src="nyancat.gif" alt="Nyan Cat">
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="content">
+
+    <div class="congrats">CONGRATULATIONS!</div>
+    <div class="subtitle">You solved all three mysteries 🕵️</div>
+
+    <!-- HAPPY CAT -->
+    <div class="happy-cat-container">
+      <img src="happycat.gif" alt="Happy Cat">
+      <div class="happy-text">HAPPY • HAPPY • HAPPY</div>
+    </div>
+
+    <!-- PARTY CATS -->
+    <div class="party-cats">
+      <span class="party-cat">🎉</span>
+      <span class="party-cat">😸</span>
+      <span class="party-cat">🎊</span>
+      <span class="party-cat">😺</span>
+      <span class="party-cat">🎉</span>
+    </div>
+
+    <button class="home-btn" onclick="window.location.href='escape_room.html'">
+      Return to Mystery Room
+    </button>
+
+  </div>
+
+</body>
+<script>
+  const colors = ["#ff0000","#ff9900","#ffff00","#00cc00","#0000ff","#9900cc","#ff69b4","#ffffff"];
+  for (let i = 0; i < 100; i++) {
+    const piece = document.createElement("div");
+    piece.className = "confetti-piece";
+    piece.style.left = Math.random() * 100 + "vw";
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    piece.style.animationDelay = (Math.random() * 4) + "s";
+    piece.style.width = (Math.random() * 10 + 5) + "px";
+    piece.style.height = (Math.random() * 10 + 5) + "px";
+    piece.style.borderRadius = Math.random() > 0.5 ? "50%" : "2px";
+    document.body.appendChild(piece);
+  }
+
+  const starEmojis = ["⭐","🌟","✨","💫","🌈","🎊","🎉"];
+  for (let i = 0; i < 25; i++) {
+    const star = document.createElement("div");
+    star.className = "star";
+    star.textContent = starEmojis[Math.floor(Math.random() * starEmojis.length)];
+    star.style.left = Math.random() * 100 + "vw";
+    star.style.top = Math.random() * 100 + "vh";
+    star.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    star.style.animationDelay = (Math.random() * 5) + "s";
+    document.body.appendChild(star);
+  }
+</script>
+</html>

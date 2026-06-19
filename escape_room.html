@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mystery Room</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background-image: url('escaperoom.jpg');
+      background-size: cover;
+      background-position: center;
+      color: #000000;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 720px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+      animation: fadeDown 1s ease forwards;
+    }
+
+    .header .seal {
+      font-size: 56px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .header h1 {
+      font-size: 48px;
+      letter-spacing: 8px;
+      color: #ffffff;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      text-shadow: 2px 2px 0px #000000;
+    }
+
+    .header .tagline {
+      font-size: 13px;
+      letter-spacing: 4px;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: #ffffff;
+      margin: 16px auto;
+    }
+
+    .cases-label {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .cases {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .case-card {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 12px;
+      padding: 24px;
+      cursor: pointer;
+      transition: all 0.2s;
+      animation: fadeUp 0.8s ease forwards;
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .case-card:nth-child(1) { animation-delay: 0.2s; }
+    .case-card:nth-child(2) { animation-delay: 0.4s; }
+    .case-card:nth-child(3) { animation-delay: 0.6s; }
+
+    .case-card:hover {
+      background: rgba(255, 255, 255, 0.98);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .case-card.locked {
+      opacity: 0.5 !important;
+      cursor: not-allowed;
+    }
+
+    .case-card.locked:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .case-icon {
+      font-size: 36px;
+      min-width: 50px;
+      text-align: center;
+    }
+
+    .case-info { flex: 1; }
+
+    .case-number {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #555555;
+      margin-bottom: 4px;
+    }
+
+    .case-title {
+      font-size: 20px;
+      color: #000000;
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+    }
+
+    .case-teaser {
+      font-size: 13px;
+      color: #333333;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .case-meta {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .difficulty {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid;
+    }
+
+    .difficulty.beginner { color: #00674F; border-color: #00674F; }
+    .difficulty.intermediate { color: #8B4513; border-color: #8B4513; }
+    .difficulty.expert { color: #8B0000; border-color: #8B0000; }
+
+    .case-status {
+      font-size: 11px;
+      color: #666;
+      letter-spacing: 1px;
+    }
+
+    .lock-icon {
+      font-size: 24px;
+      opacity: 0.4;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: #ffffff;
+      text-transform: uppercase;
+      animation: fadeUp 1s ease 0.8s forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      border: 1px solid #004d3a;
+    }
+
+    .modal-icon { font-size: 40px; margin-bottom: 12px; }
+
+    .modal h2 {
+      font-size: 20px;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      color: #000000;
+    }
+
+    .modal p {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .modal button {
+      padding: 10px 24px;
+      border: none;
+      border-radius: 8px;
+      background: #000000;
+      color: #ffffff;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+      letter-spacing: 1px;
+      transition: background 0.2s;
+    }
+
+    .modal button:hover { background: #333333; }
+
+    .modal .cancel-btn {
+      background: transparent;
+      color: #666;
+      border: 1px solid #ccc;
+    }
+
+    .modal .cancel-btn:hover { background: #eee; color: #000; }
+
+    .password-modal {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      border: 1px solid #000;
+    }
+
+    .password-modal h2 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+    }
+
+    .password-modal p {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .password-modal input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      margin-bottom: 16px;
+      text-align: center;
+      font-family: 'Georgia', serif;
+    }
+
+    .password-modal .error {
+      color: #8B0000;
+      font-size: 13px;
+      margin-bottom: 12px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <span class="seal">🔍</span>
+    <h1>Mystery Room</h1>
+    <div class="divider"></div>
+    <p class="tagline">Solve the case. Crack the cipher. Find the truth.</p>
+  </div>
+
+  <p class="cases-label">— Select a Case —</p>
+<p style="text-align:center;color:#ffffff;font-size:13px;margin-bottom:16px;letter-spacing:1px;">Have a password? Click a locked case to enter it.</p>
+  <div class="cases">
+
+    <div class="case-card" onclick="openCase(1)">
+      <div class="case-icon">🏙️</div>
+      <div class="case-info">
+        <div class="case-number">Case 01</div>
+        <div class="case-title">Death in Manhattan</div>
+        <div class="case-teaser">A wealthy developer is found dead in his luxury apartment on the 34th floor. Four suspects. One killer.</div>
+        <div class="case-meta">
+          <span class="difficulty beginner">Beginner</span>
+          <span class="case-status">🔓 Available</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card locked" id="case2-card" onclick="openCase(2)">
+      <div class="case-icon">🕯️</div>
+      <div class="case-info">
+        <div class="case-number">Case 02</div>
+        <div class="case-title">The Cipher Society</div>
+        <div class="case-teaser">A secret society at Westhaven Academy hides its secrets in ciphers. There are always three.</div>
+        <div class="case-meta">
+          <span class="difficulty intermediate">Intermediate</span>
+          <span class="case-status" id="case2-status">🔒 Complete Case 01 to unlock</span>
+        </div>
+      </div>
+      <div class="lock-icon" id="case2-lock">🔒</div>
+    </div>
+
+    <div class="case-card locked" id="case3-card" onclick="openCase(3)">
+      <div class="case-icon">🚢</div>
+      <div class="case-info">
+        <div class="case-number">Case 03</div>
+        <div class="case-title">The Last Voyage</div>
+        <div class="case-teaser">A murder aboard a luxury cruise ship in the middle of the ocean. No one can leave. The killer is still on board.</div>
+        <div class="case-meta">
+          <span class="difficulty expert">Expert</span>
+          <span class="case-status" id="case3-status">🔒 Complete Case 02 to unlock</span>
+        </div>
+      </div>
+      <div class="lock-icon" id="case3-lock">🔒</div>
+    </div>
+
+  </div>
+
+  <div class="footer">— Mystery Room — Est. 2026 —</div>
+
+</div>
+
+<!-- ENTER CASE MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-icon" id="modal-icon"></div>
+    <h2 id="modal-title"></h2>
+    <p id="modal-body"></p>
+    <div class="modal-buttons">
+      <button class="cancel-btn" onclick="closeModal()">Not Yet</button>
+      <button onclick="goToCase()">Enter the Room</button>
+    </div>
+  </div>
+</div>
+
+<!-- PASSWORD MODAL -->
+<div class="modal-overlay" id="password-modal">
+  <div class="password-modal">
+    <div style="font-size:36px;margin-bottom:12px">🔒</div>
+    <h2 id="pw-title">LOCKED</h2>
+    <p id="pw-body"></p>
+<p style="font-size:12px;color:#888;margin-top:-16px;margin-bottom:16px;">Type the password in the box below and click Unlock.</p>
+    <input type="text" id="pw-input" placeholder="Enter password...">
+    <div class="error" id="pw-error">Incorrect password. Keep investigating.</div>
+    <div class="modal-buttons">
+      <button class="cancel-btn" onclick="closePasswordModal()" style="background:transparent;color:#666;border:1px solid #ccc;">Cancel</button>
+      <button onclick="checkPassword()">Unlock</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const passwords = {
+    2: "the will",
+    3: "the queen of hearts"
+  };
+
+  const caseFiles = {
+    1: "manhattan.html",
+    2: "cipher_society.html",
+    3: "last_voyage.html"
+  };
+
+  const caseInfo = {
+    1: { icon: "🏙️", title: "Death in Manhattan", body: "A wealthy developer. Four suspects. One truth hidden in the ciphers. Are you ready to enter the room?" },
+    2: { icon: "🕯️", title: "The Cipher Society", body: "Westhaven Academy keeps its secrets well. Five trials stand between you and the truth. There are always three." },
+    3: { icon: "🚢", title: "The Last Voyage", body: "Somewhere in international waters, a killer walks free among the passengers. You have until port to find them." }
+  };
+
+  let selectedCase = null;
+  let pendingCase = null;
+
+  function openCase(num) {
+    if (num === 2 && document.getElementById("case2-card").classList.contains("locked")) {
+      pendingCase = 2;
+      document.getElementById("pw-title").textContent = "CASE 02 LOCKED";
+      document.getElementById("pw-body").textContent = "You must complete Case 01 to unlock this case. The password is hidden in the investigation.";
+      document.getElementById("pw-input").value = "";
+      document.getElementById("pw-error").style.display = "none";
+      document.getElementById("password-modal").classList.add("open");
+      return;
+    }
+    if (num === 3 && document.getElementById("case3-card").classList.contains("locked")) {
+      pendingCase = 3;
+      document.getElementById("pw-title").textContent = "CASE 03 LOCKED";
+      document.getElementById("pw-body").textContent = "You must complete Case 02 to unlock this case. The password is hidden in the investigation.";
+      document.getElementById("pw-input").value = "";
+      document.getElementById("pw-error").style.display = "none";
+      document.getElementById("password-modal").classList.add("open");
+      return;
+    }
+    selectedCase = num;
+    const info = caseInfo[num];
+    document.getElementById("modal-icon").textContent = info.icon;
+    document.getElementById("modal-title").textContent = info.title;
+    document.getElementById("modal-body").textContent = info.body;
+    document.getElementById("modal").classList.add("open");
+  }
+
+  function checkPassword() {
+    const input = document.getElementById("pw-input").value.trim().toLowerCase();
+    if (input === passwords[pendingCase]) {
+      document.getElementById("password-modal").classList.remove("open");
+      if (pendingCase === 2) {
+        document.getElementById("case2-card").classList.remove("locked");
+        document.getElementById("case2-lock").style.display = "none";
+        document.getElementById("case2-status").textContent = "🔓 Available";
+      }
+      if (pendingCase === 3) {
+        document.getElementById("case3-card").classList.remove("locked");
+        document.getElementById("case3-lock").style.display = "none";
+        document.getElementById("case3-status").textContent = "🔓 Available";
+      }
+      selectedCase = pendingCase;
+      const info = caseInfo[pendingCase];
+      document.getElementById("modal-icon").textContent = info.icon;
+      document.getElementById("modal-title").textContent = info.title;
+      document.getElementById("modal-body").textContent = info.body;
+      document.getElementById("modal").classList.add("open");
+    } else {
+      document.getElementById("pw-error").style.display = "block";
+    }
+  }
+
+  function closePasswordModal() {
+    document.getElementById("password-modal").classList.remove("open");
+    pendingCase = null;
+  }
+
+  function closeModal() {
+    document.getElementById("modal").classList.remove("open");
+    selectedCase = null;
+  }
+
+  function goToCase() {
+    if (selectedCase) {
+      window.location.href = caseFiles[selectedCase];
+    }
+  }
+</script>
+</body>
+</html>
