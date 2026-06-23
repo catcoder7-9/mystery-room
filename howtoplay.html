@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Play — Mystery Room</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background-image: url('escaperoom.jpg');
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .header .seal {
+      font-size: 48px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      letter-spacing: 6px;
+      color: #ffffff;
+      text-shadow: 2px 2px 0px #000000;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: #ffffff;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(0,0,0,0.2);
+      animation: fadeUp 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+    .card:nth-child(4) { animation-delay: 0.4s; }
+
+    .puzzle-type {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .puzzle-icon {
+      font-size: 36px;
+      min-width: 48px;
+      text-align: center;
+    }
+
+    .puzzle-info { flex: 1; }
+
+    .puzzle-name {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    .puzzle-title {
+      font-size: 18px;
+      color: #000000;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .puzzle-desc {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .puzzle-example {
+      background: rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #000;
+      line-height: 1.8;
+    }
+
+    .example-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 4px;
+      font-family: 'Georgia', serif;
+    }
+
+    .highlight { color: #8B0000; font-weight: bold; }
+
+    .rules-card {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(0,0,0,0.2);
+      animation: fadeUp 0.8s ease 0.5s forwards;
+      opacity: 0;
+    }
+
+    .rules-title {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 16px;
+    }
+
+    .rule {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      align-items: flex-start;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .rule-icon { font-size: 18px; min-width: 28px; }
+
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+      animation: fadeUp 0.8s ease 0.6s forwards;
+      opacity: 0;
+    }
+
+    .btn-primary {
+      flex: 1;
+      padding: 14px;
+      background: #000000;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: 'Georgia', serif;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: #333; }
+
+    .btn-secondary {
+      padding: 14px 24px;
+      background: transparent;
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: 'Georgia', serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <span class="seal">🔍</span>
+    <h1>How to Play</h1>
+    <p>Mystery Room — Detective's Handbook</p>
+  </div>
+
+  <div class="card">
+    <div class="puzzle-type">
+      <div class="puzzle-icon">🔄</div>
+      <div class="puzzle-info">
+        <div class="puzzle-name">Puzzle Type 01</div>
+        <div class="puzzle-title">Word Scramble</div>
+        <div class="puzzle-desc">The letters of a word have been jumbled up. Unscramble them to reveal the hidden word or phrase.</div>
+        <div class="puzzle-example">
+          <div class="example-label">Example</div>
+          TEMHATNNA → <span class="highlight">MANHATTAN</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="puzzle-type">
+      <div class="puzzle-icon">3️⃣</div>
+      <div class="puzzle-info">
+        <div class="puzzle-name">Puzzle Type 02</div>
+        <div class="puzzle-title">Every 3rd Letter</div>
+        <div class="puzzle-desc">A secret message is hidden inside a block of text. Isolate every third letter to reveal what is written. There are always three.</div>
+        <div class="puzzle-example">
+          <div class="example-label">Example</div>
+          XY<span class="highlight">C</span>ABR<span class="highlight">A</span>TKP<span class="highlight">T</span>MNS<span class="highlight">S</span> → <span class="highlight">CATS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="puzzle-type">
+      <div class="puzzle-icon">🔐</div>
+      <div class="puzzle-info">
+        <div class="puzzle-name">Puzzle Type 03</div>
+        <div class="puzzle-title">Caesar Cipher</div>
+        <div class="puzzle-desc">Every letter has been shifted forward in the alphabet by three places. To decode it, shift each letter back by three. There are always three.</div>
+        <div class="puzzle-example">
+          <div class="example-label">Example — shift back by 3</div>
+          KHOOR → <span class="highlight">HELLO</span><br>
+          A B C D E F G H ...<br>
+          D E F G H I J K ...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="puzzle-type">
+      <div class="puzzle-icon">🔀</div>
+      <div class="puzzle-info">
+        <div class="puzzle-name">Puzzle Type 04</div>
+        <div class="puzzle-title">Anagram</div>
+        <div class="puzzle-desc">All the letters are there — but rearranged. Rearrange every letter to spell out a new word or phrase.</div>
+        <div class="puzzle-example">
+          <div class="example-label">Example</div>
+          SILENT → <span class="highlight">LISTEN</span><br>
+          LISTEN → <span class="highlight">ENLIST</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rules-card">
+    <div class="rules-title">⚖️ Rules of the Room</div>
+    <div class="rule"><span class="rule-icon">🕯️</span>You have 3 lives per case. Lose them all and the case goes cold.</div>
+    <div class="rule"><span class="rule-icon">💡</span>You can request a hint — but it costs one life.</div>
+    <div class="rule"><span class="rule-icon">⏱️</span>You have 20 minutes per case. The timer starts when you begin.</div>
+    <div class="rule"><span class="rule-icon">🔒</span>Cases are locked. Solve each one to unlock the next.</div>
+    <div class="rule"><span class="rule-icon">🔍</span>The final clue in every case always reveals the killer's name.</div>
+    <div class="rule"><span class="rule-icon">🎯</span>Look out for Jennifer Lynn Barnes references hidden throughout.</div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn-primary" onclick="window.location.href='escape_room.html'">
+      Enter the Room
+    </button>
+    <button class="btn-secondary" onclick="window.location.href='escape_room.html'">
+      Skip
+    </button>
+  </div>
+
+</div>
+</body>
+</html>
