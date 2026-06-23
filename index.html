@@ -478,7 +478,7 @@
         document.getElementById("phase2").style.animation = "fadeIn 1.5s ease forwards";
         setTimeout(startTypewriter, 800);
       }, 1000);
-    }, 50000);
+    }, 8000);
   });
 
   // ── TYPEWRITER ───────────────────────────────────────────
@@ -519,7 +519,7 @@
   }
 
   // after typewriter finishes auto go to lock
-  setTimeout(goToLock, 50000 + 1500 + (lines.join("").length * 45) + 6000);
+  setTimeout(goToLock, 8000 + 1500 + (lines.join("").length * 45) + 6000);
 
   // ── LOCK ─────────────────────────────────────────────────
   function buildLock() {
