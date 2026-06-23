@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mystery Room</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      font-family: 'Georgia', serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .page.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* ── PHASE 1: CASE FILE ── */
+    #phase1 { flex-direction: column; }
+
+    .stamp {
+      font-size: 13px;
+      letter-spacing: 6px;
+      color: #8B0000;
+      text-transform: uppercase;
+      border: 2px solid #8B0000;
+      padding: 6px 16px;
+      opacity: 0;
+      transform: rotate(-8deg);
+      animation: stampIn 0.6s ease 0.5s forwards;
+      margin-bottom: 32px;
+    }
+
+    @keyframes stampIn {
+      0% { opacity: 0; transform: rotate(-8deg) scale(2); }
+      60% { opacity: 1; transform: rotate(-8deg) scale(0.95); }
+      100% { opacity: 1; transform: rotate(-8deg) scale(1); }
+    }
+
+    .case-file {
+      background: #f5f0e8;
+      width: 420px;
+      padding: 40px;
+      border-radius: 2px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fileRise 1s ease 1.2s forwards;
+    }
+
+    @keyframes fileRise {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .file-header {
+      border-bottom: 2px solid #2a2a2a;
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+
+    .department {
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: #666;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .case-title {
+      font-size: 28px;
+      letter-spacing: 6px;
+      color: #1a1a1a;
+      text-transform: uppercase;
+      font-weight: normal;
+    }
+
+    .file-body { font-size: 14px; line-height: 2; color: #2a2a2a; }
+
+    .field {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 8px;
+    }
+
+    .field-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #888;
+      min-width: 80px;
+      padding-top: 2px;
+    }
+
+    .field-value { font-size: 14px; color: #1a1a1a; }
+
+    .redacted {
+      background: #1a1a1a;
+      color: #1a1a1a;
+      padding: 2px 8px;
+      border-radius: 2px;
+      font-size: 13px;
+      user-select: none;
+    }
+
+    .file-footer {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 2px solid #2a2a2a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .file-number { font-size: 11px; letter-spacing: 3px; color: #888; }
+
+    /* ── PHASE 2: TYPEWRITER ── */
+    #phase2 {
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      padding: 40px;
+    }
+
+    .typewriter-container { max-width: 560px; text-align: center; }
+
+    .typewriter-line {
+      font-size: 15px;
+      color: #c8b89a;
+      line-height: 2;
+      letter-spacing: 1px;
+      min-height: 30px;
+      opacity: 0;
+    }
+
+    .typewriter-line.active { opacity: 1; }
+
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 18px;
+      background: #c8b89a;
+      margin-left: 2px;
+      animation: blink 0.7s infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .divider { width: 60px; height: 1px; background: #444; }
+
+    .skip-btn {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: #444;
+      text-transform: uppercase;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+      transition: color 0.2s;
+      padding: 8px;
+    }
+
+    .skip-btn:hover { color: #888; }
+
+    /* ── PHASE 3: COMBINATION LOCK ── */
+    #phase3 {
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      padding: 40px;
+    }
+
+    .lock-title {
+      font-size: 12px;
+      letter-spacing: 6px;
+      color: #888;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .lock-subtitle {
+      font-size: 13px;
+      color: #c8b89a;
+      text-align: center;
+      letter-spacing: 1px;
+      line-height: 1.8;
+      max-width: 480px;
+    }
+
+    .lock-subtitle em {
+      color: #888;
+      font-size: 12px;
+    }
+
+    .lock-container {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      background: #111;
+      padding: 32px;
+      border-radius: 16px;
+      border: 1px solid #2a2a2a;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    .dial-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dial-btn {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      color: #888;
+      font-size: 18px;
+      width: 44px;
+      height: 28px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dial-btn:hover { background: #2a2a2a; color: #c8b89a; }
+    .dial-btn.up::before { content: "▲"; font-size: 12px; }
+    .dial-btn.down::before { content: "▼"; font-size: 12px; }
+
+    .dial {
+      width: 56px;
+      height: 72px;
+      background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 40%, #333 50%, #2a2a2a 60%, #1a1a1a 100%);
+      border: 2px solid #444;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      color: #f0e6d3;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3);
+      transition: all 0.15s;
+      text-shadow: 0 0 8px rgba(240,230,211,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dial::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 30%;
+      background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .dial::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 30%;
+      background: linear-gradient(0deg, rgba(0,0,0,0.4) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .dial.correct {
+      border-color: #c8b89a;
+      color: #c8b89a;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5), 0 0 12px rgba(200,184,154,0.3);
+      text-shadow: 0 0 12px rgba(200,184,154,0.6);
+    }
+
+    .dial.spinning {
+      animation: dialSpin 0.15s ease;
+    }
+
+    @keyframes dialSpin {
+      0% { transform: translateY(-4px); opacity: 0.5; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    .lock-separator {
+      font-size: 20px;
+      color: #333;
+      margin: 0 4px;
+      padding-bottom: 16px;
+    }
+
+    .lock-feedback {
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: #444;
+      text-transform: uppercase;
+      min-height: 20px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .lock-feedback.wrong { color: #8B0000; }
+    .lock-feedback.correct { color: #c8b89a; }
+
+    .unlock-btn {
+      padding: 14px 48px;
+      background: transparent;
+      border: 1px solid #333;
+      color: #555;
+      font-family: 'Georgia', serif;
+      font-size: 12px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .unlock-btn:hover { border-color: #c8b89a; color: #c8b89a; }
+    .unlock-btn.ready { border-color: #c8b89a; color: #c8b89a; animation: pulse 1.5s ease-in-out infinite; }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 rgba(200,184,154,0); }
+      50% { box-shadow: 0 0 20px rgba(200,184,154,0.3); }
+    }
+
+    /* TRANSITIONS */
+    .fade-out { animation: fadeOut 1s ease forwards !important; }
+    .fade-in { animation: fadeIn 1.5s ease forwards !important; }
+
+    @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; pointer-events: none; } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- PHASE 1: CASE FILE -->
+  <div class="page" id="phase1">
+    <div style="display:flex;flex-direction:column;align-items:center;">
+      <div class="stamp">Classified</div>
+      <div class="case-file">
+        <div class="file-header">
+          <div class="department">Department of Investigation</div>
+          <div class="case-title">Mystery Room</div>
+        </div>
+        <div class="file-body">
+          <div class="field">
+            <span class="field-label">Status</span>
+            <span class="field-value">Active</span>
+          </div>
+          <div class="field">
+            <span class="field-label">Cases</span>
+            <span class="field-value">03 Open</span>
+          </div>
+          <div class="field">
+            <span class="field-label">Suspects</span>
+            <span class="field-value">Multiple — See Files</span>
+          </div>
+          <div class="field">
+            <span class="field-label">Detective</span>
+            <span class="field-value redacted">REDACTED</span>
+          </div>
+          <div class="field">
+            <span class="field-label">Note</span>
+            <span class="field-value">Look out for Jennifer Lynn Barnes references.</span>
+          </div>
+        </div>
+        <div class="file-footer">
+          <span class="file-number">FILE NO. MR-001</span>
+          <span class="redacted">CONFIDENTIAL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 2: TYPEWRITER -->
+  <div class="page" id="phase2">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:40px;">
+      <div class="typewriter-container">
+        <div class="typewriter-line" id="line1"></div>
+        <div class="typewriter-line" id="line2"></div>
+        <div class="typewriter-line" id="line3"></div>
+        <div class="typewriter-line" id="line4"></div>
+      </div>
+      <div class="divider"></div>
+      <button class="skip-btn" onclick="goToLock()">Skip → Unlock the Room</button>
+    </div>
+  </div>
+
+  <!-- PHASE 3: COMBINATION LOCK -->
+  <div class="page" id="phase3">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:28px;width:100%;max-width:600px;">
+
+      <div class="lock-title">🔐 Enter the Combination</div>
+
+      <div class="lock-subtitle">
+        Spin the dials to unlock the room.<br>
+        <em>Hint: Where would you go if you could go anywhere?</em>
+      </div>
+
+      <div class="lock-container" id="lock-container"></div>
+
+      <div class="lock-feedback" id="lock-feedback">— align the dials —</div>
+
+      <button class="unlock-btn" id="unlock-btn" onclick="tryUnlock()">
+        Try Combination
+      </button>
+
+    </div>
+  </div>
+
+</body>
+<script>
+  // ── COMBINATION ──────────────────────────────────────────
+  const ANSWER = "TAHITI";
+
+  // each dial has a list of letters it cycles through
+  const dialLetters = [
+    ["R","S","T","U","V","W"],   // dial 1 — T is index 2
+    ["A","B","C","D","E","F"],   // dial 2 — A is index 0
+    ["F","G","H","I","J","K"],   // dial 3 — H is index 2
+    ["G","H","I","J","K","L"],   // dial 4 — I is index 2
+    ["P","Q","R","S","T","U"],   // dial 5 — T is index 4
+    ["G","H","I","J","K","L"],   // dial 6 — I is index 2
+  ];
+
+  // starting positions (all start wrong)
+  let positions = [0, 1, 0, 0, 0, 0];
+
+  // ── PHASE CONTROL ────────────────────────────────────────
+  let phase = 1;
+
+  window.addEventListener("load", () => {
+    buildLock();
+    setTimeout(() => {
+      document.getElementById("phase1").classList.add("active");
+      document.getElementById("phase1").style.animation = "fadeIn 1.5s ease forwards";
+    }, 100);
+
+    setTimeout(() => {
+      document.getElementById("phase1").classList.add("fade-out");
+      setTimeout(() => {
+        document.getElementById("phase1").classList.remove("active");
+        document.getElementById("phase2").classList.add("active");
+        document.getElementById("phase2").style.animation = "fadeIn 1.5s ease forwards";
+        setTimeout(startTypewriter, 800);
+      }, 1000);
+    }, 4500);
+  });
+
+  // ── TYPEWRITER ───────────────────────────────────────────
+  const lines = [
+    "Three cases. Twelve suspects. One killer each.",
+    "The evidence has been encrypted.",
+    "The truth is hidden in plain sight.",
+    "Are you ready to find it?"
+  ];
+
+  function startTypewriter() { typeLines(0); }
+
+  function typeLines(i) {
+    if (i >= lines.length) { return; }
+    const el = document.getElementById("line" + (i + 1));
+    el.classList.add("active");
+    let c = 0;
+    function typeChar() {
+      if (c <= lines[i].length) {
+        el.innerHTML = lines[i].slice(0, c) + '<span class="cursor"></span>';
+        c++;
+        setTimeout(typeChar, 45);
+      } else {
+        el.innerHTML = lines[i];
+        setTimeout(() => typeLines(i + 1), 350);
+      }
+    }
+    typeChar();
+  }
+
+  function goToLock() {
+    document.getElementById("phase2").classList.add("fade-out");
+    setTimeout(() => {
+      document.getElementById("phase2").classList.remove("active");
+      document.getElementById("phase3").classList.add("active");
+      document.getElementById("phase3").style.animation = "fadeIn 1.2s ease forwards";
+    }, 1000);
+  }
+
+  // after typewriter finishes auto go to lock
+  setTimeout(goToLock, 4500 + 1500 + (lines.join("").length * 45) + 2000);
+
+  // ── LOCK ─────────────────────────────────────────────────
+  function buildLock() {
+    const container = document.getElementById("lock-container");
+    container.innerHTML = "";
+
+    for (let d = 0; d < ANSWER.length; d++) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "dial-wrapper";
+
+      const upBtn = document.createElement("button");
+      upBtn.className = "dial-btn up";
+      upBtn.onclick = () => spin(d, -1);
+
+      const dial = document.createElement("div");
+      dial.className = "dial";
+      dial.id = "dial-" + d;
+      dial.textContent = dialLetters[d][positions[d]];
+
+      const downBtn = document.createElement("button");
+      downBtn.className = "dial-btn down";
+      downBtn.onclick = () => spin(d, 1);
+
+      wrapper.appendChild(upBtn);
+      wrapper.appendChild(dial);
+      wrapper.appendChild(downBtn);
+      container.appendChild(wrapper);
+
+      // add separator except after last
+      if (d < ANSWER.length - 1) {
+        const sep = document.createElement("div");
+        sep.className = "lock-separator";
+        sep.textContent = "·";
+        container.appendChild(sep);
+      }
+    }
+  }
+
+  function spin(dialIndex, direction) {
+    const letters = dialLetters[dialIndex];
+    positions[dialIndex] = (positions[dialIndex] + direction + letters.length) % letters.length;
+
+    const dial = document.getElementById("dial-" + dialIndex);
+    dial.classList.remove("spinning");
+    void dial.offsetWidth; // force reflow
+    dial.classList.add("spinning");
+    dial.textContent = letters[positions[dialIndex]];
+
+    // check if this dial is correct
+    const correct = ANSWER[dialIndex];
+    if (letters[positions[dialIndex]] === correct) {
+      dial.classList.add("correct");
+    } else {
+      dial.classList.remove("correct");
+    }
+
+    checkReady();
+  }
+
+  function checkReady() {
+    const allCorrect = ANSWER.split("").every((letter, i) =>
+      dialLetters[i][positions[i]] === letter
+    );
+    const btn = document.getElementById("unlock-btn");
+    if (allCorrect) {
+      btn.classList.add("ready");
+      document.getElementById("lock-feedback").textContent = "— combination aligned —";
+      document.getElementById("lock-feedback").className = "lock-feedback correct";
+    } else {
+      btn.classList.remove("ready");
+      document.getElementById("lock-feedback").textContent = "— align the dials —";
+      document.getElementById("lock-feedback").className = "lock-feedback";
+    }
+  }
+
+  function tryUnlock() {
+    const allCorrect = ANSWER.split("").every((letter, i) =>
+      dialLetters[i][positions[i]] === letter
+    );
+
+    if (allCorrect) {
+      document.getElementById("lock-feedback").textContent = "✓ Unlocked";
+      document.getElementById("lock-feedback").className = "lock-feedback correct";
+      setTimeout(() => {
+        document.getElementById("phase3").classList.add("fade-out");
+        setTimeout(() => {
+          window.location.href = "escape_room.html";
+        }, 1000);
+      }, 800);
+    } else {
+      document.getElementById("lock-feedback").textContent = "✗ Incorrect combination";
+      document.getElementById("lock-feedback").className = "lock-feedback wrong";
+      // shake the lock
+      const container = document.getElementById("lock-container");
+      container.style.animation = "shake 0.4s ease";
+      setTimeout(() => container.style.animation = "", 400);
+    }
+  }
+
+  // add shake animation
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-6px); }
+      80% { transform: translateX(6px); }
+    }
+  `;
+  document.head.appendChild(style);
+</script>
+</html>
