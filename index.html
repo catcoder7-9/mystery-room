@@ -134,6 +134,63 @@
 
     .file-number { font-size: 11px; letter-spacing: 3px; color: #888; }
 
+    .progress-bar-container {
+      margin-top: 28px;
+      padding: 0 4px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 2px;
+      background: rgba(42, 42, 42, 0.2);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #2a2a2a;
+      border-radius: 2px;
+      transition: width 0.1s linear;
+    }
+
+    .progress-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .reading-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: #aaa;
+      text-transform: uppercase;
+    }
+
+    .next-btn {
+      display: none;
+      padding: 8px 24px;
+      background: transparent;
+      border: 1px solid #2a2a2a;
+      color: #2a2a2a;
+      font-family: 'Georgia', serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+      animation: fadeInBtn 0.8s ease forwards;
+    }
+
+    .next-btn:hover { background: #2a2a2a; color: #f5f0e8; }
+
+    @keyframes fadeInBtn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* ── PHASE 2: TYPEWRITER ── */
     #phase2 {
       flex-direction: column;
@@ -212,10 +269,7 @@
       max-width: 480px;
     }
 
-    .lock-subtitle em {
-      color: #888;
-      font-size: 12px;
-    }
+    .lock-subtitle em { color: #888; font-size: 12px; }
 
     .lock-container {
       display: flex;
@@ -279,9 +333,7 @@
     .dial::before {
       content: "";
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 30%;
       background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, transparent 100%);
       pointer-events: none;
@@ -290,9 +342,7 @@
     .dial::after {
       content: "";
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       height: 30%;
       background: linear-gradient(0deg, rgba(0,0,0,0.4) 0%, transparent 100%);
       pointer-events: none;
@@ -355,14 +405,11 @@
       50% { box-shadow: 0 0 20px rgba(200,184,154,0.3); }
     }
 
-    /* TRANSITIONS */
     .fade-out { animation: fadeOut 1s ease forwards !important; }
     .fade-in { animation: fadeIn 1.5s ease forwards !important; }
 
     @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; pointer-events: none; } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    .hidden { display: none !important; }
   </style>
 </head>
 <body>
@@ -402,18 +449,19 @@
           <span class="file-number">FILE NO. MR-001</span>
           <span class="redacted">CONFIDENTIAL</span>
         </div>
+        <div class="progress-bar-container">
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-bar"></div>
+          </div>
+          <div class="progress-footer">
+            <span class="reading-label" id="reading-label">Reading...</span>
+            <button class="next-btn" id="next-btn" onclick="goToTypewriter()">Next →</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-<div style="margin-top:28px;padding:0 40px;">
-  <div style="width:100%;height:2px;background:rgba(200,184,154,0.15);border-radius:2px;overflow:hidden;">
-    <div id="progress-bar" style="height:100%;width:0%;background:#c8b89a;border-radius:2px;transition:width 0.1s linear;"></div>
-  </div>
-  <div style="text-align:center;margin-top:12px;">
-    <button id="next-btn" onclick="goToTypewriter()" style="display:none;padding:12px 36px;background:transparent;border:1px solid #c8b89a;color:#c8b89a;font-family:'Georgia',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;cursor:pointer;animation:fadeInBtn 1s ease forwards;">Next →</button>
-    <span id="progress-label" style="font-size:11px;letter-spacing:3px;color:rgba(200,184,154,0.4);text-transform:uppercase;">Reading...</span>
-  </div>
-</div>
+
   <!-- PHASE 2: TYPEWRITER -->
   <div class="page" id="phase2">
     <div style="display:flex;flex-direction:column;align-items:center;gap:40px;">
@@ -431,53 +479,90 @@
   <!-- PHASE 3: COMBINATION LOCK -->
   <div class="page" id="phase3">
     <div style="display:flex;flex-direction:column;align-items:center;gap:28px;width:100%;max-width:600px;">
-
       <div class="lock-title">🔐 Enter the Combination</div>
-
       <div class="lock-subtitle">
         Spin the dials to unlock the room.<br>
         <em>Hint: Where would you go if you could go anywhere?</em>
       </div>
-
       <div class="lock-container" id="lock-container"></div>
-
       <div class="lock-feedback" id="lock-feedback">— align the dials —</div>
-
-      <button class="unlock-btn" id="unlock-btn" onclick="tryUnlock()">
-        Try Combination
-      </button>
-
+      <button class="unlock-btn" id="unlock-btn" onclick="tryUnlock()">Try Combination</button>
     </div>
   </div>
 
 </body>
 <script>
-  // ── COMBINATION ──────────────────────────────────────────
   const ANSWER = "TAHITI";
 
-  // each dial has a list of letters it cycles through
   const dialLetters = [
-    ["R","S","T","U","V","W"],   // dial 1 — T is index 2
-    ["A","B","C","D","E","F"],   // dial 2 — A is index 0
-    ["F","G","H","I","J","K"],   // dial 3 — H is index 2
-    ["G","H","I","J","K","L"],   // dial 4 — I is index 2
-    ["P","Q","R","S","T","U"],   // dial 5 — T is index 4
-    ["G","H","I","J","K","L"],   // dial 6 — I is index 2
+    ["R","S","T","U","V","W"],
+    ["A","B","C","D","E","F"],
+    ["F","G","H","I","J","K"],
+    ["G","H","I","J","K","L"],
+    ["P","Q","R","S","T","U"],
+    ["G","H","I","J","K","L"],
   ];
 
-  // starting positions (all start wrong)
   let positions = [0, 1, 0, 0, 0, 0];
-
-  // ── PHASE CONTROL ────────────────────────────────────────
-  let phase = 1;
 
   window.addEventListener("load", () => {
     buildLock();
     setTimeout(() => {
       document.getElementById("phase1").classList.add("active");
-      setTimeout(startProgressBar, 1500);
       document.getElementById("phase1").style.animation = "fadeIn 1.5s ease forwards";
+      setTimeout(startProgressBar, 1500);
     }, 100);
+  });
+
+  // ── PROGRESS BAR ─────────────────────────────────────────
+  let progressInterval;
+
+  function startProgressBar() {
+    const bar = document.getElementById("progress-bar");
+    const btn = document.getElementById("next-btn");
+    const label = document.getElementById("reading-label");
+    let width = 0;
+    progressInterval = setInterval(() => {
+      width += 100 / (15 * 10);
+      if (width >= 100) {
+        width = 100;
+        clearInterval(progressInterval);
+        bar.style.width = "100%";
+        label.style.display = "none";
+        btn.style.display = "inline-block";
+      }
+      bar.style.width = width + "%";
+    }, 100);
+  }
+
+  // ── PHASE TRANSITIONS ────────────────────────────────────
+  function goToTypewriter() {
+    clearInterval(progressInterval);
+    document.getElementById("phase1").classList.add("fade-out");
+    setTimeout(() => {
+      document.getElementById("phase1").classList.remove("active");
+      document.getElementById("phase2").classList.add("active");
+      document.getElementById("phase2").style.animation = "fadeIn 1.5s ease forwards";
+      setTimeout(startTypewriter, 800);
+    }, 1000);
+  }
+
+  function goToLock() {
+    document.getElementById("phase2").classList.add("fade-out");
+    setTimeout(() => {
+      document.getElementById("phase2").classList.remove("active");
+      document.getElementById("phase3").classList.add("active");
+      document.getElementById("phase3").style.animation = "fadeIn 1.2s ease forwards";
+    }, 1000);
+  }
+
+  // auto go to lock after typewriter finishes
+  const autoLockDelay = 1500 + (["Three cases. Twelve suspects. One killer each.","The evidence has been encrypted.","The truth is hidden in plain sight.","Are you ready to find it?"].join("").length * 45) + 2000;
+  setTimeout(() => {
+    if (document.getElementById("phase2").classList.contains("active")) {
+      goToLock();
+    }
+  }, autoLockDelay + 10000);
 
   // ── TYPEWRITER ───────────────────────────────────────────
   const lines = [
@@ -507,53 +592,27 @@
     typeChar();
   }
 
-   {function goToTypewriter() {
-  document.getElementById("phase1").classList.add("fade-out");
-  setTimeout(() => {
-    document.getElementById("phase1").classList.remove("active");
-    document.getElementById("phase2").classList.add("active");
-    document.getElementById("phase2").style.animation = "fadeIn 1.5s ease forwards";
-    setTimeout(startTypewriter, 800);
-  }, 1000);
-}
-    document.getElementById("phase2").classList.add("fade-out");
-    setTimeout(() => {
-      document.getElementById("phase2").classList.remove("active");
-      document.getElementById("phase3").classList.add("active");
-      document.getElementById("phase3").style.animation = "fadeIn 1.2s ease forwards";
-    }, 1000);
-  }
-
-  // after typewriter finishes auto go to lock
-
   // ── LOCK ─────────────────────────────────────────────────
   function buildLock() {
     const container = document.getElementById("lock-container");
     container.innerHTML = "";
-
     for (let d = 0; d < ANSWER.length; d++) {
       const wrapper = document.createElement("div");
       wrapper.className = "dial-wrapper";
-
       const upBtn = document.createElement("button");
       upBtn.className = "dial-btn up";
       upBtn.onclick = () => spin(d, -1);
-
       const dial = document.createElement("div");
       dial.className = "dial";
       dial.id = "dial-" + d;
       dial.textContent = dialLetters[d][positions[d]];
-
       const downBtn = document.createElement("button");
       downBtn.className = "dial-btn down";
       downBtn.onclick = () => spin(d, 1);
-
       wrapper.appendChild(upBtn);
       wrapper.appendChild(dial);
       wrapper.appendChild(downBtn);
       container.appendChild(wrapper);
-
-      // add separator except after last
       if (d < ANSWER.length - 1) {
         const sep = document.createElement("div");
         sep.className = "lock-separator";
@@ -566,21 +625,16 @@
   function spin(dialIndex, direction) {
     const letters = dialLetters[dialIndex];
     positions[dialIndex] = (positions[dialIndex] + direction + letters.length) % letters.length;
-
     const dial = document.getElementById("dial-" + dialIndex);
     dial.classList.remove("spinning");
-    void dial.offsetWidth; // force reflow
+    void dial.offsetWidth;
     dial.classList.add("spinning");
     dial.textContent = letters[positions[dialIndex]];
-
-    // check if this dial is correct
-    const correct = ANSWER[dialIndex];
-    if (letters[positions[dialIndex]] === correct) {
+    if (letters[positions[dialIndex]] === ANSWER[dialIndex]) {
       dial.classList.add("correct");
     } else {
       dial.classList.remove("correct");
     }
-
     checkReady();
   }
 
@@ -604,27 +658,22 @@
     const allCorrect = ANSWER.split("").every((letter, i) =>
       dialLetters[i][positions[i]] === letter
     );
-
     if (allCorrect) {
       document.getElementById("lock-feedback").textContent = "✓ Unlocked";
       document.getElementById("lock-feedback").className = "lock-feedback correct";
       setTimeout(() => {
         document.getElementById("phase3").classList.add("fade-out");
-        setTimeout(() => {
-          window.location.href = "howtoplay.html";
-        }, 1000);
+        setTimeout(() => { window.location.href = "howtoplay.html"; }, 1000);
       }, 800);
     } else {
       document.getElementById("lock-feedback").textContent = "✗ Incorrect combination";
       document.getElementById("lock-feedback").className = "lock-feedback wrong";
-      // shake the lock
       const container = document.getElementById("lock-container");
       container.style.animation = "shake 0.4s ease";
       setTimeout(() => container.style.animation = "", 400);
     }
   }
 
-  // add shake animation
   const style = document.createElement("style");
   style.textContent = `
     @keyframes shake {
