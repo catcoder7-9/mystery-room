@@ -18,6 +18,7 @@
       min-height: 100vh;
     }
     .container { width: 100%; max-width: 680px; }
+
     h1 {
       text-align: center;
       font-size: 34px;
@@ -25,7 +26,9 @@
       text-shadow: 2px 2px 0px #000000;
       letter-spacing: 5px;
       margin-bottom: 4px;
+      min-height: 44px;
     }
+
     .subtitle {
       text-align: center;
       color: #ffffff;
@@ -33,14 +36,22 @@
       margin-bottom: 28px;
       letter-spacing: 3px;
       text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 2s forwards;
     }
+
     .card {
       background: rgba(255, 255, 255, 0.92);
       border-radius: 12px;
       padding: 28px;
       margin-bottom: 16px;
       border: 1px solid rgba(0,0,0,0.2);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
     }
+
+    .intro-card { animation-delay: 2.2s; }
+
     .card-label {
       font-size: 11px;
       color: #666666;
@@ -48,12 +59,14 @@
       letter-spacing: 3px;
       margin-bottom: 14px;
     }
+
     .story-text {
       font-size: 15px;
       line-height: 1.9;
       color: #000000;
       margin-bottom: 20px;
     }
+
     .riddle-box {
       background: rgba(0,0,0,0.05);
       border: 1px solid rgba(0,0,0,0.2);
@@ -66,6 +79,7 @@
       margin-bottom: 16px;
       white-space: pre-line;
     }
+
     .cipher-box {
       background: rgba(0,0,0,0.08);
       border: 1px solid rgba(0,0,0,0.2);
@@ -80,6 +94,7 @@
       word-break: break-all;
       line-height: 1.8;
     }
+
     .type-badge {
       display: inline-block;
       background: rgba(0,0,0,0.08);
@@ -92,6 +107,7 @@
       text-transform: uppercase;
       margin-bottom: 16px;
     }
+
     .timer-bar {
       background: rgba(0,0,0,0.08);
       border: 1px solid rgba(0,0,0,0.2);
@@ -105,8 +121,10 @@
       font-size: 18px;
       font-weight: bold;
     }
+
     .timer-bar.warning { background: rgba(255,165,0,0.2); border-color: orange; }
     .timer-bar.danger { background: rgba(150,0,0,0.15); border-color: #8B0000; color: #8B0000; }
+
     .lives {
       display: flex;
       gap: 8px;
@@ -115,14 +133,17 @@
       font-size: 14px;
       color: #333333;
     }
+
     .life { font-size: 20px; transition: opacity 0.3s; }
     .life.lost { opacity: 0.15; }
+
     .progress {
       display: flex;
       gap: 8px;
       margin-bottom: 20px;
       align-items: center;
     }
+
     .progress-dot {
       width: 10px;
       height: 10px;
@@ -131,8 +152,10 @@
       border: 1px solid #999999;
       transition: background 0.3s;
     }
+
     .progress-dot.done { background: #000000; }
     .progress-dot.current { background: #666666; border: 2px solid #000000; }
+
     .progress-label {
       font-size: 11px;
       color: #666666;
@@ -140,6 +163,7 @@
       letter-spacing: 2px;
       text-transform: uppercase;
     }
+
     textarea {
       width: 100%;
       padding: 12px;
@@ -153,7 +177,9 @@
       margin-bottom: 12px;
       font-family: 'Georgia', serif;
     }
+
     textarea::placeholder { color: #999999; }
+
     .row {
       display: flex;
       gap: 12px;
@@ -161,6 +187,7 @@
       flex-wrap: wrap;
       margin-bottom: 8px;
     }
+
     button {
       padding: 10px 22px;
       border: 1px solid rgba(0,0,0,0.3);
@@ -173,7 +200,9 @@
       letter-spacing: 1px;
       font-family: 'Georgia', serif;
     }
+
     button:hover { background: #333333; }
+
     .secondary-btn {
       background: transparent;
       border: 1px solid rgba(0,0,0,0.3);
@@ -181,7 +210,9 @@
       font-size: 13px;
       padding: 8px 14px;
     }
+
     .secondary-btn:hover { background: #000000; color: #ffffff; }
+
     .feedback {
       border-radius: 8px;
       padding: 12px 16px;
@@ -190,9 +221,11 @@
       display: none;
       line-height: 1.6;
     }
+
     .feedback.correct { background: rgba(0,100,0,0.1); border: 1px solid #006400; color: #000000; display: block; }
     .feedback.wrong { background: rgba(150,0,0,0.1); border: 1px solid #8B0000; color: #000000; display: block; }
     .feedback.info { background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.2); color: #000000; display: block; }
+
     .final-message {
       background: rgba(0,0,0,0.05);
       border: 1px solid rgba(0,0,0,0.2);
@@ -206,9 +239,11 @@
       margin-bottom: 20px;
       line-height: 1.8;
     }
+
     .rank-name { font-size: 28px; color: #000000; text-align: center; margin-bottom: 8px; letter-spacing: 3px; }
     .rank-desc { font-size: 14px; color: #000000; line-height: 1.7; text-align: center; margin-bottom: 24px; }
     .stars { font-size: 26px; text-align: center; margin-bottom: 16px; }
+
     .back-btn {
       display: block;
       text-align: center;
@@ -225,10 +260,14 @@
       transition: background 0.2s;
       width: 100%;
     }
+
     .back-btn:hover { background: #000000; color: #ffffff; }
+
     .hidden { display: none; }
     .seal { text-align: center; font-size: 48px; margin-bottom: 12px; }
+
     .suspect-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+
     .suspect {
       background: rgba(0,0,0,0.05);
       border: 1px solid rgba(0,0,0,0.15);
@@ -236,7 +275,16 @@
       padding: 10px 14px;
       font-size: 14px;
       color: #000000;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
+
+    .suspect.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
     .name-input {
       width: 100%;
       padding: 12px;
@@ -250,21 +298,9 @@
       text-align: center;
       letter-spacing: 2px;
     }
-    .time-display {
-      background: rgba(0,0,0,0.05);
-      border: 1px solid rgba(0,0,0,0.2);
-      border-radius: 8px;
-      padding: 12px;
-      text-align: center;
-      font-family: 'Courier New', monospace;
-      font-size: 20px;
-      margin-bottom: 16px;
-      letter-spacing: 2px;
-    }
-    .leaderboard-preview {
-      margin-top: 16px;
-      text-align: left;
-    }
+
+    .leaderboard-preview { margin-top: 16px; text-align: left; }
+
     .lb-entry {
       display: flex;
       justify-content: space-between;
@@ -275,9 +311,11 @@
       background: rgba(0,0,0,0.05);
       font-family: 'Courier New', monospace;
     }
+
     .lb-entry.gold { background: rgba(255,215,0,0.3); font-weight: bold; }
     .lb-entry.silver { background: rgba(192,192,192,0.3); }
     .lb-entry.bronze { background: rgba(205,127,50,0.3); }
+
     .lb-dropdown-label {
       cursor: pointer;
       font-size: 13px;
@@ -287,17 +325,39 @@
       align-items: center;
       gap: 6px;
     }
+
     .lb-dropdown { display: none; }
     .lb-dropdown.open { display: block; }
+
+    /* title typewriter cursor */
+    .title-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 32px;
+      background: #ffffff;
+      margin-left: 4px;
+      animation: blink 0.7s infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
 <div class="container">
-  <h1>DEATH IN MANHATTAN</h1>
+  <h1 id="main-title"></h1>
   <p class="subtitle">— Case 01 — Hotel Belmont — A Rainy Thursday Night —</p>
 
   <!-- INTRO -->
-  <div class="card" id="intro-card">
+  <div class="card intro-card" id="intro-card">
     <div class="seal">🌧️</div>
     <div class="card-label">Case Briefing — Detective Eyes Only</div>
     <div class="story-text">
@@ -305,15 +365,15 @@
       <strong>Victor Crane</strong>, 68, one of Manhattan's wealthiest real estate developers, has been found dead in his suite at the Hotel Belmont on Park Avenue. The door was locked from the inside. The window was open despite the storm.<br><br>
       Four people were on his guest list that evening. One of them never left.
     </div>
-    <div class="suspect-list">
+    <div class="suspect-list" id="suspect-list">
       <div class="suspect"><strong>Diana Crane</strong> — Victor's wife of 22 years. Stood to inherit everything.</div>
       <div class="suspect"><strong>Roland Fitch</strong> — Victor's business partner. Owed Victor $4 million.</div>
       <div class="suspect"><strong>Sylvia Moss</strong> — Victor's personal attorney. Drafted his will three times this year.</div>
       <div class="suspect"><strong>James Whitmore</strong> — A stranger. No one knows why Victor invited him.</div>
     </div>
-    <div class="story-text">Five clues are hidden in this hotel. Find them all and name the killer.<br><br>You have <strong>20 minutes</strong>. Enter your name for the leaderboard:</div>
-    <input class="name-input" type="text" id="player-name" placeholder="YOUR NAME" maxlength="20">
-    <button onclick="startGame()">Begin Investigation</button>
+    <div class="story-text" id="closing-text" style="opacity:0;transition:opacity 0.8s ease;">Five clues are hidden in this hotel. Find them all and name the killer.<br><br>You have <strong>20 minutes</strong>. Enter your name for the leaderboard:</div>
+    <input class="name-input" id="player-name" type="text" placeholder="YOUR NAME" maxlength="20" style="opacity:0;transition:opacity 0.8s ease;">
+    <button id="start-btn" onclick="startGame()" style="opacity:0;transition:opacity 0.8s ease;">Begin Investigation</button>
   </div>
 
   <!-- GAME -->
@@ -358,7 +418,48 @@
 <script>
   const CASE_KEY = "lb_manhattan";
   const TIME_LIMIT = 20 * 60 * 1000;
+  const TITLE = "DEATH IN MANHATTAN";
 
+  // ── INTRO ANIMATION ──────────────────────────────────────
+  window.addEventListener("load", () => {
+    setTimeout(typeTitle, 400);
+  });
+
+  function typeTitle() {
+    const el = document.getElementById("main-title");
+    let i = 0;
+    function typeChar() {
+      if (i <= TITLE.length) {
+        el.innerHTML = TITLE.slice(0, i) + '<span class="title-cursor"></span>';
+        i++;
+        setTimeout(typeChar, 80);
+      } else {
+        el.innerHTML = TITLE;
+        animateSuspects();
+      }
+    }
+    typeChar();
+  }
+
+  function animateSuspects() {
+    const suspects = document.querySelectorAll(".suspect");
+    suspects.forEach((s, i) => {
+      setTimeout(() => {
+        s.classList.add("visible");
+        if (i === suspects.length - 1) {
+          setTimeout(showStartElements, 400);
+        }
+      }, i * 300);
+    });
+  }
+
+  function showStartElements() {
+    document.getElementById("closing-text").style.opacity = "1";
+    document.getElementById("player-name").style.opacity = "1";
+    document.getElementById("start-btn").style.opacity = "1";
+  }
+
+  // ── GAME FUNCTIONS ───────────────────────────────────────
   function caesarShift(text, shift) {
     return text.split("").map(ch => {
       if (/[a-zA-Z]/.test(ch)) {
@@ -472,7 +573,6 @@
     const remaining = TIME_LIMIT - elapsed;
     const bar = document.getElementById("timer-bar");
     const display = document.getElementById("timer-display");
-
     if (remaining <= 0) {
       clearInterval(timerInterval);
       display.textContent = "00:00";
@@ -481,9 +581,7 @@
       showEnding();
       return;
     }
-
     display.textContent = formatCountdown(remaining);
-
     if (remaining < 60000) bar.className = "timer-bar danger";
     else if (remaining < 180000) bar.className = "timer-bar warning";
     else bar.className = "timer-bar";
@@ -522,7 +620,6 @@
     const guess = document.getElementById("player-input").value.trim().toLowerCase();
     const correct = puzzles[current].answer.toLowerCase();
     const fb = document.getElementById("feedback");
-
     if (guess === correct) {
       fb.className = "feedback correct";
       fb.textContent = "✓ Correct. Another piece of the puzzle falls into place.";
@@ -568,9 +665,8 @@
   }
 
   function getLeaderboard() {
-    try {
-      return JSON.parse(localStorage.getItem(CASE_KEY) || "[]");
-    } catch { return []; }
+    try { return JSON.parse(localStorage.getItem(CASE_KEY) || "[]"); }
+    catch { return []; }
   }
 
   function saveScore(name, ms) {
@@ -586,16 +682,13 @@
     if (board.length === 0) return "";
     const top5 = board.slice(0, 5);
     const rest = board.slice(5);
-    const medals = ["🥇", "🥈", "🥉", "4.", "5."];
-    const classes = ["gold", "silver", "bronze", "", ""];
-
+    const medals = ["🥇","🥈","🥉","4.","5."];
+    const classes = ["gold","silver","bronze","",""];
     let html = `<div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;color:#666">🏆 Leaderboard — Death in Manhattan</div>`;
-
     top5.forEach((e, i) => {
       const highlight = e.ms === myMs && e.name === playerName ? "border:2px solid #000;" : "";
       html += `<div class="lb-entry ${classes[i]}" style="${highlight}">${medals[i]} ${e.name}<span>${formatTime(e.ms)}</span></div>`;
     });
-
     if (rest.length > 0) {
       html += `<div class="lb-dropdown-label" onclick="toggleLbDropdown()">▶ Show all scores</div>`;
       html += `<div class="lb-dropdown" id="lb-dropdown">`;
@@ -604,7 +697,6 @@
       });
       html += `</div>`;
     }
-
     return html;
   }
 
@@ -618,9 +710,7 @@
   function showEnding() {
     document.getElementById("game-card").classList.add("hidden");
     document.getElementById("ending-card").classList.remove("hidden");
-
     let rank, desc, stars, msg;
-
     if (!caseSolved) {
       rank = "CASE UNSOLVED";
       desc = "Too many mistakes. James Whitmore walked out of the hotel and disappeared into the rain. Victor Crane's death has been ruled accidental.";
@@ -642,16 +732,13 @@
       stars = "🔍🔍🔍";
       msg = "CASE CLOSED\nJAMES WHITMORE — SUSPECT\nEVIDENCE UNDER REVIEW";
     }
-
     const pwHint = caseSolved ? `<br><br><div style="font-size:12px;color:#666;margin-top:12px;letter-spacing:2px">PASSWORD TO UNLOCK CASE 02:</div><div style="font-size:18px;font-weight:bold;letter-spacing:2px;margin-top:6px">THE WILL</div>` : "";
     const timeStr = caseSolved ? `<br><div style="font-size:13px;color:#333;margin-top:12px;letter-spacing:2px">YOUR TIME: <strong>${formatTime(timeUsed)}</strong></div>` : "";
-
     document.getElementById("final-message").innerHTML =
       `<div style="color:#666;font-size:11px;letter-spacing:3px;margin-bottom:12px">CASE REPORT</div>${msg}${timeStr}${pwHint}`;
     document.getElementById("ending-stars").textContent = stars;
     document.getElementById("rank-name").textContent = rank;
     document.getElementById("rank-desc").textContent = desc;
-
     if (caseSolved) {
       const board = saveScore(playerName, timeUsed);
       document.getElementById("leaderboard-preview").innerHTML = renderLeaderboard(board, timeUsed);
@@ -664,7 +751,15 @@
     clearInterval(timerInterval);
     document.getElementById("ending-card").classList.add("hidden");
     document.getElementById("intro-card").classList.remove("hidden");
+    document.getElementById("intro-card").classList.remove("hidden");
     document.getElementById("leaderboard-preview").innerHTML = "";
+    // replay intro animation
+    document.getElementById("main-title").innerHTML = "";
+    document.querySelectorAll(".suspect").forEach(s => s.classList.remove("visible"));
+    document.getElementById("closing-text").style.opacity = "0";
+    document.getElementById("player-name").style.opacity = "0";
+    document.getElementById("start-btn").style.opacity = "0";
+    setTimeout(typeTitle, 400);
   }
 </script>
 </body>
