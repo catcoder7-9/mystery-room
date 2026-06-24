@@ -405,7 +405,15 @@
       </div>
     </div>
   </div>
-<div style="text-align:center;margin-top:24px"><button onclick="goToTypewriter()" style="padding:12px 36px;background:transparent;border:1px solid #c8b89a;color:#c8b89a;font-family:'Georgia',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;cursor:pointer;">Next →</button></div>
+<div style="margin-top:28px;padding:0 40px;">
+  <div style="width:100%;height:2px;background:rgba(200,184,154,0.15);border-radius:2px;overflow:hidden;">
+    <div id="progress-bar" style="height:100%;width:0%;background:#c8b89a;border-radius:2px;transition:width 0.1s linear;"></div>
+  </div>
+  <div style="text-align:center;margin-top:12px;">
+    <button id="next-btn" onclick="goToTypewriter()" style="display:none;padding:12px 36px;background:transparent;border:1px solid #c8b89a;color:#c8b89a;font-family:'Georgia',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;cursor:pointer;animation:fadeInBtn 1s ease forwards;">Next →</button>
+    <span id="progress-label" style="font-size:11px;letter-spacing:3px;color:rgba(200,184,154,0.4);text-transform:uppercase;">Reading...</span>
+  </div>
+</div>
   <!-- PHASE 2: TYPEWRITER -->
   <div class="page" id="phase2">
     <div style="display:flex;flex-direction:column;align-items:center;gap:40px;">
@@ -467,18 +475,9 @@
     buildLock();
     setTimeout(() => {
       document.getElementById("phase1").classList.add("active");
+      setTimeout(startProgressBar, 1500);
       document.getElementById("phase1").style.animation = "fadeIn 1.5s ease forwards";
     }, 100);
-
-    setTimeout(() => {
-      document.getElementById("phase1").classList.add("fade-out");
-      setTimeout(() => {
-        document.getElementById("phase1").classList.remove("active");
-        document.getElementById("phase2").classList.add("active");
-        document.getElementById("phase2").style.animation = "fadeIn 1.5s ease forwards";
-        setTimeout(startTypewriter, 800);
-      }, 1000);
-  });
 
   // ── TYPEWRITER ───────────────────────────────────────────
   const lines = [
