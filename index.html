@@ -405,7 +405,7 @@
       </div>
     </div>
   </div>
-
+<div style="text-align:center;margin-top:24px"><button onclick="goToTypewriter()" style="padding:12px 36px;background:transparent;border:1px solid #c8b89a;color:#c8b89a;font-family:'Georgia',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;cursor:pointer;">Next →</button></div>
   <!-- PHASE 2: TYPEWRITER -->
   <div class="page" id="phase2">
     <div style="display:flex;flex-direction:column;align-items:center;gap:40px;">
@@ -478,7 +478,6 @@
         document.getElementById("phase2").style.animation = "fadeIn 1.5s ease forwards";
         setTimeout(startTypewriter, 800);
       }, 1000);
-    }, 5000);
   });
 
   // ── TYPEWRITER ───────────────────────────────────────────
@@ -509,7 +508,15 @@
     typeChar();
   }
 
-  function goToLock() {
+   {function goToTypewriter() {
+  document.getElementById("phase1").classList.add("fade-out");
+  setTimeout(() => {
+    document.getElementById("phase1").classList.remove("active");
+    document.getElementById("phase2").classList.add("active");
+    document.getElementById("phase2").style.animation = "fadeIn 1.5s ease forwards";
+    setTimeout(startTypewriter, 800);
+  }, 1000);
+}
     document.getElementById("phase2").classList.add("fade-out");
     setTimeout(() => {
       document.getElementById("phase2").classList.remove("active");
@@ -519,7 +526,6 @@
   }
 
   // after typewriter finishes auto go to lock
-  setTimeout(goToLock, 5000 + 1500 + (lines.join("").length * 45) + 2000);
 
   // ── LOCK ─────────────────────────────────────────────────
   function buildLock() {
