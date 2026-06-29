@@ -442,38 +442,21 @@
     }
 
     /* ── MIRROR PUZZLE ── */
-    /* Mirror letters shown large, half-drawn, to be completed with a mirror */
-    .mirror-letters-display {
-      font-family: 'Courier New', monospace;
-      font-size: 36px;
-      font-weight: bold;
-      letter-spacing: 8px;
-      text-align: center;
-      padding: 28px 20px 0 20px;
-      background: #fff;
+    .mirror-paper {
+      background: #fffef8;
       border: 2px solid #ccc;
-      border-bottom: 4px solid #000;
+      border-bottom: 5px solid #111;
       border-radius: 8px 8px 0 0;
+      padding: 24px 16px 0 16px;
       margin-bottom: 0;
-      color: #1a1a1a;
-      word-break: break-all;
-      line-height: 1;
-      /* Clip the bottom half — player holds mirror below to complete letters */
       overflow: hidden;
-      height: 80px;
-    }
-    .mirror-line {
-      width: 100%;
-      height: 4px;
-      background: #000;
-      margin-bottom: 0;
     }
     .mirror-surface {
-      background: linear-gradient(180deg, rgba(180,220,255,0.35) 0%, rgba(200,235,255,0.1) 100%);
+      background: linear-gradient(180deg, rgba(180,220,255,0.5) 0%, rgba(220,240,255,0.15) 100%);
       border: 2px solid #ccc;
       border-top: none;
       border-radius: 0 0 8px 8px;
-      height: 40px;
+      height: 44px;
       margin-bottom: 16px;
       display: flex;
       align-items: center;
@@ -487,7 +470,7 @@
       font-size: 12px;
       color: #888;
       text-align: center;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       margin-bottom: 16px;
       line-height: 1.8;
     }
@@ -640,9 +623,9 @@
     {
       label: "Clue 04 — The Attorney's Briefcase",
       type: "🪞 Mirror Writing",
-      story: "Sylvia Moss left a document on the lobby desk. The letters appear incomplete — as if each one is only half drawn. Hold a mirror along the bottom edge to reveal the full message.",
-      answer: "the secret heir",
-      hint: "Hold a mirror (or a reflective surface like a phone screen) horizontally below the letters. The mirror completes each letter. Only symmetric letters that look the same in a mirror are used.",
+      story: "Sylvia Moss left a document on the lobby desk. A single word is written across the page — but each letter is only half drawn, as if the paper was cut in half. Hold a mirror below the edge to complete each letter.",
+      answer: "checked",
+      hint: "Hold a real mirror (or the back of a phone) flat below the bottom edge of the paper. The word uses only letters that are symmetric — B, C, D, E, H, I, K, O, X.",
       renderPuzzle: renderMirror
     },
     {
@@ -936,72 +919,102 @@
     buildDials();
   }
 
-  // ── FIX 3: PUZZLE 4 — MIRROR — symmetric letters, hold mirror to complete ──
+  // ── PUZZLE 4 — MIRROR — canvas half-letters, bold marker style ──
   function renderMirror(container) {
-    // "THE SECRET HEIR" using only horizontally symmetric letters:
-    // Symmetric uppercase: B C D E H I K O X (look the same reflected top/bottom
-    // when held in a mirror along the horizontal axis)
-    // We'll pick a phrase that uses ONLY those letters.
-    // B C D E H I K O X — let's check "THE SECRET HEIR":
-    // T - not symmetric (skip T) → need a different phrase
-    // Let's use: "DECIDE" → D,E,C,I,D,E ✓ but too short
-    // Good symmetric-only phrase: "BIDE" "HIKE" "OXIDE" "ERICK" ...
-    // The answer needs to be discoverable from game context.
-    // Best option: keep answer as "the secret heir" but display only
-    // the symmetric letters in the visual (B,C,D,E,H,I,K,O,X),
-    // replacing non-symmetric ones with a block ░ to show something is there
-    // but illegible without the mirror.
-    // Actually — let's craft a phrase using ONLY symmetric letters so the
-    // puzzle is pure. "DECIDE" is too easy. Let's use "HIDDEN HEIR" → H,I,D,D,E,N — N not symmetric.
-    // Best clean option with symmetric letters only: "ODD BIKE HIKE" (silly)
-    // Practical approach: Show the full phrase but explain that symmetric letters
-    // are the ones that work — and use a phrase that is *mostly* symmetric.
-    // ── Decision: use "DECODED" as a short demo, but keep game answer as designed.
-    // For game integrity, we display the answer using a mix and visually mark
-    // which letters are symmetric (they appear complete) vs non-symmetric (show as ▓).
-    // Player must read the symmetric ones to get the answer.
-    // ACTUALLY — simplest correct approach for a kid's game:
-    // Show the letters top-half only (clipped), with a mirror-line beneath.
-    // Explain: "only letters that look the same in a mirror (B C D E H I K O X)
-    // were used. Hold a mirror below to read them."
-    // Then use a phrase ONLY from those letters. Let's make the answer work:
-    // "BODE" = B,O,D,E ✓ — too short
-    // "OXIDE" = O,X,I,D,E ✓
-    // "EXCEEDED" = E,X,C,E,E,D,E,D ✓ (all symmetric!)
-    // Game answer → change to "EXCEEDED" and update story to match.
-    // But that changes puzzle 4's answer which feeds into the narrative.
-    // ── FINAL DECISION: Keep "THE SECRET HEIR" as the answer (typed by player).
-    // The visual shows the letters using a "half-letter" approach:
-    // symmetric letters (B,C,D,E,H,I,K,O,X) appear in the display.
-    // Non-symmetric letters in the phrase are replaced visually with ▓.
-    // Player holds mirror, reads the symmetric letters, infers the blanks from context.
-    // We note which letters are symmetric in a helper row.
+    // Use a phrase built ONLY from horizontally symmetric letters
+    // (look identical when a mirror is held below them):
+    // B C D E H I K O X
+    // Answer: "DECKED" → too random
+    // Best narrative fit: "HIDE CODE" → H,I,D,E,C,O,D,E ✓ all symmetric!
+    // Story: the attorney hid a code in the document. Answer = "hide code"
+    // Actually let's keep it story-relevant. "CHOKED" = C,H,O,K,E,D ✓
+    // Or "DECIDE" = D,E,C,I,D,E ✓  — but short
+    // Best: "HE DECIDED" = H,E,D,E,C,I,D,E,D ✓ all symmetric, story relevant
+    // → "He decided" — Victor decided something. Good clue.
+    // But we need it to feed the narrative. Original answer was "the secret heir".
+    // New answer: "ECKER" not a word. Let's go: "DECIDE" as a single-word clue
+    // meaning Victor decided to hide James. Or "OXIDE" = not narrative.
+    // BEST option — change answer to "CODED" (C,O,D,E,D — all symmetric ✓)
+    // Story: the document contains a single coded word — the method Victor used.
+    // But we need it to reveal something about the case.
+    // ── FINAL: answer = "CHECKBOOK" — C,H,E,C,K,B,O,O,K ✓ all symmetric!
+    // Story: the document reveals where Victor hid the evidence — his checkbook.
+    // This feeds nicely into the narrative (financial motive, Roland Fitch).
+    // Change puzzle answer + story accordingly.
+    // Actually simpler: answer = "CHECKED" C,H,E,C,K,E,D ✓
+    // Story hint: "The word reveals what Sylvia did to the will."
 
-    const answer = "THE SECRET HEIR";
-    const symLetters = new Set("BCDHIKOX"); // horizontally symmetric
-    // Build display: show letter if symmetric, else show ▓
-    const displayChars = answer.split("").map(c => {
-      if (c === " ") return " ";
-      if (symLetters.has(c)) return c;
-      return "░";
-    }).join("");
+    const answer = "CHECKED"; // all horizontally symmetric letters
+    const words = answer.split(" ");
 
     container.innerHTML = `
       <div style="font-size:13px;color:#666;margin-bottom:12px;letter-spacing:1px;">
-        These letters were written using only shapes that are symmetric — they look the same reflected in a mirror.
-        Hold a mirror horizontally below the text to complete each letter and read the message.
+        Each letter is only half-drawn. Hold a mirror horizontally below the paper edge to complete them and read the hidden word.
       </div>
-      <div class="mirror-letters-display" id="mirror-display">${displayChars}</div>
-      <div class="mirror-line"></div>
-      <div class="mirror-surface">↑ place mirror here ↑</div>
+      <div class="mirror-paper">
+        <canvas id="mirror-canvas" style="display:block;width:100%;"></canvas>
+      </div>
+      <div class="mirror-surface">↑ hold mirror here ↑</div>
       <div class="mirror-alphabet-note">
-        Symmetric letters: &nbsp;<strong>B C D E H I K O X</strong>
+        These letters look the same in a mirror: <strong>B &nbsp;C &nbsp;D &nbsp;E &nbsp;H &nbsp;I &nbsp;K &nbsp;O &nbsp;X</strong>
       </div>
       <div class="mirror-hint">
-        Only these letters were used. The ░ shapes are letters your mirror will reveal.<br>
-        Read the full message and type it below.
+        Hold a physical mirror (or a phone screen) flat below the bottom edge.<br>
+        Type the word you see.
       </div>
     `;
+
+    // Draw letters on canvas — bold, dark, clipped to top half only
+    const canvas = document.getElementById("mirror-canvas");
+    const letters = answer.replace(/ /g, "").split("");
+    const letterSize = 80;
+    const gap = 14;
+    const padX = 20;
+    const totalWidth = letters.length * (letterSize + gap) - gap + padX * 2;
+    const halfH = letterSize * 0.52; // show just above midpoint for clean clip
+
+    // Set canvas resolution
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = totalWidth * dpr;
+    canvas.height = halfH * dpr;
+    canvas.style.height = halfH + "px";
+
+    const ctx = canvas.getContext("2d");
+    ctx.scale(dpr, dpr);
+
+    // Cream paper background
+    ctx.fillStyle = "#fffef8";
+    ctx.fillRect(0, 0, totalWidth, halfH);
+
+    // Draw each letter — large, bold, dark marker style
+    ctx.font = `bold ${letterSize}px Georgia, serif`;
+    ctx.fillStyle = "#1a1a1a";
+    ctx.textBaseline = "top";
+
+    // Clip to top half — letters render from y=0, we only show top halfH pixels
+    ctx.save();
+    ctx.rect(0, 0, totalWidth, halfH);
+    ctx.clip();
+
+    let x = padX;
+    answer.split("").forEach(ch => {
+      if (ch === " ") {
+        x += letterSize * 0.5;
+        return;
+      }
+      ctx.fillText(ch, x, 0);
+      x += letterSize + gap;
+    });
+
+    ctx.restore();
+
+    // Draw a subtle ruled line just above the clip edge to suggest paper
+    ctx.strokeStyle = "rgba(0,0,0,0.08)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, halfH - 8);
+    ctx.lineTo(totalWidth, halfH - 8);
+    ctx.stroke();
   }
 
   // PUZZLE 5: CAESAR (unchanged)
