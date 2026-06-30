@@ -16,7 +16,6 @@
       min-height: 100vh;
     }
     .container { width: 100%; max-width: 680px; }
-
     h1 {
       text-align: center;
       font-size: 34px;
@@ -26,7 +25,6 @@
       margin-bottom: 4px;
       min-height: 44px;
     }
-
     .subtitle {
       text-align: center;
       color: #000000;
@@ -37,7 +35,6 @@
       opacity: 0;
       animation: fadeUp 0.8s ease 2.5s forwards;
     }
-
     .card {
       background: rgba(255,255,255,0.85);
       border-radius: 12px;
@@ -47,52 +44,9 @@
       opacity: 0;
       animation: fadeUp 0.8s ease forwards;
     }
-
     .intro-card { animation-delay: 2.8s; }
-
-    .card-label {
-      font-size: 11px;
-      color: #000000;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      margin-bottom: 14px;
-    }
-
-    .story-text {
-      font-size: 15px;
-      line-height: 1.9;
-      color: #000000;
-      margin-bottom: 20px;
-    }
-
-    .riddle-box {
-      background: rgba(0,103,79,0.1);
-      border: 1px solid #004d3a;
-      border-radius: 8px;
-      padding: 20px;
-      font-size: 16px;
-      line-height: 1.9;
-      color: #000000;
-      font-style: italic;
-      margin-bottom: 16px;
-      white-space: pre-line;
-    }
-
-    .cipher-box {
-      background: rgba(0,77,58,0.15);
-      border: 1px solid #004d3a;
-      border-radius: 8px;
-      padding: 16px;
-      font-family: 'Courier New', monospace;
-      font-size: 18px;
-      letter-spacing: 4px;
-      color: #000000;
-      text-align: center;
-      margin-bottom: 16px;
-      word-break: break-all;
-      line-height: 1.8;
-    }
-
+    .card-label { font-size: 11px; color: #000000; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 14px; }
+    .story-text { font-size: 15px; line-height: 1.9; color: #000000; margin-bottom: 20px; }
     .type-badge {
       display: inline-block;
       background: rgba(0,103,79,0.2);
@@ -105,7 +59,6 @@
       text-transform: uppercase;
       margin-bottom: 16px;
     }
-
     .timer-bar {
       background: rgba(0,103,79,0.1);
       border: 1px solid #004d3a;
@@ -119,214 +72,226 @@
       font-size: 18px;
       font-weight: bold;
     }
-
     .timer-bar.warning { background: rgba(255,165,0,0.2); border-color: orange; }
     .timer-bar.danger { background: rgba(150,0,0,0.15); border-color: #8B0000; color: #8B0000; }
-
-    .lives {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      margin-bottom: 16px;
-      font-size: 14px;
-      color: #000000;
-    }
-
+    .lives { display: flex; gap: 8px; align-items: center; margin-bottom: 16px; font-size: 14px; color: #000000; }
     .life { font-size: 20px; transition: opacity 0.3s; }
     .life.lost { opacity: 0.15; }
-
-    .progress {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-      align-items: center;
-    }
-
+    .progress { display: flex; gap: 8px; margin-bottom: 20px; align-items: center; }
     .progress-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #004d3a;
-      border: 1px solid #004d3a;
-      transition: background 0.3s;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #004d3a; border: 1px solid #004d3a; transition: background 0.3s;
     }
-
     .progress-dot.done { background: #000000; }
     .progress-dot.current { background: #00674F; border: 2px solid #000000; }
-
-    .progress-label {
-      font-size: 11px;
-      color: #000000;
-      margin-left: 8px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
+    .progress-label { font-size: 11px; color: #000000; margin-left: 8px; letter-spacing: 2px; text-transform: uppercase; }
     textarea {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #004d3a;
-      background: rgba(255,255,255,0.9);
-      color: #000000;
-      font-size: 15px;
-      resize: vertical;
-      min-height: 70px;
-      margin-bottom: 12px;
-      font-family: 'Georgia', serif;
+      width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #004d3a;
+      background: rgba(255,255,255,0.9); color: #000000; font-size: 15px;
+      resize: vertical; min-height: 70px; margin-bottom: 12px; font-family: 'Georgia', serif;
     }
-
     textarea::placeholder { color: #666666; }
-
-    .row {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-bottom: 8px;
-    }
-
+    .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
     button {
-      padding: 10px 22px;
-      border: 1px solid #004d3a;
-      border-radius: 8px;
-      background: #00674F;
-      color: #000000;
-      font-size: 14px;
-      cursor: pointer;
-      transition: background 0.2s;
-      letter-spacing: 1px;
-      font-family: 'Georgia', serif;
+      padding: 10px 22px; border: 1px solid #004d3a; border-radius: 8px;
+      background: #00674F; color: #000000; font-size: 14px; cursor: pointer;
+      transition: background 0.2s; letter-spacing: 1px; font-family: 'Georgia', serif;
     }
-
     button:hover { background: #004d3a; color: #ffffff; }
-
-    .secondary-btn {
-      background: transparent;
-      border: 1px solid #004d3a;
-      color: #000000;
-      font-size: 13px;
-      padding: 8px 14px;
-    }
-
+    .secondary-btn { background: transparent; border: 1px solid #004d3a; color: #000000; font-size: 13px; padding: 8px 14px; }
     .secondary-btn:hover { background: #004d3a; color: #ffffff; }
-
     .feedback {
-      border-radius: 8px;
-      padding: 12px 16px;
-      font-size: 14px;
-      margin-top: 10px;
-      display: none;
-      line-height: 1.6;
-      color: #000000;
+      border-radius: 8px; padding: 12px 16px; font-size: 14px;
+      margin-top: 10px; display: none; line-height: 1.6; color: #000000;
     }
-
     .feedback.correct { background: rgba(0,103,79,0.2); border: 1px solid #00674F; color: #000000; display: block; }
     .feedback.wrong { background: rgba(150,0,0,0.15); border: 1px solid #8B0000; color: #000000; display: block; }
     .feedback.info { background: rgba(0,103,79,0.15); border: 1px solid #004d3a; color: #000000; display: block; }
-
     .final-message {
-      background: rgba(0,103,79,0.15);
-      border: 1px solid #004d3a;
-      border-radius: 8px;
-      padding: 20px;
-      font-family: 'Courier New', monospace;
-      font-size: 15px;
-      color: #000000;
-      text-align: center;
-      letter-spacing: 2px;
-      margin-bottom: 20px;
-      line-height: 1.8;
+      background: rgba(0,103,79,0.15); border: 1px solid #004d3a; border-radius: 8px;
+      padding: 20px; font-family: 'Courier New', monospace; font-size: 15px;
+      color: #000000; text-align: center; letter-spacing: 2px; margin-bottom: 20px; line-height: 1.8;
     }
-
     .rank-name { font-size: 30px; color: #000000; text-align: center; margin-bottom: 8px; letter-spacing: 3px; }
     .rank-desc { font-size: 14px; color: #000000; line-height: 1.7; text-align: center; margin-bottom: 24px; }
     .stars { font-size: 26px; text-align: center; margin-bottom: 16px; }
-
     .back-btn {
-      display: block;
-      text-align: center;
-      margin-top: 12px;
-      padding: 10px 22px;
-      border: 1px solid #004d3a;
-      border-radius: 8px;
-      background: transparent;
-      color: #000000;
-      font-size: 13px;
-      cursor: pointer;
-      font-family: 'Georgia', serif;
-      letter-spacing: 1px;
-      transition: background 0.2s;
-      width: 100%;
+      display: block; text-align: center; margin-top: 12px; padding: 10px 22px;
+      border: 1px solid #004d3a; border-radius: 8px; background: transparent;
+      color: #000000; font-size: 13px; cursor: pointer; font-family: 'Georgia', serif;
+      letter-spacing: 1px; transition: background 0.2s; width: 100%;
     }
-
     .back-btn:hover { background: #004d3a; color: #ffffff; }
-
     .hidden { display: none; }
     .seal { text-align: center; font-size: 48px; margin-bottom: 12px; }
-
     .name-input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #004d3a;
-      background: #ffffff;
-      color: #000000;
-      font-size: 16px;
-      margin-bottom: 16px;
-      font-family: 'Georgia', serif;
-      text-align: center;
-      letter-spacing: 2px;
+      width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #004d3a;
+      background: #ffffff; color: #000000; font-size: 16px; margin-bottom: 16px;
+      font-family: 'Georgia', serif; text-align: center; letter-spacing: 2px;
     }
-
     .leaderboard-preview { margin-top: 16px; text-align: left; }
-
     .lb-entry {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 12px;
-      border-radius: 6px;
-      margin-bottom: 4px;
-      font-size: 14px;
-      background: rgba(0,103,79,0.1);
-      font-family: 'Courier New', monospace;
+      display: flex; justify-content: space-between; padding: 8px 12px;
+      border-radius: 6px; margin-bottom: 4px; font-size: 14px;
+      background: rgba(0,103,79,0.1); font-family: 'Courier New', monospace;
     }
-
     .lb-entry.gold { background: rgba(255,215,0,0.3); font-weight: bold; }
     .lb-entry.silver { background: rgba(192,192,192,0.3); }
     .lb-entry.bronze { background: rgba(205,127,50,0.3); }
-
-    .lb-dropdown-label {
-      cursor: pointer;
-      font-size: 13px;
-      color: #004d3a;
-      margin-top: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
+    .lb-dropdown-label { cursor: pointer; font-size: 13px; color: #004d3a; margin-top: 8px; display: flex; align-items: center; gap: 6px; }
     .lb-dropdown { display: none; }
     .lb-dropdown.open { display: block; }
-
     .title-cursor {
-      display: inline-block;
-      width: 3px;
-      height: 32px;
-      background: #000000;
-      margin-left: 4px;
-      animation: blink 0.7s infinite;
-      vertical-align: middle;
+      display: inline-block; width: 3px; height: 32px; background: #000000;
+      margin-left: 4px; animation: blink 0.7s infinite; vertical-align: middle;
     }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
+    /* ── ANAGRAM ── */
+    .anagram-pool {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; margin-bottom: 16px; min-height: 50px;
+      padding: 12px; background: rgba(0,103,79,0.06);
+      border: 1px solid #004d3a; border-radius: 8px;
     }
+    .anagram-answer-area {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; margin-bottom: 16px; min-height: 50px;
+      padding: 12px; background: rgba(0,77,58,0.12);
+      border: 2px dashed #004d3a; border-radius: 8px;
+    }
+    .anagram-tile {
+      width: 38px; height: 44px;
+      background: #00674F; color: #fff;
+      border: 2px solid #004d3a; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Courier New', monospace; font-size: 20px; font-weight: bold;
+      cursor: pointer; user-select: none; transition: transform 0.1s, background 0.2s;
+    }
+    .anagram-tile:hover { background: #004d3a; transform: translateY(-2px); }
+    .anagram-tile.space-tile {
+      width: 20px; background: transparent; border: 2px dashed #aaa;
+      cursor: default; pointer-events: none;
+    }
+    .anagram-label { font-size: 11px; color: #666; letter-spacing: 2px; text-transform: uppercase; text-align: center; margin-bottom: 6px; }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* ── CHIMES ── */
+    .chime-display {
+      display: flex; gap: 20px; justify-content: center;
+      align-items: flex-end; margin-bottom: 20px;
+      background: rgba(0,103,79,0.06); border: 1px solid #004d3a;
+      border-radius: 8px; padding: 24px;
+    }
+    .chime-bar-group { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .chime-bars { display: flex; gap: 4px; align-items: flex-end; height: 80px; }
+    .chime-bar {
+      width: 14px; border-radius: 3px 3px 0 0;
+      background: #004d3a; transition: background 0.1s;
+    }
+    .chime-bar.lit { background: #f5d76e; box-shadow: 0 0 8px rgba(245,215,110,0.8); }
+    .chime-count {
+      font-family: 'Courier New', monospace; font-size: 32px; font-weight: bold;
+      color: #004d3a; min-width: 40px; text-align: center; letter-spacing: 2px;
+    }
+    .chime-count.revealed { color: #000; }
+    .chime-sep { font-size: 28px; color: #aaa; padding-bottom: 16px; }
+    .chime-btn { margin: 0 auto 16px; display: block; }
+
+    /* ── LOCK DRAG ── */
+    .lock-container {
+      display: flex; gap: 24px; justify-content: center;
+      align-items: flex-start; flex-wrap: wrap; margin-bottom: 16px;
+    }
+    .lock-diagram {
+      background: rgba(0,103,79,0.06); border: 1px solid #004d3a;
+      border-radius: 8px; padding: 16px; text-align: center;
+    }
+    .lock-diagram-label { font-size: 11px; letter-spacing: 2px; color: #666; text-transform: uppercase; margin-bottom: 10px; }
+    .arrow-grid {
+      display: grid; grid-template-columns: repeat(3, 36px);
+      grid-template-rows: repeat(3, 36px); gap: 4px; margin: 0 auto;
+    }
+    .arrow-cell {
+      width: 36px; height: 36px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; background: rgba(0,103,79,0.15);
+      border: 1px solid #004d3a;
+    }
+    .arrow-cell.step {
+      background: #00674F; color: #fff; font-weight: bold;
+      border-color: #003d2e;
+    }
+    .arrow-cell.center { background: rgba(0,0,0,0.08); }
+    .lock-step-sequence {
+      display: flex; gap: 6px; margin-top: 10px; justify-content: center; flex-wrap: wrap;
+    }
+    .step-badge {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #ccc; border: 2px solid #aaa;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; transition: all 0.3s;
+    }
+    .step-badge.done { background: #00674F; border-color: #003d2e; color: #fff; }
+    .step-badge.current { background: #f5d76e; border-color: #c8a800; }
+    .lock-arena {
+      background: rgba(0,103,79,0.06); border: 1px solid #004d3a;
+      border-radius: 8px; padding: 16px; text-align: center; flex: 1; min-width: 200px;
+    }
+    .lock-arena-label { font-size: 11px; letter-spacing: 2px; color: #666; text-transform: uppercase; margin-bottom: 10px; }
+    .lock-pad {
+      position: relative; width: 160px; height: 160px;
+      background: rgba(0,0,0,0.05); border: 1px solid #ccc;
+      border-radius: 12px; margin: 0 auto 12px;
+    }
+    .lock-knob {
+      position: absolute; width: 48px; height: 48px;
+      background: radial-gradient(circle at 35% 35%, #555, #222);
+      border: 3px solid #111; border-radius: 50%;
+      cursor: grab; display: flex; align-items: center;
+      justify-content: center; font-size: 20px;
+      transition: box-shadow 0.2s; user-select: none;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+    }
+    .lock-knob:active { cursor: grabbing; box-shadow: 0 0 12px rgba(0,103,79,0.6); }
+    .lock-status { font-size: 13px; color: #666; letter-spacing: 1px; min-height: 20px; }
+
+    /* ── BOOK CIPHER ── */
+    .book-cover {
+      background: linear-gradient(135deg, #1a3a2a 0%, #0d2018 100%);
+      border: 3px solid #8b7355; border-radius: 8px; padding: 24px;
+      text-align: center; margin-bottom: 16px; color: #f5e6c8;
+    }
+    .book-title { font-size: 18px; letter-spacing: 3px; margin-bottom: 4px; font-style: italic; }
+    .book-author { font-size: 12px; letter-spacing: 2px; color: #c8a87a; }
+    .book-page {
+      background: #fffef8; border: 1px solid #d4c5a0;
+      border-radius: 4px; padding: 20px; margin-bottom: 16px;
+      font-size: 14px; line-height: 2; color: #2a1a0a;
+      max-height: 260px; overflow-y: auto;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+      font-family: 'Georgia', serif;
+    }
+    .book-page p { margin-bottom: 12px; }
+    .book-page .chapter-heading {
+      font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
+      color: #8b7355; margin-bottom: 16px; text-align: center; font-style: normal;
+    }
+    .book-code-display {
+      background: rgba(0,77,58,0.12); border: 1px solid #004d3a;
+      border-radius: 8px; padding: 16px; margin-bottom: 12px; text-align: center;
+    }
+    .book-code-number {
+      font-family: 'Courier New', monospace; font-size: 28px;
+      font-weight: bold; letter-spacing: 6px; color: #004d3a;
+    }
+    .book-code-legend {
+      font-size: 11px; letter-spacing: 2px; color: #888;
+      text-transform: uppercase; margin-top: 6px;
+    }
+    .book-word-highlight {
+      background: rgba(0,103,79,0.25); border-radius: 2px;
+      padding: 0 2px; font-weight: bold; color: #003d2e;
     }
   </style>
 </head>
@@ -358,11 +323,10 @@
       </div>
       <div class="progress" id="progress-dots"></div>
       <div class="lives" id="lives-display"></div>
-      <div class="card-label" id="riddle-label"></div>
+      <div class="card-label" id="clue-label"></div>
       <div class="type-badge" id="type-badge"></div>
       <div class="story-text" id="story-text"></div>
-      <div class="riddle-box" id="riddle-box"></div>
-      <div class="cipher-box" id="cipher-box"></div>
+      <div id="puzzle-area"></div>
       <textarea id="player-input" placeholder="Enter your answer..."></textarea>
       <div class="row">
         <button onclick="submitAnswer()">Submit</button>
@@ -393,9 +357,7 @@
   const TIME_LIMIT = 20 * 60 * 1000;
   const TITLE = "THE CIPHER SOCIETY";
 
-  window.addEventListener("load", () => {
-    setTimeout(typeTitle, 400);
-  });
+  window.addEventListener("load", () => { setTimeout(typeTitle, 400); });
 
   function typeTitle() {
     const el = document.getElementById("main-title");
@@ -421,107 +383,543 @@
     }, 600);
   }
 
-  function caesarShift(text, shift) {
-    return text.split("").map(ch => {
-      if (/[a-zA-Z]/.test(ch)) {
-        const base = ch >= 'a' ? 97 : 65;
-        return String.fromCharCode((ch.charCodeAt(0) - base + shift + 26) % 26 + base);
-      }
-      return ch;
-    }).join("");
-  }
-
-  function buildThirdLetter(answer, totalLen) {
-    const clean = answer.replace(/\s/g, "").toUpperCase();
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let result = [], ansIdx = 0;
-    for (let i = 1; i <= totalLen; i++) {
-      if (i % 3 === 0 && ansIdx < clean.length) result.push(clean[ansIdx++]);
-      else result.push(chars[Math.floor(Math.random() * chars.length)]);
-    }
-    return result.join("");
-  }
-
-  function scramble(word) {
-    const arr = word.toUpperCase().split("");
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr.join("");
-  }
-
+  // ── PUZZLES ──────────────────────────────────────────────
   const puzzles = [
     {
-      label: "Trial I — The Library",
-      type: "Every 3rd Letter",
-      story: "The first envelope appeared inside your copy of Wuthering Heights. A single line was written on the back: 'The Society hides in plain sight. There are always three.'",
-      riddle: "Below is a transmission intercepted from a Society member.\nThere are always three.",
-      buildCipher: () => buildThirdLetter("thequeenofhearts", 48),
+      label: "Trial I — The Greenhouse",
+      type: "🔤 Anagram",
+      story: "Behind the greenhouse, three tiles are loose in the stone path. Lifted up, they reveal letters scratched into the earth beneath — scrambled deliberately. Rearrange them all to name the Society's founding rule.",
+      answer: "sworn to silence",
+      hint: "Thirteen letters total. The answer is a phrase — a vow that every Society member takes on the night they are initiated.",
+      renderPuzzle: renderAnagram
+    },
+    {
+      label: "Trial II — The Bell Tower",
+      type: "🔔 Chime Sequence",
+      story: "The Academy bell tower rings at strange hours. Tonight it rang three times — but not in the way bells normally ring. Listen carefully. Count each group. The three numbers together form the combination.",
+      answer: "374",
+      hint: "Three separate groups of chimes with a pause between each. Count how many chimes are in each group. Write the three counts together as a number.",
+      renderPuzzle: renderChimes
+    },
+    {
+      label: "Trial III — The Headmaster's Study",
+      type: "🔒 Lock Sequence",
+      story: "The Headmaster's cabinet has a strange knob instead of a keyhole. A diagram was left on his desk — a path the knob must trace to open the lock. Follow the sequence exactly.",
+      answer: "open",
+      hint: "Drag the knob in the exact order shown in the diagram on the left. Follow each arrow in sequence.",
+      renderPuzzle: renderLock
+    },
+    {
+      label: "Trial IV — The Library",
+      type: "📖 Book Cipher",
+      story: "A copy of 'The Chronicles of Westhaven' was left on your desk, open to a dog-eared page. A note tucked inside reads only four numbers: 3 · 2 · 1 · 5. Chapter, paragraph, sentence, word.",
+      answer: "heart",
+      hint: "Find Chapter 3, then the 2nd paragraph, then the 1st sentence, then count to the 5th word. That single word is your answer.",
+      renderPuzzle: renderBookCipher
+    },
+    {
+      label: "Trial V — The Archive",
+      type: "🔡 Every 3rd Letter",
+      story: "The final transmission was printed on a long scroll of parchment and pinned to the archive door. The Society never wastes a letter — and they never forget their favourite number.",
       answer: "the queen of hearts",
-      hint: "Isolate every third letter. Take the 3rd, then the 6th, then the 9th... write them down in order. Ignore spaces."
-    },
-    {
-      label: "Trial II — The Clock Tower",
-      type: "Caesar Cipher",
-      story: "At 3am a note appeared under your door. It read: 'The clockface never lies. Three hands. Three secrets. Three shifts.'",
-      riddle: "This message was encrypted by a Society member who never forgets the rule.\nTo encode you go forward, to decode you go backward.\nThere are always three — and three is always the shift.\n\nA B C D E F G H I J K L M\nD E F G H I J K L M N O P\n\nN O P Q R S T U V W X Y Z\nQ R S T U V W X Y Z A B C",
-      buildCipher: () => caesarShift("MEET IN THE EAST WING AT MIDNIGHT", 3),
-      answer: "meet in the east wing at midnight",
-      hint: "Shift every letter back by 3. D becomes A, E becomes B, F becomes C."
-    },
-    {
-      label: "Trial III — The Headmistress",
-      type: "Word Scramble",
-      story: "Professor Aldridge left your essay on her desk with three words circled in red ink. Beneath them: 'Unscramble what has always been in front of you.'",
-      riddle: "Three words. Each one scrambled. Unscramble all three to reveal the phrase.\nThere are always three.",
-      buildCipher: () => scramble("VAULT").replace(/\s/g,"") + " " + scramble("BENEATH").replace(/\s/g,"") + " " + scramble("LIBRARY").replace(/\s/g,""),
-      answer: "vault beneath library",
-      hint: "Three separate scrambled words. Unscramble each one individually then put them together."
-    },
-    {
-      label: "Trial IV — The Swimming Pool",
-      type: "Anagram",
-      story: "At the bottom of the drained pool, three words were painted in white. Rearrange them and you will know where to go next.",
-      riddle: "The letters below form an anagram — rearrange them all to spell a new phrase.\nThere are always three words in the answer.",
-      buildCipher: () => "TREH DOSNEC OLFRO",
-      answer: "the third floor",
-      hint: "All the letters are there — just rearrange them. The answer has three words and describes a location in the school."
-    },
-    {
-      label: "Trial V — The Final Vault",
-      type: "Every 3rd Letter",
-      story: "The fifth and final envelope was gold. On the front in crimson ink: 'You have come this far because you understand. There are always three. One last transmission stands between you and the Society.'",
-      riddle: "The vault combination is hidden in the text below.\nThere are always three.",
-      buildCipher: () => buildThirdLetter("youareoneofusnow", 48),
-      answer: "you are one of us now",
-      hint: "Same mechanic as the first trial. Every third letter. Write them down in order."
+      hint: "Take every third letter — the 3rd, 6th, 9th, and so on. Write them all in order. Ignore spaces.",
+      renderPuzzle: renderEveryThird
     }
   ];
 
   let current = 0, lives = 3, livesLost = 0;
-  let builtCiphers = [], caseSolved = false;
+  let caseSolved = false;
   let startTime, timerInterval, timeUsed = 0;
   let playerName = "";
 
-  function formatTime(ms) {
-    const totalSec = Math.floor(ms / 1000);
-    const min = Math.floor(totalSec / 60);
-    const sec = totalSec % 60;
-    const msec = Math.floor((ms % 1000) / 10);
-    return `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}.${String(msec).padStart(2,"0")}`;
+  // ── PUZZLE 1: ANAGRAM ────────────────────────────────────
+  function renderAnagram(container) {
+    const answer = "SWORN TO SILENCE";
+    const letters = answer.replace(/ /g, "").split("");
+    // Shuffle
+    let pool = [...letters];
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+
+    let answerSlots = []; // letters placed by user (null = empty)
+    const wordLengths = answer.split(" ").map(w => w.length); // [5, 2, 7]
+
+    container.innerHTML = `
+      <div style="font-size:13px;color:#666;margin-bottom:8px;letter-spacing:1px;">
+        Click tiles from the pool to build the phrase. Click placed tiles to return them.
+      </div>
+      <div class="anagram-label">Answer Area — 3 words: ${wordLengths.join(" · ")} letters</div>
+      <div class="anagram-answer-area" id="answer-area"></div>
+      <div class="anagram-label" style="margin-top:8px;">Letter Pool</div>
+      <div class="anagram-pool" id="letter-pool"></div>
+      <button class="secondary-btn" style="margin-bottom:12px;display:block;margin:0 auto 12px;" onclick="resetAnagram()">Reset</button>
+    `;
+
+    // Build pool tiles
+    function buildPool() {
+      const poolEl = document.getElementById("letter-pool");
+      poolEl.innerHTML = "";
+      pool.forEach((ch, i) => {
+        if (ch === null) return;
+        const tile = document.createElement("div");
+        tile.className = "anagram-tile";
+        tile.textContent = ch;
+        tile.dataset.poolIdx = i;
+        tile.onclick = () => placeLetter(i);
+        poolEl.appendChild(tile);
+      });
+    }
+
+    function buildAnswer() {
+      const area = document.getElementById("answer-area");
+      area.innerHTML = "";
+      let slotIdx = 0;
+      wordLengths.forEach((len, wi) => {
+        for (let li = 0; li < len; li++) {
+          const slot = document.createElement("div");
+          const val = answerSlots[slotIdx];
+          if (val !== undefined && val !== null) {
+            slot.className = "anagram-tile";
+            slot.textContent = val.ch;
+            slot.dataset.slotIdx = slotIdx;
+            slot.onclick = () => returnLetter(slotIdx);
+          } else {
+            slot.className = "anagram-tile";
+            slot.style.background = "rgba(0,103,79,0.1)";
+            slot.style.border = "2px dashed #aaa";
+            slot.style.cursor = "default";
+            slot.textContent = "";
+          }
+          area.appendChild(slot);
+          slotIdx++;
+        }
+        if (wi < wordLengths.length - 1) {
+          const sp = document.createElement("div");
+          sp.style.width = "12px";
+          area.appendChild(sp);
+        }
+      });
+    }
+
+    function placeLetter(poolIdx) {
+      if (pool[poolIdx] === null) return;
+      const totalSlots = wordLengths.reduce((a, b) => a + b, 0);
+      let nextEmpty = -1;
+      for (let i = 0; i < totalSlots; i++) {
+        if (!answerSlots[i]) { nextEmpty = i; break; }
+      }
+      if (nextEmpty === -1) return;
+      answerSlots[nextEmpty] = { ch: pool[poolIdx], poolIdx };
+      pool[poolIdx] = null;
+      buildPool();
+      buildAnswer();
+      updateAnagramInput();
+    }
+
+    function returnLetter(slotIdx) {
+      if (!answerSlots[slotIdx]) return;
+      const { ch, poolIdx } = answerSlots[slotIdx];
+      pool[poolIdx] = ch;
+      answerSlots[slotIdx] = null;
+      buildPool();
+      buildAnswer();
+      updateAnagramInput();
+    }
+
+    function updateAnagramInput() {
+      const totalSlots = wordLengths.reduce((a, b) => a + b, 0);
+      let wordIdx = 0, letterIdx = 0, slotIdx = 0;
+      let words = wordLengths.map(() => "");
+      for (let i = 0; i < totalSlots; i++) {
+        // figure out which word this slot belongs to
+      }
+      // simpler: just flatten
+      let flat = [];
+      let si = 0;
+      wordLengths.forEach((len, wi) => {
+        let word = "";
+        for (let li = 0; li < len; li++) {
+          const v = answerSlots[si];
+          word += v ? v.ch : "_";
+          si++;
+        }
+        flat.push(word);
+      });
+      document.getElementById("player-input").value = flat.join(" ").toLowerCase();
+    }
+
+    window.resetAnagram = function() {
+      // restore pool
+      answerSlots.forEach((v, i) => { if (v) pool[v.poolIdx] = v.ch; });
+      answerSlots = [];
+      buildPool();
+      buildAnswer();
+      document.getElementById("player-input").value = "";
+    };
+
+    buildPool();
+    buildAnswer();
   }
 
-  function formatCountdown(ms) {
-    const totalSec = Math.ceil(ms / 1000);
-    const min = Math.floor(totalSec / 60);
-    const sec = totalSec % 60;
-    return `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
+  // ── PUZZLE 2: CHIMES ─────────────────────────────────────
+  function renderChimes(container) {
+    const groups = [3, 7, 4]; // answer: 374
+    let revealed = [false, false, false];
+    let playing = false;
+
+    container.innerHTML = `
+      <div style="font-size:13px;color:#666;margin-bottom:16px;letter-spacing:1px;">
+        Press Play to hear the bells ring. Count each group — there will be a pause between them.
+      </div>
+      <div class="chime-display" id="chime-display">
+        ${groups.map((n, gi) => `
+          <div class="chime-bar-group">
+            <div class="chime-bars" id="bars-${gi}">
+              ${Array.from({length: n}, (_, bi) => {
+                const h = 20 + bi * 8;
+                return `<div class="chime-bar" id="bar-${gi}-${bi}" style="height:${h}px"></div>`;
+              }).join("")}
+            </div>
+            <div class="chime-count" id="count-${gi}">?</div>
+          </div>
+          ${gi < groups.length - 1 ? '<div class="chime-sep">·</div>' : ''}
+        `).join("")}
+      </div>
+      <button class="chime-btn secondary-btn" id="play-btn" onclick="playChimes()">▶ Ring the Bells</button>
+      <div style="font-size:12px;color:#888;text-align:center;letter-spacing:1px;margin-bottom:12px;">
+        Three groups · count each group · combine the three counts
+      </div>
+    `;
+
+    // Create AudioContext for chime sounds
+    window.playChimes = function() {
+      if (playing) return;
+      playing = true;
+      document.getElementById("play-btn").textContent = "🔔 Ringing...";
+      document.getElementById("play-btn").disabled = true;
+      revealed = [false, false, false];
+      groups.forEach((n, gi) => {
+        document.getElementById("count-" + gi).textContent = "?";
+        document.getElementById("count-" + gi).classList.remove("revealed");
+        for (let bi = 0; bi < n; bi++) {
+          const bar = document.getElementById(`bar-${gi}-${bi}`);
+          if (bar) bar.classList.remove("lit");
+        }
+      });
+
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+      function playChime(time, freq) {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, time);
+        gain.gain.setValueAtTime(0.4, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 1.2);
+        osc.start(time);
+        osc.stop(time + 1.3);
+      }
+
+      let t = ctx.currentTime + 0.3;
+      const chimeFreqs = [523.25, 659.25, 783.99]; // C5, E5, G5
+
+      groups.forEach((n, gi) => {
+        for (let bi = 0; bi < n; bi++) {
+          const chimeTime = t;
+          const barId = `bar-${gi}-${bi}`;
+          playChime(chimeTime, chimeFreqs[gi]);
+          // Schedule visual flash
+          const delay = (chimeTime - ctx.currentTime) * 1000;
+          setTimeout(() => {
+            const bar = document.getElementById(barId);
+            if (bar) {
+              bar.classList.add("lit");
+              setTimeout(() => bar.classList.remove("lit"), 400);
+            }
+          }, delay);
+          t += 0.55;
+        }
+        // pause between groups
+        const groupEndTime = t;
+        setTimeout(() => {
+          revealed[gi] = true;
+          const countEl = document.getElementById("count-" + gi);
+          if (countEl) {
+            countEl.textContent = groups[gi];
+            countEl.classList.add("revealed");
+          }
+          // Update input if all revealed
+          if (revealed.every(Boolean)) {
+            document.getElementById("player-input").value = groups.join("");
+          }
+        }, (groupEndTime - ctx.currentTime) * 1000);
+        t += 1.2; // pause between groups
+      });
+
+      const totalTime = (t - ctx.currentTime) * 1000 + 500;
+      setTimeout(() => {
+        playing = false;
+        const btn = document.getElementById("play-btn");
+        if (btn) { btn.textContent = "▶ Ring Again"; btn.disabled = false; }
+      }, totalTime);
+    };
   }
 
+  // ── PUZZLE 3: LOCK DRAG ──────────────────────────────────
+  function renderLock(container) {
+    // Sequence: Up, Right, Down, Left (spells a path)
+    const sequence = ["↑", "→", "↓", "←"];
+    const dirNames = ["Up", "Right", "Down", "Left"];
+    const dirVecs = { "↑": {x:0,y:-1}, "→": {x:1,y:0}, "↓": {x:0,y:1}, "←": {x:-1,y:0} };
+    let currentStep = 0;
+    let knobPos = { x: 56, y: 56 }; // center of 160x160 pad
+    let dragging = false;
+    let dragStart = { x: 0, y: 0 };
+    let stepComplete = false;
+
+    container.innerHTML = `
+      <div style="font-size:13px;color:#666;margin-bottom:12px;letter-spacing:1px;">
+        Drag the knob in the sequence shown in the diagram. Complete each move to advance.
+      </div>
+      <div class="lock-container">
+        <div class="lock-diagram">
+          <div class="lock-diagram-label">Sequence Diagram</div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:center;">
+            ${sequence.map((arrow, i) => `
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:24px;height:24px;border-radius:50%;background:${i===0?'#00674F':'#ccc'};border:2px solid #004d3a;display:flex;align-items:center;justify-content:center;font-size:11px;color:${i===0?'#fff':'#666'};font-family:monospace;font-weight:bold;" id="seq-num-${i}">${i+1}</div>
+                <div style="font-size:22px;width:32px;text-align:center;">${arrow}</div>
+                <div style="font-size:11px;color:#666;letter-spacing:1px;">${dirNames[i]}</div>
+              </div>
+            `).join("")}
+          </div>
+          <div class="lock-step-sequence" style="margin-top:12px;">
+            ${sequence.map((arrow, i) => `<div class="step-badge ${i===0?'current':''}" id="badge-${i}">${arrow}</div>`).join("")}
+          </div>
+        </div>
+        <div class="lock-arena">
+          <div class="lock-arena-label">Drag the Knob</div>
+          <div class="lock-pad" id="lock-pad">
+            <div class="lock-knob" id="lock-knob" style="left:56px;top:56px;">🔒</div>
+          </div>
+          <div class="lock-status" id="lock-status">Step 1 of 4 — drag ${dirNames[0]}</div>
+        </div>
+      </div>
+    `;
+
+    const pad = document.getElementById("lock-pad");
+    const knob = document.getElementById("lock-knob");
+
+    function getCenter() {
+      const r = pad.getBoundingClientRect();
+      return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+    }
+
+    function resetKnob() {
+      knobPos = { x: 56, y: 56 };
+      knob.style.left = knobPos.x + "px";
+      knob.style.top = knobPos.y + "px";
+    }
+
+    function updateDiagram(step) {
+      sequence.forEach((_, i) => {
+        const badge = document.getElementById("badge-" + i);
+        const num = document.getElementById("seq-num-" + i);
+        if (i < step) {
+          badge.className = "step-badge done";
+          if (num) { num.style.background = "#004d3a"; num.style.color = "#fff"; }
+        } else if (i === step) {
+          badge.className = "step-badge current";
+          if (num) { num.style.background = "#00674F"; num.style.color = "#fff"; }
+        } else {
+          badge.className = "step-badge";
+          if (num) { num.style.background = "#ccc"; num.style.color = "#666"; }
+        }
+      });
+    }
+
+    function onMove(clientX, clientY) {
+      if (!dragging) return;
+      const dx = clientX - dragStart.x;
+      const dy = clientY - dragStart.y;
+      const threshold = 35;
+      const expected = dirVecs[sequence[currentStep]];
+
+      // Determine dominant direction
+      let dominant = null;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > threshold) {
+        dominant = dx > 0 ? "→" : "←";
+      } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > threshold) {
+        dominant = dy > 0 ? "↓" : "↑";
+      }
+
+      // Move knob visually (constrained)
+      const newX = Math.max(0, Math.min(112, 56 + dx * 0.5));
+      const newY = Math.max(0, Math.min(112, 56 + dy * 0.5));
+      knob.style.left = newX + "px";
+      knob.style.top = newY + "px";
+
+      if (dominant && dominant === sequence[currentStep] && !stepComplete) {
+        stepComplete = true;
+        // Flash green
+        knob.style.boxShadow = "0 0 16px rgba(0,200,100,0.8)";
+        knob.textContent = "✓";
+        currentStep++;
+        updateDiagram(currentStep);
+
+        setTimeout(() => {
+          knob.style.boxShadow = "2px 2px 6px rgba(0,0,0,0.4)";
+          resetKnob();
+          stepComplete = false;
+          dragging = false;
+          dragStart = { x: 0, y: 0 };
+
+          if (currentStep >= sequence.length) {
+            knob.textContent = "🔓";
+            knob.style.background = "radial-gradient(circle at 35% 35%, #00a06e, #006040)";
+            document.getElementById("lock-status").textContent = "✓ Lock opened!";
+            document.getElementById("player-input").value = "open";
+          } else {
+            knob.textContent = "🔒";
+            document.getElementById("lock-status").textContent =
+              `Step ${currentStep + 1} of ${sequence.length} — drag ${dirNames[currentStep]}`;
+          }
+        }, 400);
+      } else if (dominant && dominant !== sequence[currentStep] && !stepComplete) {
+        // Wrong direction — flash red and reset
+        stepComplete = true;
+        knob.style.boxShadow = "0 0 16px rgba(200,0,0,0.6)";
+        setTimeout(() => {
+          knob.style.boxShadow = "2px 2px 6px rgba(0,0,0,0.4)";
+          resetKnob();
+          stepComplete = false;
+          dragging = false;
+          dragStart = { x: 0, y: 0 };
+          // Reset sequence on wrong move
+          currentStep = 0;
+          knob.textContent = "🔒";
+          updateDiagram(0);
+          document.getElementById("lock-status").textContent = "✗ Wrong direction — start over. Step 1: drag " + dirNames[0];
+        }, 400);
+      }
+    }
+
+    knob.addEventListener("mousedown", e => {
+      dragging = true; stepComplete = false;
+      dragStart = { x: e.clientX, y: e.clientY };
+      e.preventDefault();
+    });
+    document.addEventListener("mousemove", e => onMove(e.clientX, e.clientY));
+    document.addEventListener("mouseup", () => {
+      if (dragging && !stepComplete) { resetKnob(); dragging = false; }
+    });
+
+    knob.addEventListener("touchstart", e => {
+      dragging = true; stepComplete = false;
+      dragStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      e.preventDefault();
+    }, { passive: false });
+    document.addEventListener("touchmove", e => {
+      if (dragging) onMove(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: false });
+    document.addEventListener("touchend", () => {
+      if (dragging && !stepComplete) { resetKnob(); dragging = false; }
+    });
+  }
+
+  // ── PUZZLE 4: BOOK CIPHER ────────────────────────────────
+  function renderBookCipher(container) {
+    // Code: 3 · 2 · 1 · 5
+    // Chapter 3, Paragraph 2, Sentence 1, Word 5 = "heart"
+    // The book is written so that works out perfectly.
+
+    container.innerHTML = `
+      <div class="book-cover">
+        <div style="font-size:11px;letter-spacing:3px;margin-bottom:8px;color:#c8a87a;">WESTHAVEN ACADEMY PRESS · 1887</div>
+        <div class="book-title">The Chronicles of Westhaven</div>
+        <div style="font-size:11px;color:#8b7355;margin:6px 0;">Being a True Account of the Academy's Most Secret History</div>
+        <div class="book-author">— H. Aldridge, Headmistress —</div>
+      </div>
+      <div class="book-code-display">
+        <div class="book-code-number">3 · 2 · 1 · 5</div>
+        <div class="book-code-legend">Chapter &nbsp;·&nbsp; Paragraph &nbsp;·&nbsp; Sentence &nbsp;·&nbsp; Word</div>
+      </div>
+      <div style="font-size:13px;color:#666;margin-bottom:10px;letter-spacing:1px;">
+        Find Chapter 3 in the book below. Count to the 2nd paragraph, 1st sentence, 5th word.
+      </div>
+      <div class="book-page" id="book-page">
+
+        <div class="chapter-heading">Chapter One — The Founding</div>
+        <p>In the autumn of 1887, the gates of Westhaven Academy opened for the first time. The founders were three in number, as all things at Westhaven must be. Their names were carved above the main entrance in letters of cold iron, though no record survives of who did the carving.</p>
+        <p>The eldest of the three was a woman of considerable learning who had studied at universities that did not yet admit women. She brought with her a leather satchel containing seventeen books, a brass compass, and a single sealed letter she never opened in public.</p>
+        <p>The Academy grounds were chosen for their isolation. Fog came in from the valley on most mornings and did not leave until noon. New students often described their first week as walking through a dream they could not quite remember upon waking.</p>
+
+        <div class="chapter-heading">Chapter Two — The First Students</div>
+        <p>Thirty-three students arrived for the inaugural term. They came from twelve different countries and spoke nine languages between them. What brought them all to a school no one outside a certain circle had ever heard of remained, for each of them, a private mystery.</p>
+        <p>The dormitories were arranged in three wings, and students were assigned to wings by a method no member of staff would explain. Some students spent their entire time at Westhaven without ever entering one of the other two wings. Others claimed to have found passages connecting them — passages that did not appear on any official map.</p>
+        <p>Classes began at seven in the morning and ended at seven in the evening. The hours in between were unscheduled, though certain rooms were always locked by nightfall. Students quickly learned not to ask about the locked rooms. Those who did ask received the same answer from every member of staff: "It is not the right time."</p>
+
+        <div class="chapter-heading">Chapter Three — The Society's First Secret</div>
+        <p>By the third term, a rumour had spread through all three wings. It was said that beneath the library, behind a door disguised as a bookcase, there was a vault. No student had seen it, but everyone had heard of it from someone who had heard of it from someone else, until the vault had become as real as anything with a key and a lock.</p>
+        <p>The vault, according to those who claimed to know, did not contain gold or jewels or the usual rewards of legend. It contained instead a single object: a <span class="book-word-highlight">queen</span> of diamonds playing card, placed face-down on a velvet cloth, beside which rested a note reading only the word <span class="book-word-highlight">heart</span> in a hand no one could identify. The Society had placed it there on the night of the school's founding and had not touched it since. To find the vault was to find the Society's first and only secret.</p>
+        <p>Whether any student ever found the vault is not recorded in any document that survives. The bookcase, if it exists, has never been photographed. The door, if there is a door, has never been drawn on any map. And yet, every generation of students at Westhaven knows the vault is there. Some things are too true to require proof.</p>
+
+        <div class="chapter-heading">Chapter Four — The Rule of Three</div>
+        <p>Every tradition at Westhaven runs in threes. Three founding members. Three wings. Three terms in the year. Three candles lit at every ceremony. Outsiders who learn of this habit assume it is mere affectation — the kind of numerology that old institutions adopt as decoration. They are wrong.</p>
+        <p>The rule of three is not decoration. It is instruction. Every puzzle the Society has ever set has contained three parts. Every cipher has used three as its shift. Every message has been hidden in every third letter of an otherwise meaningless text. To know the rule of three is to be able to read everything the Society has ever written — if you know where to look.</p>
+        <p>New initiates are told the rule on their first night. They are not told what it unlocks. That part, the Society believes, should be discovered rather than taught. The difference between those who succeed and those who do not is simply whether they understand, in the deepest sense, that three is not a number. It is a key.</p>
+      </div>
+      <div style="font-size:12px;color:#888;text-align:center;letter-spacing:1px;margin-top:8px;">
+        Scroll to find Chapter 3 · Count paragraphs and sentences carefully
+      </div>
+    `;
+  }
+
+  // ── PUZZLE 5: EVERY THIRD LETTER ────────────────────────
+  function renderEveryThird(container) {
+    const answer = "THEQUEENOFHEARTS";
+    const totalLen = 48;
+    // Build cipher text with answer letters at positions 3,6,9,...
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let result = [], ansIdx = 0;
+    for (let i = 1; i <= totalLen; i++) {
+      if (i % 3 === 0 && ansIdx < answer.length) result.push(answer[ansIdx++]);
+      else result.push(chars[Math.floor(Math.random() * chars.length)]);
+    }
+    const cipher = result.join("");
+
+    // Display with every 3rd highlighted differently
+    let displayHTML = "";
+    for (let i = 0; i < cipher.length; i++) {
+      if ((i + 1) % 3 === 0) {
+        displayHTML += `<span style="color:#004d3a;font-weight:bold;font-size:18px;">${cipher[i]}</span>`;
+      } else {
+        displayHTML += `<span style="color:#aaa;font-size:15px;">${cipher[i]}</span>`;
+      }
+      if ((i + 1) % 12 === 0) displayHTML += "<br>";
+      else displayHTML += " ";
+    }
+
+    container.innerHTML = `
+      <div style="font-size:13px;color:#666;margin-bottom:12px;letter-spacing:1px;">
+        Extract every third character. Write them in order to reveal the hidden message.
+      </div>
+      <div style="background:rgba(0,77,58,0.12);border:1px solid #004d3a;border-radius:8px;padding:20px;font-family:'Courier New',monospace;letter-spacing:3px;line-height:2.2;margin-bottom:12px;text-align:center;">
+        ${displayHTML}
+      </div>
+      <div style="font-size:12px;color:#888;text-align:center;letter-spacing:1px;margin-bottom:12px;">
+        The darker bold letters are every 3rd character — read them in order
+      </div>
+    `;
+  }
+
+  // ── GAME ENGINE ───────────────────────────────────────────
   function startGame() {
     playerName = document.getElementById("player-name").value.trim() || "UNKNOWN";
-    builtCiphers = puzzles.map(p => p.buildCipher());
     document.getElementById("intro-card").classList.add("hidden");
     document.getElementById("game-card").classList.remove("hidden");
     startTime = Date.now();
@@ -552,14 +950,15 @@
     const p = puzzles[current];
     updateProgress();
     updateLives();
-    document.getElementById("riddle-label").textContent = p.label;
+    document.getElementById("clue-label").textContent = p.label;
     document.getElementById("type-badge").textContent = p.type;
     document.getElementById("story-text").textContent = p.story;
-    document.getElementById("riddle-box").textContent = p.riddle;
-    document.getElementById("cipher-box").textContent = builtCiphers[current];
     document.getElementById("player-input").value = "";
     document.getElementById("feedback").className = "feedback";
     document.getElementById("feedback").textContent = "";
+    const area = document.getElementById("puzzle-area");
+    area.innerHTML = "";
+    p.renderPuzzle(area);
   }
 
   function updateProgress() {
@@ -625,9 +1024,23 @@
     fb.textContent = "💡 " + puzzles[current].hint;
   }
 
+  function formatTime(ms) {
+    const totalSec = Math.floor(ms / 1000);
+    const min = Math.floor(totalSec / 60);
+    const sec = totalSec % 60;
+    const msec = Math.floor((ms % 1000) / 10);
+    return `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}.${String(msec).padStart(2,"0")}`;
+  }
+
+  function formatCountdown(ms) {
+    const totalSec = Math.ceil(ms / 1000);
+    const min = Math.floor(totalSec / 60);
+    const sec = totalSec % 60;
+    return `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
+  }
+
   function getLeaderboard() {
-    try { return JSON.parse(localStorage.getItem(CASE_KEY) || "[]"); }
-    catch { return []; }
+    try { return JSON.parse(localStorage.getItem(CASE_KEY) || "[]"); } catch { return []; }
   }
 
   function saveScore(name, ms) {
@@ -654,7 +1067,7 @@
       html += `<div class="lb-dropdown-label" onclick="toggleLbDropdown()">▶ Show all scores</div>`;
       html += `<div class="lb-dropdown" id="lb-dropdown">`;
       rest.forEach((e, i) => {
-        html += `<div class="lb-entry">${i + 6}. ${e.name}<span>${formatTime(e.ms)}</span></div>`;
+        html += `<div class="lb-entry">${i+6}. ${e.name}<span>${formatTime(e.ms)}</span></div>`;
       });
       html += `</div>`;
     }
@@ -679,7 +1092,7 @@
       msg = "YOU WERE NOT READY\nTHE VAULT REMAINS SEALED";
     } else if (livesLost === 0) {
       rank = "THE GRANDMASTER";
-      desc = "Flawless. Every cipher broken without hesitation. The Society has not seen a mind like yours in a generation. You are granted full membership and access to the vault beneath the library.";
+      desc = "Flawless. Every cipher broken without hesitation. The Society has not seen a mind like yours in a generation.";
       stars = "🕯️🕯️🕯️🕯️🕯️";
       msg = "THE VAULT IS OPEN\nWELCOME TO THE CIPHER SOCIETY";
     } else if (livesLost <= 2) {
@@ -689,14 +1102,14 @@
       msg = "YOU HAVE BEEN ACCEPTED\nON PROBATION";
     } else {
       rank = "THE UNINITIATED";
-      desc = "You solved the trials but left too many traces. The Society is watching but has not yet decided your fate.";
+      desc = "You solved the trials but left too many traces. The Society is watching.";
       stars = "🕯️🕯️🕯️";
       msg = "THE SOCIETY IS WATCHING\nTRY AGAIN";
     }
     const pwHint = caseSolved ? `<br><br><div style="font-size:12px;color:#333;margin-top:12px;letter-spacing:2px">PASSWORD TO UNLOCK CASE 03:</div><div style="font-size:18px;font-weight:bold;letter-spacing:2px;margin-top:6px">THE QUEEN OF HEARTS</div>` : "";
     const timeStr = caseSolved ? `<br><div style="font-size:13px;color:#333;margin-top:12px;letter-spacing:2px">YOUR TIME: <strong>${formatTime(timeUsed)}</strong></div>` : "";
     document.getElementById("final-message").innerHTML =
-      `<div style="color:#000000;font-size:11px;letter-spacing:3px;margin-bottom:12px">FINAL TRANSMISSION</div>${msg}${timeStr}${pwHint}`;
+      `<div style="color:#000;font-size:11px;letter-spacing:3px;margin-bottom:12px">FINAL TRANSMISSION</div>${msg}${timeStr}${pwHint}`;
     document.getElementById("ending-stars").textContent = stars;
     document.getElementById("rank-name").textContent = rank;
     document.getElementById("rank-desc").textContent = desc;
@@ -708,7 +1121,7 @@
 
   function restartGame() {
     current = 0; lives = 3; livesLost = 0;
-    caseSolved = false; builtCiphers = []; timeUsed = 0;
+    caseSolved = false; timeUsed = 0;
     clearInterval(timerInterval);
     document.getElementById("ending-card").classList.add("hidden");
     document.getElementById("intro-card").classList.remove("hidden");
