@@ -386,11 +386,11 @@
   // ── PUZZLES ──────────────────────────────────────────────
   const puzzles = [
     {
-      label: "Trial I — The Greenhouse",
+      label: "Trial I — The Card Room",
       type: "🔤 Anagram",
-      story: "Behind the greenhouse, three tiles are loose in the stone path. Lifted up, they reveal letters scratched into the earth beneath — scrambled deliberately. Rearrange them all to name the Society's founding rule.",
-      answer: "sworn to silence",
-      hint: "Thirteen letters total. The answer is a phrase — a vow that every Society member takes on the night they are initiated.",
+      story: "In the basement of Westhaven, behind a green baize door, there is a card room no teacher admits exists. On the table, a single playing card with one word written across it in red ink. The house always wins — but rearrange who's in charge and everything changes.",
+      answer: "leader",
+      hint: "One word is written on the card. Rearrange all its letters to find who really runs the Society.",
       renderPuzzle: renderAnagram
     },
     {
@@ -434,133 +434,21 @@
 
   // ── PUZZLE 1: ANAGRAM ────────────────────────────────────
   function renderAnagram(container) {
-    const answer = "SWORN TO SILENCE";
-    const letters = answer.replace(/ /g, "").split("");
-    // Shuffle
-    let pool = [...letters];
-    for (let i = pool.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [pool[i], pool[j]] = [pool[j], pool[i]];
-    }
-
-    let answerSlots = []; // letters placed by user (null = empty)
-    const wordLengths = answer.split(" ").map(w => w.length); // [5, 2, 7]
+    const scrambled = "DEALER";
 
     container.innerHTML = `
-      <div style="font-size:13px;color:#666;margin-bottom:8px;letter-spacing:1px;">
-        Click tiles from the pool to build the phrase. Click placed tiles to return them.
+      <div style="font-size:13px;color:#666;margin-bottom:16px;letter-spacing:1px;">
+        Rearrange all the letters of the word on the card to find the answer.
       </div>
-      <div class="anagram-label">Answer Area — 3 words: ${wordLengths.join(" · ")} letters</div>
-      <div class="anagram-answer-area" id="answer-area"></div>
-      <div class="anagram-label" style="margin-top:8px;">Letter Pool</div>
-      <div class="anagram-pool" id="letter-pool"></div>
-      <button class="secondary-btn" style="margin-bottom:12px;display:block;margin:0 auto 12px;" onclick="resetAnagram()">Reset</button>
+      <div style="background:rgba(0,77,58,0.12);border:2px solid #004d3a;border-radius:12px;padding:32px 20px;text-align:center;margin-bottom:20px;">
+        <div style="font-size:11px;letter-spacing:3px;color:#888;text-transform:uppercase;margin-bottom:12px;">The Card Reads</div>
+        <div style="font-family:'Courier New',monospace;font-size:48px;font-weight:bold;letter-spacing:10px;color:#8B0000;">${scrambled}</div>
+        <div style="font-size:12px;color:#aaa;margin-top:16px;letter-spacing:2px;font-style:italic;">"The house always wins."</div>
+      </div>
+      <div style="font-size:13px;color:#666;text-align:center;letter-spacing:1px;">
+        Rearrange the letters and type the new word below.
+      </div>
     `;
-
-    // Build pool tiles
-    function buildPool() {
-      const poolEl = document.getElementById("letter-pool");
-      poolEl.innerHTML = "";
-      pool.forEach((ch, i) => {
-        if (ch === null) return;
-        const tile = document.createElement("div");
-        tile.className = "anagram-tile";
-        tile.textContent = ch;
-        tile.dataset.poolIdx = i;
-        tile.onclick = () => placeLetter(i);
-        poolEl.appendChild(tile);
-      });
-    }
-
-    function buildAnswer() {
-      const area = document.getElementById("answer-area");
-      area.innerHTML = "";
-      let slotIdx = 0;
-      wordLengths.forEach((len, wi) => {
-        for (let li = 0; li < len; li++) {
-          const slot = document.createElement("div");
-          const val = answerSlots[slotIdx];
-          if (val !== undefined && val !== null) {
-            slot.className = "anagram-tile";
-            slot.textContent = val.ch;
-            slot.dataset.slotIdx = slotIdx;
-            slot.onclick = () => returnLetter(slotIdx);
-          } else {
-            slot.className = "anagram-tile";
-            slot.style.background = "rgba(0,103,79,0.1)";
-            slot.style.border = "2px dashed #aaa";
-            slot.style.cursor = "default";
-            slot.textContent = "";
-          }
-          area.appendChild(slot);
-          slotIdx++;
-        }
-        if (wi < wordLengths.length - 1) {
-          const sp = document.createElement("div");
-          sp.style.width = "12px";
-          area.appendChild(sp);
-        }
-      });
-    }
-
-    function placeLetter(poolIdx) {
-      if (pool[poolIdx] === null) return;
-      const totalSlots = wordLengths.reduce((a, b) => a + b, 0);
-      let nextEmpty = -1;
-      for (let i = 0; i < totalSlots; i++) {
-        if (!answerSlots[i]) { nextEmpty = i; break; }
-      }
-      if (nextEmpty === -1) return;
-      answerSlots[nextEmpty] = { ch: pool[poolIdx], poolIdx };
-      pool[poolIdx] = null;
-      buildPool();
-      buildAnswer();
-      updateAnagramInput();
-    }
-
-    function returnLetter(slotIdx) {
-      if (!answerSlots[slotIdx]) return;
-      const { ch, poolIdx } = answerSlots[slotIdx];
-      pool[poolIdx] = ch;
-      answerSlots[slotIdx] = null;
-      buildPool();
-      buildAnswer();
-      updateAnagramInput();
-    }
-
-    function updateAnagramInput() {
-      const totalSlots = wordLengths.reduce((a, b) => a + b, 0);
-      let wordIdx = 0, letterIdx = 0, slotIdx = 0;
-      let words = wordLengths.map(() => "");
-      for (let i = 0; i < totalSlots; i++) {
-        // figure out which word this slot belongs to
-      }
-      // simpler: just flatten
-      let flat = [];
-      let si = 0;
-      wordLengths.forEach((len, wi) => {
-        let word = "";
-        for (let li = 0; li < len; li++) {
-          const v = answerSlots[si];
-          word += v ? v.ch : "_";
-          si++;
-        }
-        flat.push(word);
-      });
-      document.getElementById("player-input").value = flat.join(" ").toLowerCase();
-    }
-
-    window.resetAnagram = function() {
-      // restore pool
-      answerSlots.forEach((v, i) => { if (v) pool[v.poolIdx] = v.ch; });
-      answerSlots = [];
-      buildPool();
-      buildAnswer();
-      document.getElementById("player-input").value = "";
-    };
-
-    buildPool();
-    buildAnswer();
   }
 
   // ── PUZZLE 2: CHIMES ─────────────────────────────────────
@@ -865,7 +753,7 @@
 
         <div class="chapter-heading">Chapter Three — The Society's First Secret</div>
         <p>By the third term, a rumour had spread through all three wings. It was said that beneath the library, behind a door disguised as a bookcase, there was a vault. No student had seen it, but everyone had heard of it from someone who had heard of it from someone else, until the vault had become as real as anything with a key and a lock.</p>
-        <p>The vault, according to those who claimed to know, did not contain gold or jewels or the usual rewards of legend. It contained instead a single object: a <span class="book-word-highlight">queen</span> of diamonds playing card, placed face-down on a velvet cloth, beside which rested a note reading only the word <span class="book-word-highlight">heart</span> in a hand no one could identify. The Society had placed it there on the night of the school's founding and had not touched it since. To find the vault was to find the Society's first and only secret.</p>
+        <p>The vault held only <span class="book-word-highlight">heart</span>. According to those who claimed to know, it did not contain gold or jewels or the usual rewards of legend. It contained instead a single object: a <span class="book-word-highlight">queen</span> of diamonds playing card, placed face-down on a velvet cloth, beside which rested a note reading only the word <em>heart</em> in a hand no one could identify. The Society had placed it there on the night of the school's founding and had not touched it since. To find the vault was to find the Society's first and only secret.</p>
         <p>Whether any student ever found the vault is not recorded in any document that survives. The bookcase, if it exists, has never been photographed. The door, if there is a door, has never been drawn on any map. And yet, every generation of students at Westhaven knows the vault is there. Some things are too true to require proof.</p>
 
         <div class="chapter-heading">Chapter Four — The Rule of Three</div>
