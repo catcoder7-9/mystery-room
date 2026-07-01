@@ -268,7 +268,7 @@
       background: #fffef8; border: 1px solid #d4c5a0;
       border-radius: 4px; padding: 20px; margin-bottom: 16px;
       font-size: 14px; line-height: 2; color: #2a1a0a;
-      max-height: 260px; overflow-y: auto;
+      max-height: 420px; overflow-y: auto;
       box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
       font-family: 'Georgia', serif;
     }
@@ -288,10 +288,6 @@
     .book-code-legend {
       font-size: 11px; letter-spacing: 2px; color: #888;
       text-transform: uppercase; margin-top: 6px;
-    }
-    .book-word-highlight {
-      background: rgba(0,103,79,0.25); border-radius: 2px;
-      padding: 0 2px; font-weight: bold; color: #003d2e;
     }
   </style>
 </head>
@@ -753,7 +749,7 @@
 
         <div class="chapter-heading">Chapter Three — The Society's First Secret</div>
         <p>By the third term, a rumour had spread through all three wings. It was said that beneath the library, behind a door disguised as a bookcase, there was a vault. No student had seen it, but everyone had heard of it from someone who had heard of it from someone else, until the vault had become as real as anything with a key and a lock.</p>
-        <p>The vault held only <span class="book-word-highlight">heart</span>. According to those who claimed to know, it did not contain gold or jewels or the usual rewards of legend. It contained instead a single object: a <span class="book-word-highlight">queen</span> of diamonds playing card, placed face-down on a velvet cloth, beside which rested a note reading only the word <em>heart</em> in a hand no one could identify. The Society had placed it there on the night of the school's founding and had not touched it since. To find the vault was to find the Society's first and only secret.</p>
+        <p>The vault held only heart. According to those who claimed to know, it did not contain gold or jewels or the usual rewards of legend. It contained instead a single object: a queen of diamonds playing card, placed face-down on a velvet cloth, beside which rested a note reading only the word <em>heart</em> in a hand no one could identify. The Society had placed it there on the night of the school's founding and had not touched it since. To find the vault was to find the Society's first and only secret.</p>
         <p>Whether any student ever found the vault is not recorded in any document that survives. The bookcase, if it exists, has never been photographed. The door, if there is a door, has never been drawn on any map. And yet, every generation of students at Westhaven knows the vault is there. Some things are too true to require proof.</p>
 
         <div class="chapter-heading">Chapter Four — The Rule of Three</div>
@@ -783,11 +779,7 @@
     // Display with every 3rd highlighted differently
     let displayHTML = "";
     for (let i = 0; i < cipher.length; i++) {
-      if ((i + 1) % 3 === 0) {
-        displayHTML += `<span style="color:#004d3a;font-weight:bold;font-size:18px;">${cipher[i]}</span>`;
-      } else {
-        displayHTML += `<span style="color:#aaa;font-size:15px;">${cipher[i]}</span>`;
-      }
+      displayHTML += `<span style="font-size:17px;">${cipher[i]}</span>`;
       if ((i + 1) % 12 === 0) displayHTML += "<br>";
       else displayHTML += " ";
     }
@@ -800,7 +792,7 @@
         ${displayHTML}
       </div>
       <div style="font-size:12px;color:#888;text-align:center;letter-spacing:1px;margin-bottom:12px;">
-        The darker bold letters are every 3rd character — read them in order
+        Every 3rd character is your clue — count carefully and write them in order
       </div>
     `;
   }
