@@ -18,7 +18,6 @@
       min-height: 100vh;
     }
     .container { width: 100%; max-width: 680px; }
-
     h1 {
       text-align: center;
       font-size: 34px;
@@ -28,7 +27,6 @@
       margin-bottom: 4px;
       min-height: 44px;
     }
-
     .subtitle {
       text-align: center;
       color: #ffffff;
@@ -39,7 +37,6 @@
       opacity: 0;
       animation: fadeUp 0.8s ease 2.5s forwards;
     }
-
     .card {
       background: rgba(255,255,255,0.92);
       border-radius: 12px;
@@ -49,305 +46,206 @@
       opacity: 0;
       animation: fadeUp 0.8s ease forwards;
     }
-
     .intro-card { animation-delay: 2.8s; }
-
-    .card-label {
-      font-size: 11px;
-      color: #666666;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      margin-bottom: 14px;
-    }
-
-    .story-text {
-      font-size: 15px;
-      line-height: 1.9;
-      color: #000000;
-      margin-bottom: 20px;
-    }
-
-    .riddle-box {
-      background: rgba(0,0,0,0.05);
-      border: 1px solid rgba(0,0,0,0.2);
-      border-radius: 8px;
-      padding: 20px;
-      font-size: 16px;
-      line-height: 1.9;
-      color: #000000;
-      font-style: italic;
-      margin-bottom: 16px;
-      white-space: pre-line;
-    }
-
-    .cipher-box {
-      background: rgba(0,0,0,0.08);
-      border: 1px solid rgba(0,0,0,0.2);
-      border-radius: 8px;
-      padding: 16px;
-      font-family: 'Courier New', monospace;
-      font-size: 18px;
-      letter-spacing: 4px;
-      color: #000000;
-      text-align: center;
-      margin-bottom: 16px;
-      word-break: break-all;
-      line-height: 1.8;
-    }
-
+    .card-label { font-size: 11px; color: #666666; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 14px; }
+    .story-text { font-size: 15px; line-height: 1.9; color: #000000; margin-bottom: 20px; }
     .type-badge {
-      display: inline-block;
-      background: rgba(0,0,0,0.08);
-      border: 1px solid rgba(0,0,0,0.2);
-      border-radius: 20px;
-      padding: 4px 14px;
-      font-size: 11px;
-      color: #333333;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 16px;
+      display: inline-block; background: rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.2);
+      border-radius: 20px; padding: 4px 14px; font-size: 11px; color: #333333;
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px;
     }
-
     .timer-bar {
-      background: rgba(0,0,0,0.08);
-      border: 1px solid rgba(0,0,0,0.2);
-      border-radius: 8px;
-      padding: 10px 16px;
-      margin-bottom: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: 'Courier New', monospace;
-      font-size: 18px;
-      font-weight: bold;
+      background: rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.2);
+      border-radius: 8px; padding: 10px 16px; margin-bottom: 16px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold;
     }
-
     .timer-bar.warning { background: rgba(255,165,0,0.2); border-color: orange; }
     .timer-bar.danger { background: rgba(150,0,0,0.15); border-color: #8B0000; color: #8B0000; }
-
-    .lives {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      margin-bottom: 16px;
-      font-size: 14px;
-      color: #333333;
-    }
-
+    .lives { display: flex; gap: 8px; align-items: center; margin-bottom: 16px; font-size: 14px; color: #333333; }
     .life { font-size: 20px; transition: opacity 0.3s; }
     .life.lost { opacity: 0.15; }
-
-    .progress {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-      align-items: center;
-    }
-
-    .progress-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #cccccc;
-      border: 1px solid #999999;
-      transition: background 0.3s;
-    }
-
+    .progress { display: flex; gap: 8px; margin-bottom: 20px; align-items: center; }
+    .progress-dot { width: 10px; height: 10px; border-radius: 50%; background: #cccccc; border: 1px solid #999999; transition: background 0.3s; }
     .progress-dot.done { background: #000000; }
     .progress-dot.current { background: #666666; border: 2px solid #000000; }
-
-    .progress-label {
-      font-size: 11px;
-      color: #666666;
-      margin-left: 8px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
+    .progress-label { font-size: 11px; color: #666666; margin-left: 8px; letter-spacing: 2px; text-transform: uppercase; }
     textarea {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid rgba(0,0,0,0.2);
-      background: #ffffff;
-      color: #000000;
-      font-size: 15px;
-      resize: vertical;
-      min-height: 70px;
-      margin-bottom: 12px;
-      font-family: 'Georgia', serif;
+      width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.2);
+      background: #ffffff; color: #000000; font-size: 15px; resize: vertical;
+      min-height: 70px; margin-bottom: 12px; font-family: 'Georgia', serif;
     }
-
     textarea::placeholder { color: #999999; }
-
-    .row {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-bottom: 8px;
-    }
-
+    .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
     button {
-      padding: 10px 22px;
-      border: 1px solid rgba(0,0,0,0.3);
-      border-radius: 8px;
-      background: #000000;
-      color: #ffffff;
-      font-size: 14px;
-      cursor: pointer;
-      transition: background 0.2s;
-      letter-spacing: 1px;
-      font-family: 'Georgia', serif;
+      padding: 10px 22px; border: 1px solid rgba(0,0,0,0.3); border-radius: 8px;
+      background: #000000; color: #ffffff; font-size: 14px; cursor: pointer;
+      transition: background 0.2s; letter-spacing: 1px; font-family: 'Georgia', serif;
     }
-
     button:hover { background: #333333; }
-
-    .secondary-btn {
-      background: transparent;
-      border: 1px solid rgba(0,0,0,0.3);
-      color: #333333;
-      font-size: 13px;
-      padding: 8px 14px;
-    }
-
+    .secondary-btn { background: transparent; border: 1px solid rgba(0,0,0,0.3); color: #333333; font-size: 13px; padding: 8px 14px; }
     .secondary-btn:hover { background: #000000; color: #ffffff; }
-
-    .feedback {
-      border-radius: 8px;
-      padding: 12px 16px;
-      font-size: 14px;
-      margin-top: 10px;
-      display: none;
-      line-height: 1.6;
-    }
-
+    .feedback { border-radius: 8px; padding: 12px 16px; font-size: 14px; margin-top: 10px; display: none; line-height: 1.6; }
     .feedback.correct { background: rgba(0,100,0,0.1); border: 1px solid #006400; color: #000000; display: block; }
     .feedback.wrong { background: rgba(150,0,0,0.1); border: 1px solid #8B0000; color: #000000; display: block; }
     .feedback.info { background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.2); color: #000000; display: block; }
-
     .final-message {
-      background: rgba(0,0,0,0.05);
-      border: 1px solid rgba(0,0,0,0.2);
-      border-radius: 8px;
-      padding: 20px;
-      font-family: 'Courier New', monospace;
-      font-size: 15px;
-      color: #000000;
-      text-align: center;
-      letter-spacing: 2px;
-      margin-bottom: 20px;
-      line-height: 1.8;
+      background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.2); border-radius: 8px;
+      padding: 20px; font-family: 'Courier New', monospace; font-size: 15px; color: #000000;
+      text-align: center; letter-spacing: 2px; margin-bottom: 20px; line-height: 1.8;
     }
-
     .rank-name { font-size: 28px; color: #000000; text-align: center; margin-bottom: 8px; letter-spacing: 3px; }
     .rank-desc { font-size: 14px; color: #000000; line-height: 1.7; text-align: center; margin-bottom: 24px; }
     .stars { font-size: 26px; text-align: center; margin-bottom: 16px; }
-
     .back-btn {
-      display: block;
-      text-align: center;
-      margin-top: 12px;
-      padding: 10px 22px;
-      border: 1px solid rgba(0,0,0,0.3);
-      border-radius: 8px;
-      background: transparent;
-      color: #000000;
-      font-size: 13px;
-      cursor: pointer;
-      font-family: 'Georgia', serif;
-      letter-spacing: 1px;
-      transition: background 0.2s;
-      width: 100%;
+      display: block; text-align: center; margin-top: 12px; padding: 10px 22px;
+      border: 1px solid rgba(0,0,0,0.3); border-radius: 8px; background: transparent;
+      color: #000000; font-size: 13px; cursor: pointer; font-family: 'Georgia', serif;
+      letter-spacing: 1px; transition: background 0.2s; width: 100%;
     }
-
     .back-btn:hover { background: #000000; color: #ffffff; }
-
     .hidden { display: none; }
     .seal { text-align: center; font-size: 48px; margin-bottom: 12px; }
-
     .suspect-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-
     .suspect {
-      background: rgba(0,0,0,0.05);
-      border: 1px solid rgba(0,0,0,0.15);
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-size: 14px;
-      color: #000000;
-      opacity: 0;
-      transform: translateX(-20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.15); border-radius: 8px;
+      padding: 10px 14px; font-size: 14px; color: #000000; opacity: 0;
+      transform: translateX(-20px); transition: opacity 0.5s ease, transform 0.5s ease;
     }
-
-    .suspect.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
+    .suspect.visible { opacity: 1; transform: translateX(0); }
     .name-input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid rgba(0,0,0,0.2);
-      background: #ffffff;
-      color: #000000;
-      font-size: 16px;
-      margin-bottom: 16px;
-      font-family: 'Georgia', serif;
-      text-align: center;
-      letter-spacing: 2px;
+      width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.2);
+      background: #ffffff; color: #000000; font-size: 16px; margin-bottom: 16px;
+      font-family: 'Georgia', serif; text-align: center; letter-spacing: 2px;
     }
-
     .leaderboard-preview { margin-top: 16px; text-align: left; }
-
     .lb-entry {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 12px;
-      border-radius: 6px;
-      margin-bottom: 4px;
-      font-size: 14px;
-      background: rgba(0,0,0,0.05);
-      font-family: 'Courier New', monospace;
+      display: flex; justify-content: space-between; padding: 8px 12px; border-radius: 6px;
+      margin-bottom: 4px; font-size: 14px; background: rgba(0,0,0,0.05); font-family: 'Courier New', monospace;
     }
-
     .lb-entry.gold { background: rgba(255,215,0,0.3); font-weight: bold; }
     .lb-entry.silver { background: rgba(192,192,192,0.3); }
     .lb-entry.bronze { background: rgba(205,127,50,0.3); }
-
-    .lb-dropdown-label {
-      cursor: pointer;
-      font-size: 13px;
-      color: #666;
-      margin-top: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
+    .lb-dropdown-label { cursor: pointer; font-size: 13px; color: #666; margin-top: 8px; display: flex; align-items: center; gap: 6px; }
     .lb-dropdown { display: none; }
     .lb-dropdown.open { display: block; }
+    .title-cursor { display: inline-block; width: 3px; height: 32px; background: #ffffff; margin-left: 4px; animation: blink 0.7s infinite; vertical-align: middle; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-    .title-cursor {
-      display: inline-block;
-      width: 3px;
-      height: 32px;
-      background: #ffffff;
-      margin-left: 4px;
-      animation: blink 0.7s infinite;
-      vertical-align: middle;
+    /* ── MORSE ── */
+    .morse-display {
+      background: #111; border-radius: 8px; padding: 20px; margin-bottom: 12px;
+      font-family: 'Courier New', monospace; font-size: 22px; letter-spacing: 6px;
+      color: #f5d76e; text-align: center; line-height: 2.2; border: 1px solid #333;
+    }
+    .morse-audio-btn {
+      display: flex; align-items: center; gap: 10px; margin: 0 auto 12px;
+      padding: 12px 24px; background: #1a1a1a; color: #f5d76e;
+      border: 1px solid #f5d76e; border-radius: 8px; font-size: 14px;
+      cursor: pointer; font-family: 'Georgia', serif; letter-spacing: 1px;
+    }
+    .morse-audio-btn:hover { background: #2a2a2a; }
+    .morse-toggle { font-size: 12px; color: #888; text-align: center; cursor: pointer; letter-spacing: 1px; text-decoration: underline; margin-bottom: 12px; }
+    .morse-reference {
+      background: #fff; border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 8px; padding: 16px; margin-bottom: 12px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px 12px;
+    }
+    .morse-ref-row {
+      display: flex; align-items: center; gap: 8px;
+      font-family: 'Georgia', serif; font-size: 15px; font-weight: bold; color: #111;
+    }
+    .morse-symbols { display: flex; align-items: center; gap: 3px; }
+    .m-dot {
+      width: 9px; height: 9px; border-radius: 50%; background: #111; flex-shrink: 0;
+    }
+    .m-dash {
+      width: 22px; height: 4px; border-radius: 2px; background: #111; flex-shrink: 0;
     }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
+    /* ── MISSING PHRASE ── */
+    .phrase-words {
+      background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 8px; padding: 20px; margin-bottom: 16px;
+    }
+    .phrase-row {
+      display: flex; align-items: center; gap: 0;
+      font-family: 'Courier New', monospace; font-size: 22px;
+      margin-bottom: 12px; justify-content: center;
+    }
+    .phrase-prefix { color: #555; }
+    .phrase-blank {
+      border-bottom: 3px solid #8B0000; min-width: 80px; display: inline-block;
+      margin: 0 2px; color: #8B0000; text-align: center; letter-spacing: 2px;
+    }
+    .phrase-suffix { color: #555; }
+
+    /* ── TRANSPARENCIES ── */
+    .overlay-stage {
+      position: relative; width: 100%; height: 320px;
+      background: #1a1a2e; border-radius: 8px; overflow: hidden;
+      margin-bottom: 12px; border: 1px solid #333; cursor: default;
+    }
+    .overlay-sheet {
+      position: absolute; width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: grab; user-select: none; border-radius: 8px;
+      transition: box-shadow 0.2s;
+    }
+    .overlay-sheet:active { cursor: grabbing; }
+    .overlay-sheet.snapped { cursor: default; pointer-events: none; }
+    .overlay-snap-indicator {
+      position: absolute; bottom: 10px; right: 10px;
+      font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 1px;
+    }
+    .overlay-instructions {
+      font-size: 13px; color: #666; margin-bottom: 10px; letter-spacing: 1px; text-align: center;
+    }
+    .overlay-progress-bar {
+      height: 4px; background: #eee; border-radius: 2px; margin-bottom: 12px; overflow: hidden;
+    }
+    .overlay-progress-fill { height: 100%; background: #2a9d8f; border-radius: 2px; transition: width 0.3s; }
+
+    /* ── NUMBER SUB ── */
+    .numcode-display {
+      background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 8px; padding: 16px; margin-bottom: 12px;
+      font-family: 'Courier New', monospace; font-size: 18px;
+      letter-spacing: 3px; text-align: center; color: #000; line-height: 2;
+    }
+    .numcode-ref {
+      display: grid; grid-template-columns: repeat(9, 1fr);
+      gap: 4px; margin-bottom: 12px;
+    }
+    .numcode-cell {
+      background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 4px; padding: 4px 2px; text-align: center;
+      font-family: 'Courier New', monospace; font-size: 10px; line-height: 1.6;
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* ── JIGSAW ── */
+    .jigsaw-container {
+      display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;
     }
+    .jigsaw-board {
+      position: relative; flex: 1; min-width: 280px; height: 200px;
+      background: #1a1a2e; border: 2px dashed #555; border-radius: 8px;
+      overflow: hidden;
+    }
+    .jigsaw-pool {
+      display: flex; flex-wrap: wrap; gap: 6px; padding: 10px;
+      background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 8px; min-height: 80px;
+    }
+    .jigsaw-piece {
+      cursor: grab; border-radius: 4px; border: 2px solid rgba(255,255,255,0.3);
+      transition: transform 0.1s, box-shadow 0.2s; user-select: none;
+      overflow: hidden; position: relative;
+    }
+    .jigsaw-piece:hover { box-shadow: 0 0 10px rgba(255,255,255,0.4); transform: scale(1.05); }
+    .jigsaw-piece.placed { cursor: default; border-color: rgba(255,255,255,0.6); }
+    .jigsaw-piece canvas { display: block; }
   </style>
 </head>
 <body>
@@ -378,17 +276,13 @@
   <!-- GAME -->
   <div class="hidden" id="game-card">
     <div class="card">
-      <div class="timer-bar" id="timer-bar">
-        <span>⏱ TIME LEFT</span>
-        <span id="timer-display">20:00</span>
-      </div>
+      <div class="timer-bar" id="timer-bar"><span>⏱ TIME LEFT</span><span id="timer-display">20:00</span></div>
       <div class="progress" id="progress-dots"></div>
       <div class="lives" id="lives-display"></div>
       <div class="card-label" id="clue-label"></div>
       <div class="type-badge" id="type-badge"></div>
       <div class="story-text" id="story-text"></div>
-      <div class="riddle-box" id="riddle-box"></div>
-      <div class="cipher-box" id="cipher-box"></div>
+      <div id="puzzle-area"></div>
       <textarea id="player-input" placeholder="Enter your answer..."></textarea>
       <div class="row">
         <button onclick="submitAnswer()">Submit</button>
@@ -419,9 +313,7 @@
   const TIME_LIMIT = 20 * 60 * 1000;
   const TITLE = "THE LAST VOYAGE";
 
-  window.addEventListener("load", () => {
-    setTimeout(typeTitle, 400);
-  });
+  window.addEventListener("load", () => { setTimeout(typeTitle, 400); });
 
   function typeTitle() {
     const el = document.getElementById("main-title");
@@ -444,9 +336,7 @@
     suspects.forEach((s, i) => {
       setTimeout(() => {
         s.classList.add("visible");
-        if (i === suspects.length - 1) {
-          setTimeout(showStartElements, 400);
-        }
+        if (i === suspects.length - 1) setTimeout(showStartElements, 400);
       }, i * 300);
     });
   }
@@ -457,107 +347,616 @@
     document.getElementById("start-btn").style.opacity = "1";
   }
 
-  function caesarShift(text, shift) {
-    return text.split("").map(ch => {
-      if (/[a-zA-Z]/.test(ch)) {
-        const base = ch >= 'a' ? 97 : 65;
-        return String.fromCharCode((ch.charCodeAt(0) - base + shift + 26) % 26 + base);
-      }
-      return ch;
-    }).join("");
-  }
-
-  function buildThirdLetter(answer, totalLen) {
-    const clean = answer.replace(/\s/g, "").toUpperCase();
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let result = [], ansIdx = 0;
-    for (let i = 1; i <= totalLen; i++) {
-      if (i % 3 === 0 && ansIdx < clean.length) result.push(clean[ansIdx++]);
-      else result.push(chars[Math.floor(Math.random() * chars.length)]);
-    }
-    return result.join("");
-  }
-
-  function scramble(word) {
-    const arr = word.toUpperCase().split("");
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr.join("");
-  }
-
+  // ── PUZZLES ──────────────────────────────────────────────
   const puzzles = [
     {
-      label: "Clue 01 — The Dining Hall",
-      type: "Word Scramble",
-      story: "The head waiter remembers a heated conversation at dinner. One passenger slipped a note under Eleanor's plate. The waiter kept it. One word is all that's written — but it's been scrambled.",
-      riddle: "The note contains one scrambled word.\nUnscramble it to reveal what was threatened.\n\nSuspects:\n— Martin Cross\n— Cecile Voss\n— Dr. Paul Harte\n— Ivy Chen",
-      buildCipher: () => scramble("CONTRACT"),
+      label: "Clue 01 — The Radio Room",
+      type: "📻 Morse Code",
+      story: "The ship's radio operator intercepted a message sent from an onboard terminal at 11:43pm — the night Eleanor died. Someone tried to delete it. The operator managed to recover it.",
       answer: "contract",
-      hint: "Eight letters. It is something you sign. A legal agreement between two parties."
+      hint: "Each group of dots and dashes is one letter. Dots are short, dashes are long. Use the reference chart below.",
+      renderPuzzle: renderMorse
     },
     {
-      label: "Clue 02 — The Library Deck",
-      type: "Every 3rd Letter",
-      story: "In the ship's library, tucked inside a copy of Eleanor's first novel, you find a letter. It appears to be nonsense — but you have seen this kind of message before.",
-      riddle: "A hidden message is buried in the text below.\nThere are always three — isolate every third letter\nto find what was written.",
-      buildCipher: () => buildThirdLetter("shewasleaving", 39),
+      label: "Clue 02 — The Dining Hall",
+      type: "🔤 Missing Word",
+      story: "The head waiter found a torn cocktail napkin on Eleanor's table. Four words were written in a column — but the middle of each word had been torn away. The missing piece is the same in all four words. It tells you exactly what Eleanor did.",
+      answer: "pose",
+      hint: "The same hidden word completes all four. Pro___. Im___. Com___. Ex___. What word fits every one? It starts with the letter P.",
+      renderPuzzle: renderMissingPhrase
+    },
+    {
+      label: "Clue 03 — The Observation Deck",
+      type: "🎨 Transparency Overlay",
+      story: "Fifteen coloured transparencies were found scattered across the observation deck floor. Each one appears to be abstract smears of colour. But the ship's photographer says they were printed deliberately — when properly aligned, they form a hidden message.",
       answer: "she was leaving",
-      hint: "Take every third letter in order. The 3rd, 6th, 9th... ignore spaces and write them down."
+      hint: "Drag each sheet to overlap with the others. When all 15 are stacked in the correct position, the colours combine to form readable text.",
+      renderPuzzle: renderOverlay
     },
     {
-      label: "Clue 03 — Eleanor's Cabin",
-      type: "Caesar Cipher",
-      story: "Eleanor kept a private journal locked in her desk. The last entry is written in code — she feared someone was reading her notes. Her literary agent once told police she always shifted by three.",
-      riddle: "Eleanor's final journal entry is below.\nTo encode you go forward, to decode you go backward.\nShe always shifted by three. There are always three.\n\nA B C D E F G H I J K L M\nD E F G H I J K L M N O P\n\nN O P Q R S T U V W X Y Z\nQ R S T U V W X Y Z A B C",
-      buildCipher: () => caesarShift("MARTIN KNOWS ABOUT THE NEW DEAL", 3),
-      answer: "martin knows about the new deal",
-      hint: "Shift every letter back by 3. D becomes A, E becomes B, F becomes C."
-    },
-    {
-      label: "Clue 04 — The Publisher's Suite",
-      type: "Anagram",
-      story: "You search Martin Cross's cabin while he is at dinner. Hidden inside his jacket lining you find a torn piece of paper with letters written in red ink. Rearrange them to reveal his motive.",
-      riddle: "Rearrange all the letters below to reveal a three word phrase.\nIt reveals exactly what Martin stood to lose.",
-      buildCipher: () => "LSIMOLIN FO SOLL",
+      label: "Clue 04 — The Purser's Office",
+      type: "🔢 Number Code",
+      story: "Hidden inside the ship's financial ledger, someone wrote a sequence of numbers in the margin. The purser uses a simple substitution cipher — A=1, B=2, all the way to Z=26. A space is marked with a zero.",
       answer: "millions of loss",
-      hint: "Rearrange all the letters. Three words. Think about money and what Martin was about to lose when Eleanor left his publishing house."
+      hint: "A=1, B=2, C=3... Z=26. A zero means a space between words. Write out each letter in order.",
+      renderPuzzle: renderNumberSub
     },
     {
-      label: "Clue 05 — The Upper Deck",
-      type: "Every 3rd Letter",
-      story: "On the upper deck, scratched into the railing with what appears to be a pen nib, Eleanor left one final message. She knew she was in danger. She left the killer's full name.",
-      riddle: "Eleanor's final message is scratched into the railing.\nThere are always three.\nIsolate every third letter to name the killer.",
-      buildCipher: () => buildThirdLetter("martincross", 33),
+      label: "Clue 05 — Eleanor's Cabin",
+      type: "🧩 Jigsaw",
+      story: "Eleanor's cabin porthole looked out over the ship's hull. The glass had been painted over from the outside — in pieces. Assemble the fragments to see what Eleanor saw every morning. The answer has been staring at her the whole voyage.",
       answer: "martin cross",
-      hint: "Every third letter spells the killer's full name. First and last. You have met them already."
+      hint: "Drag each piece onto the board and drop it into position. The completed image is painted on the hull of the ship.",
+      renderPuzzle: renderJigsaw
     }
   ];
 
   let current = 0, lives = 3, livesLost = 0;
-  let builtCiphers = [], caseSolved = false;
+  let caseSolved = false;
   let startTime, timerInterval, timeUsed = 0;
   let playerName = "";
 
-  function formatTime(ms) {
-    const totalSec = Math.floor(ms / 1000);
-    const min = Math.floor(totalSec / 60);
-    const sec = totalSec % 60;
-    const msec = Math.floor((ms % 1000) / 10);
-    return `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}.${String(msec).padStart(2,"0")}`;
+  // ── PUZZLE 1: MORSE CODE ─────────────────────────────────
+  function renderMorse(container) {
+    // CONTRACT in morse
+    const morseMap = {
+      A:".-", B:"-...", C:"-.-.", D:"-..", E:".", F:"..-.", G:"--.", H:"....",
+      I:"..", J:".---", K:"-.-", L:".-..", M:"--", N:"-.", O:"---", P:".--.",
+      Q:"--.-", R:".-.", S:"...", T:"-", U:"..-", V:"...-", W:".--",
+      X:"-..-", Y:"-.--", Z:"--.."
+    };
+    const word = "CONTRACT";
+    const encoded = word.split("").map(c => morseMap[c]).join("  ");
+    const groups = word.split("").map(c => morseMap[c]);
+
+    let audioVisible = false;
+
+    container.innerHTML = `
+      <div style="text-align:center;margin-bottom:14px;">
+        <button class="morse-audio-btn" id="morse-play-btn" onclick="playMorseAudio()">
+          🔊 Play Transmission
+        </button>
+      </div>
+      <div style="text-align:center;margin-bottom:12px;">
+        <span class="morse-toggle" onclick="toggleMorseVisual()">Can't listen now? Show the signal visually</span>
+      </div>
+      <div class="hidden" id="morse-visual">
+        <div style="font-size:11px;letter-spacing:2px;color:#888;text-transform:uppercase;text-align:center;margin-bottom:8px;">Intercepted Signal — Letter by Letter</div>
+        <div class="morse-display" id="morse-display">
+          ${groups.map((g,i) => `<span style="margin:0 8px;">${g}</span>${i < groups.length-1 ? '<span style="color:#444;font-size:14px;">|</span>' : ''}`).join("")}
+        </div>
+        <div style="font-size:11px;color:#888;text-align:center;margin-bottom:10px;letter-spacing:1px;">Each group between | is one letter</div>
+      </div>
+
+      <div style="font-size:11px;letter-spacing:2px;color:#666;text-transform:uppercase;margin-bottom:6px;">Reference</div>
+        <div class="morse-reference">
+          <div class="morse-ref-row"><span>A</span><div class="morse-symbols"><div class="m-dot"></div><div class="m-dash"></div></div></div>
+          <div class="morse-ref-row"><span>B</span><div class="morse-symbols"><div class="m-dash"></div><div class="m-dot"></div><div class="m-dot"></div><div class="m-dot"></div></div></div>
+          <div class="morse-ref-row"><span>C</span><div class="morse-symbols"><div class="m-dash"></div><div class="m-dot"></div><div class="m-dash"></div><div class="m-dot"></div></div></div>
+          <div class="morse-ref-row"><span>D</span><div class="morse-symbols"><div class="m-dash"></div><div class="m-dot"></div><div class="m-dot"></div></div></div>
+          <div class="morse-ref-row"><span>E</span><div class="morse-symbols"><div class="m-dot"></div></div></div>
+          <div class="morse-ref-row"><span>F</span><div class="morse-symbols"><div class="m-dot"></div><div class="m-dot"></div><div class="m-dash"></div><div class="m-dot"></div></div></div>
+          <div class="morse-ref-row"><span>G</span><div class="morse-symbols"><div class="m-dash"></div><div class="m-dash"></div><div class="m-dot"></div></div></div>
+          <div class="morse-ref-row"><span>H</span><div class="morse-symbols"><div class="m-dot"></div><div class="m-dot"></div><div class="m-dot"></div><div class="m-dot"></div></div></div>
+          <div class="morse-ref-row"><span>I</span><div class="morse-symbols"><div class="m-dot"></div><div class="m-dot"></div></div></div>
+          <div class="morse-ref-row"><span>J</span><div class="morse-symbols"><div class="m-dot"></div><div class="m-dash"></div><div class="m-dash"></div><div class="m-dash"></div></div></div>
+          <div class="morse-ref-row"><span>K</span><div class="morse-symbols"><div class="m-dash"></div><div class="m-dot"></div><div class="m-dash"></div></div></div>
+          <div class="morse-ref-row"><span>L</span><div class="morse-symbols"><div class="m-dot"></div><div class="m-dash"></div><div class="m-dot"></div><div class="m-dot"></div></div></div>
+          <div class="morse-ref-row"><span>M</span><div class="morse-symbols"><div class="m-dash"></div><div class="m-dash"></div></div></div>
+          <div class="morse-ref-row"><span>N</span><div class="morse-symbols"><div class="m-dash"></div><div class="m-dot"></div></div></div>
+          <div class="morse-ref-row"><span>O</span><div class="morse-symbols"><div class="m-dash"></div><div class="m-dash"></div><div class="m-dash"></div></div></div>
+          <div class="morse-ref-row"><span>P</span><div class="morse-symbols"><div class="m-dot"></div><div class="m-dash"></div><div class="m-dash"></div><div class="m-dot"></div></div></div>
+          <div class="morse-ref-row"><span>Q</span><div class="morse-symbols"><div class="m-dash"></div><div class="m-dash"></div><div class="m-dot"></div><div class="m-dash"></div></div></div>
+          <div class="morse-ref-row"><span>R</span><div class="morse-symbols"><div class="m-dot"></div><div class="m-dash"></div><div class="m-dot"></div></div></div>
+          <div class="morse-ref-row"><span>S</span><div class="morse-symbols"><div class="m-dot"></div><div class="m-dot"></div><div class="m-dot"></div></div></div>
+          <div class="morse-ref-row"><span>T</span><div class="morse-symbols"><div class="m-dash"></div></div></div>
+          <div class="morse-ref-row"><span>U</span><div class="morse-symbols"><div class="m-dot"></div><div class="m-dot"></div><div class="m-dash"></div></div></div>
+          <div class="morse-ref-row"><span>V</span><div class="morse-symbols"><div class="m-dot"></div><div class="m-dot"></div><div class="m-dot"></div><div class="m-dash"></div></div></div>
+          <div class="morse-ref-row"><span>W</span><div class="morse-symbols"><div class="m-dot"></div><div class="m-dash"></div><div class="m-dash"></div></div></div>
+          <div class="morse-ref-row"><span>X</span><div class="morse-symbols"><div class="m-dash"></div><div class="m-dot"></div><div class="m-dot"></div><div class="m-dash"></div></div></div>
+          <div class="morse-ref-row"><span>Y</span><div class="morse-symbols"><div class="m-dash"></div><div class="m-dot"></div><div class="m-dash"></div><div class="m-dash"></div></div></div>
+          <div class="morse-ref-row"><span>Z</span><div class="morse-symbols"><div class="m-dash"></div><div class="m-dash"></div><div class="m-dot"></div><div class="m-dot"></div></div></div>
+        </div>
+    `;
+
+    window.translateMorse = function() {
+      const input = document.getElementById("morse-input").value.trim();
+      const result = document.getElementById("morse-result");
+      const reverseMap = {};
+      Object.entries({A:".-",B:"-...",C:"-.-.",D:"-..",E:".",F:"..-.",G:"--.",H:"....",
+        I:"..",J:".---",K:"-.-",L:".-..",M:"--",N:"-.",O:"---",P:".--.",
+        Q:"--.-",R:".-.",S:"...",T:"-",U:"..-",V:"...-",W:".--",
+        X:"-..-",Y:"-.--",Z:"--.."}).forEach(([l,m]) => reverseMap[m] = l);
+      result.textContent = reverseMap[input] || "?";
+    };
+
+    window.toggleMorseVisual = function() {
+      audioVisible = !audioVisible;
+      const vis = document.getElementById("morse-visual");
+      vis.classList.toggle("hidden", !audioVisible);
+    };
+
+    window.playMorseAudio = function() {
+      const btn = document.getElementById("morse-play-btn");
+      btn.disabled = true;
+      btn.textContent = "📡 Transmitting...";
+
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const dotDur = 0.08, dashDur = 0.24, gap = 0.08, letterGap = 0.28;
+      let t = ctx.currentTime + 0.3;
+
+      function beep(start, dur) {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.type = "sine"; osc.frequency.value = 600;
+        gain.gain.setValueAtTime(0, start);
+        gain.gain.linearRampToValueAtTime(0.3, start + 0.01);
+        gain.gain.setValueAtTime(0.3, start + dur - 0.01);
+        gain.gain.linearRampToValueAtTime(0, start + dur);
+        osc.start(start); osc.stop(start + dur);
+      }
+
+      groups.forEach((morse, li) => {
+        morse.split("").forEach(sym => {
+          const dur = sym === "." ? dotDur : dashDur;
+          beep(t, dur);
+          t += dur + gap;
+        });
+        t += letterGap;
+      });
+
+      const totalMs = (t - ctx.currentTime) * 1000 + 300;
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = "🔊 Play Again";
+        btn.innerHTML = "🔊 Play Again";
+      }, totalMs);
+    };
   }
 
-  function formatCountdown(ms) {
-    const totalSec = Math.ceil(ms / 1000);
-    const min = Math.floor(totalSec / 60);
-    const sec = totalSec % 60;
-    return `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
+  // ── PUZZLE 2: MISSING PHRASE ─────────────────────────────
+  function renderMissingPhrase(container) {
+    const rows = [
+      { prefix: "pro", suffix: "" },
+      { prefix: "im", suffix: "" },
+      { prefix: "com", suffix: "" },
+      { prefix: "ex", suffix: "" },
+    ];
+    const blanks = 4;
+
+    container.innerHTML = `
+      <div style="font-size:13px;color:#666;margin-bottom:14px;letter-spacing:1px;">
+        The same word is missing from the middle of all four words. Find it.
+      </div>
+      <div class="phrase-words">
+        ${rows.map(r => `
+          <div class="phrase-row">
+            <span class="phrase-prefix">${r.prefix}</span>
+            <span class="phrase-blank" id="phrase-blank">____</span>
+            <span class="phrase-suffix">${r.suffix}</span>
+          </div>
+        `).join("")}
+      </div>
+      <div style="font-size:12px;color:#888;text-align:center;letter-spacing:1px;margin-bottom:12px;">
+        pro<u>&nbsp;&nbsp;&nbsp;&nbsp;</u> &nbsp;·&nbsp; im<u>&nbsp;&nbsp;&nbsp;&nbsp;</u> &nbsp;·&nbsp; com<u>&nbsp;&nbsp;&nbsp;&nbsp;</u> &nbsp;·&nbsp; ex<u>&nbsp;&nbsp;&nbsp;&nbsp;</u>
+      </div>
+      <div style="font-size:13px;color:#555;text-align:center;font-style:italic;margin-bottom:12px;">
+        "What did Eleanor do that cost Martin Cross everything?"
+      </div>
+    `;
   }
 
+  // ── PUZZLE 3: TRANSPARENCY OVERLAY — Glass Pane style ───
+  function renderOverlay(container) {
+    const W = 500, H = 200;
+    const NUM_SHEETS = 15;
+    let onStageCount = 0;
+
+    // Pastel transparent colours for each sheet
+    const palette = [
+      [255,80,80],[80,180,255],[80,255,140],[255,220,60],[180,80,255],
+      [255,140,60],[60,220,255],[255,60,180],[140,255,80],[220,180,255],
+      [255,200,140],[140,200,255],[255,255,160],[160,255,220],[255,160,200]
+    ];
+
+    // Draw the full target text onto a hidden canvas
+    const fullCanvas = document.createElement("canvas");
+    fullCanvas.width = W; fullCanvas.height = H;
+    const fctx = fullCanvas.getContext("2d");
+    fctx.clearRect(0, 0, W, H);
+    fctx.font = "bold 48px Georgia, serif";
+    fctx.fillStyle = "#ffffff";
+    fctx.textAlign = "center";
+    fctx.textBaseline = "middle";
+    fctx.fillText("SHE WAS LEAVING", W/2, H/2);
+    const textPixels = fctx.getImageData(0, 0, W, H);
+
+    // Each sheet: takes 1/15th of the text pixels (interleaved) + abstract colour blobs
+    function makeSheet(idx) {
+      const sc = document.createElement("canvas");
+      sc.width = W; sc.height = H;
+      const sctx = sc.getContext("2d");
+      const [r,g,b] = palette[idx];
+
+      // Abstract background blobs — make it look like smeared paint
+      sctx.globalAlpha = 1;
+      for (let blob = 0; blob < 6; blob++) {
+        const bx = (Math.random() * W * 1.4) - W * 0.2;
+        const by = (Math.random() * H * 1.4) - H * 0.2;
+        const br = 30 + Math.random() * 80;
+        const grad = sctx.createRadialGradient(bx, by, 0, bx, by, br);
+        grad.addColorStop(0, `rgba(${r},${g},${b},0.15)`);
+        grad.addColorStop(0.5, `rgba(${r},${g},${b},0.04)`);
+        grad.addColorStop(1, `rgba(${r},${g},${b},0)`);
+        sctx.fillStyle = grad;
+        sctx.beginPath();
+        sctx.arc(bx, by, br, 0, Math.PI * 2);
+        sctx.fill();
+      }
+
+      // Text pixels for this sheet (every 15th pixel starting at idx)
+      const data = sctx.getImageData(0, 0, W, H);
+      for (let p = idx; p < textPixels.data.length / 4; p += NUM_SHEETS) {
+        const a = textPixels.data[p * 4 + 3];
+        if (a > 10) {
+          // Paint this text pixel in the sheet colour
+          data.data[p*4]   = r;
+          data.data[p*4+1] = g;
+          data.data[p*4+2] = b;
+          data.data[p*4+3] = Math.round(a * 0.11);
+        }
+      }
+      sctx.putImageData(data, 0, 0);
+      return sc;
+    }
+
+    container.innerHTML = `
+      <div style="font-size:13px;color:#666;margin-bottom:10px;letter-spacing:1px;">
+        Drag each transparency onto the dark frame and position it until the hidden message appears.
+        Each sheet looks like abstract colour — together they form something readable.
+      </div>
+      <div style="position:relative;width:100%;height:${H}px;background:#0d0d1a;border:2px solid #333;border-radius:8px;overflow:hidden;margin-bottom:12px;" id="ov-stage"></div>
+      <div style="font-size:11px;color:#888;text-align:center;letter-spacing:1px;margin-bottom:8px;" id="ov-count">0 / ${NUM_SHEETS} sheets placed</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;padding:10px;background:rgba(0,0,0,0.05);border:1px solid rgba(0,0,0,0.1);border-radius:8px;" id="ov-pool"></div>
+    `;
+
+    const stage = document.getElementById("ov-stage");
+    const pool  = document.getElementById("ov-pool");
+
+    for (let i = 0; i < NUM_SHEETS; i++) {
+      const sheetCanvas = makeSheet(i);
+      const [r,g,b] = palette[i];
+
+      // Thumbnail for pool
+      const thumb = document.createElement("canvas");
+      thumb.width = 60; thumb.height = 30;
+      thumb.getContext("2d").drawImage(sheetCanvas, 0, 0, 60, 30);
+      thumb.style.cssText = "border-radius:4px;border:1px solid rgba(0,0,0,0.2);cursor:grab;display:block;";
+      thumb.title = `Sheet ${i+1}`;
+
+      // Full-size overlay for the stage (hidden initially)
+      const overlay = document.createElement("canvas");
+      overlay.width = W; overlay.height = H;
+      overlay.getContext("2d").drawImage(sheetCanvas, 0, 0);
+      overlay.style.cssText = `position:absolute;left:0;top:0;width:100%;height:100%;display:none;cursor:grab;opacity:1.0;`;
+      overlay.dataset.ox = "0";
+      overlay.dataset.oy = "0";
+      overlay.dataset.onStage = "0";
+      stage.appendChild(overlay);
+
+      function makeDragHandler(ov) {
+        return function startDrag(clientX, clientY) {
+          const stageRect = stage.getBoundingClientRect();
+          const scaleX = W / stageRect.width;
+          const scaleY = H / stageRect.height;
+          let lastX = clientX, lastY = clientY;
+
+          function move(cx, cy) {
+            const ddx = (cx - lastX) * scaleX;
+            const ddy = (cy - lastY) * scaleY;
+            lastX = cx; lastY = cy;
+            let ox = parseFloat(ov.dataset.ox) + ddx;
+            let oy = parseFloat(ov.dataset.oy) + ddy;
+            ov.dataset.ox = ox;
+            ov.dataset.oy = dy;
+            ov.style.transform = `translate(${ox/scaleX}px,${oy/scaleY}px)`;
+          }
+
+          function mm(e) { move(e.clientX, e.clientY); }
+          function tm(e) { e.preventDefault(); move(e.touches[0].clientX, e.touches[0].clientY); }
+          function up()  {
+            document.removeEventListener("mousemove", mm);
+            document.removeEventListener("mouseup", up);
+            document.removeEventListener("touchmove", tm);
+            document.removeEventListener("touchend", up);
+          }
+          document.addEventListener("mousemove", mm);
+          document.addEventListener("mouseup", up);
+          document.addEventListener("touchmove", tm, {passive:false});
+          document.addEventListener("touchend", up);
+        };
+      }
+
+      // Simpler drag — track pixel offset directly
+      function attachDrag(ov) {
+        function startDrag(clientX, clientY) {
+          const stageRect = stage.getBoundingClientRect();
+          let prevX = clientX, prevY = clientY;
+
+          function move(cx, cy) {
+            const scaleX = W / stageRect.width;
+            const scaleY = H / stageRect.height;
+            const ddx = (cx - prevX) * scaleX;
+            const ddy = (cy - prevY) * scaleY;
+            prevX = cx; prevY = cy;
+            const ox = parseFloat(ov.dataset.ox) + ddx;
+            const oy = parseFloat(ov.dataset.oy) + ddy;
+            ov.dataset.ox = ox;
+            ov.dataset.oy = oy;
+            // Use CSS translate scaled back to display pixels
+            ov.style.transform = `translate(${ox / scaleX}px,${oy / scaleY}px)`;
+          }
+
+          function mm(e) { move(e.clientX, e.clientY); }
+          function tm(e) { e.preventDefault(); move(e.touches[0].clientX, e.touches[0].clientY); }
+          function up()  {
+            document.removeEventListener("mousemove", mm);
+            document.removeEventListener("mouseup", up);
+            document.removeEventListener("touchmove", tm);
+            document.removeEventListener("touchend", up);
+          }
+          document.addEventListener("mousemove", mm);
+          document.addEventListener("mouseup", up);
+          document.addEventListener("touchmove", tm, {passive:false});
+          document.addEventListener("touchend", up);
+        }
+
+        ov.addEventListener("mousedown", e => { e.preventDefault(); startDrag(e.clientX, e.clientY); });
+        ov.addEventListener("touchstart", e => { e.preventDefault(); startDrag(e.touches[0].clientX, e.touches[0].clientY); }, {passive:false});
+      }
+
+      attachDrag(overlay);
+
+      // Drag from pool to stage
+      function attachPoolDrag(th, ov, idx2) {
+        function startPoolDrag(clientX, clientY) {
+          if (ov.dataset.onStage === "1") return;
+          ov.dataset.onStage = "1";
+          ov.style.display = "block";
+          ov.dataset.ox = "0";
+          ov.dataset.oy = "0";
+          ov.style.transform = "translate(0,0)";
+          th.style.opacity = "0.3";
+          th.style.cursor = "default";
+          onStageCount++;
+          document.getElementById("ov-count").textContent = `${onStageCount} / ${NUM_SHEETS} sheets placed`;
+          if (onStageCount === NUM_SHEETS) {
+            document.getElementById("player-input").value = "she was leaving";
+            stage.style.boxShadow = "0 0 20px rgba(255,255,255,0.3)";
+          }
+          // Immediately start dragging it
+          const stageRect = stage.getBoundingClientRect();
+          let prevX = clientX, prevY = clientY;
+          function move(cx, cy) {
+            const scaleX = W / stageRect.width;
+            const scaleY = H / stageRect.height;
+            const ddx = (cx - prevX) * scaleX;
+            const ddy = (cy - prevY) * scaleY;
+            prevX = cx; prevY = cy;
+            const ox = parseFloat(ov.dataset.ox) + ddx;
+            const oy = parseFloat(ov.dataset.oy) + ddy;
+            ov.dataset.ox = ox;
+            ov.dataset.oy = oy;
+            ov.style.transform = `translate(${ox/scaleX}px,${oy/scaleY}px)`;
+          }
+          function mm(e) { move(e.clientX, e.clientY); }
+          function tm(e) { e.preventDefault(); move(e.touches[0].clientX, e.touches[0].clientY); }
+          function up()  {
+            document.removeEventListener("mousemove", mm);
+            document.removeEventListener("mouseup", up);
+            document.removeEventListener("touchmove", tm);
+            document.removeEventListener("touchend", up);
+          }
+          document.addEventListener("mousemove", mm);
+          document.addEventListener("mouseup", up);
+          document.addEventListener("touchmove", tm, {passive:false});
+          document.addEventListener("touchend", up);
+        }
+        th.addEventListener("mousedown", e => { e.preventDefault(); startPoolDrag(e.clientX, e.clientY); });
+        th.addEventListener("touchstart", e => { e.preventDefault(); startPoolDrag(e.touches[0].clientX, e.touches[0].clientY); }, {passive:false});
+      }
+
+      attachPoolDrag(thumb, overlay, i);
+      pool.appendChild(thumb);
+    }
+  }
+
+    // ── PUZZLE 4: NUMBER SUBSTITUTION ───────────────────────
+  function renderNumberSub(container) {
+    // millions of loss → A=1...Z=26, space=0
+    // M=13 I=9 L=12 L=12 I=9 O=15 N=14 S=19 space=0 O=15 F=6 space=0 L=12 O=15 S=19 S=19
+    const encoded = "13-9-12-12-9-15-14-19 / 15-6 / 12-15-19-19";
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+    container.innerHTML = `
+      <div style="font-size:13px;color:#666;margin-bottom:12px;letter-spacing:1px;">
+        Each number represents a letter. A=1, B=2, C=3... Z=26. A slash ( / ) marks a space between words.
+      </div>
+      <div class="numcode-display">${encoded}</div>
+      <div style="font-size:11px;letter-spacing:2px;color:#666;text-transform:uppercase;margin-bottom:6px;">Reference</div>
+      <div class="numcode-ref">
+        ${letters.map((l,i) => `<div class="numcode-cell">${l}<br><span style="color:#888">${i+1}</span></div>`).join("")}
+      </div>
+    `;
+  }
+
+  // ── PUZZLE 5: JIGSAW ─────────────────────────────────────
+  function renderJigsaw(container) {
+    const COLS = 4, ROWS = 3;
+    const PW = 90, PH = 60;
+    const TW = COLS * PW, TH = ROWS * PH;
+    let placed = 0;
+
+    container.innerHTML = `
+      <div style="font-size:13px;color:#666;margin-bottom:10px;letter-spacing:1px;">
+        Drag each piece from the pool onto the board. Drop it on the correct slot to place it.
+      </div>
+      <div style="font-size:11px;letter-spacing:2px;color:#666;text-transform:uppercase;margin-bottom:6px;">Board</div>
+      <div id="jig-board" style="position:relative;width:${TW}px;height:${TH}px;background:#1a1a2e;border:2px dashed #555;border-radius:8px;margin-bottom:12px;"></div>
+      <div style="font-size:11px;letter-spacing:2px;color:#666;text-transform:uppercase;margin-bottom:6px;">Pieces</div>
+      <div id="jig-pool" style="display:flex;flex-wrap:wrap;gap:6px;padding:10px;background:rgba(0,0,0,0.05);border:1px solid rgba(0,0,0,0.1);border-radius:8px;"></div>
+    `;
+
+    const board = document.getElementById("jig-board");
+    const pool  = document.getElementById("jig-pool");
+
+    // Draw the full image
+    const fullCanvas = document.createElement("canvas");
+    fullCanvas.width = TW; fullCanvas.height = TH;
+    const ctx = fullCanvas.getContext("2d");
+
+    const sky = ctx.createLinearGradient(0,0,0,TH);
+    sky.addColorStop(0,"#0a0a1a"); sky.addColorStop(1,"#1a1a3a");
+    ctx.fillStyle = sky; ctx.fillRect(0,0,TW,TH);
+
+    ctx.fillStyle = "rgba(255,255,255,0.8)";
+    [[20,15],[45,8],[80,20],[120,5],[160,18],[200,10],[240,22],[280,7],[310,14],[340,20],[355,6],[30,35],[90,40],[150,30],[220,38],[290,32]]
+      .forEach(([x,y]) => { ctx.beginPath(); ctx.arc(x,y,1,0,Math.PI*2); ctx.fill(); });
+
+    const ocean = ctx.createLinearGradient(0,TH*0.6,0,TH);
+    ocean.addColorStop(0,"#0d1f3c"); ocean.addColorStop(1,"#06111f");
+    ctx.fillStyle = ocean; ctx.fillRect(0,TH*0.6,TW,TH*0.4);
+
+    ctx.fillStyle = "rgba(255,255,200,0.15)";
+    ctx.fillRect(TW/2-8,TH*0.6,16,TH*0.4);
+
+    ctx.fillStyle = "#1c1c2e";
+    ctx.beginPath(); ctx.moveTo(30,TH*0.58); ctx.lineTo(TW-30,TH*0.58);
+    ctx.lineTo(TW-20,TH*0.72); ctx.lineTo(20,TH*0.72); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = "#888"; ctx.lineWidth = 1; ctx.stroke();
+
+    ctx.fillStyle = "#2a2a40"; ctx.fillRect(TW*0.2,TH*0.38,TW*0.6,TH*0.22);
+    ctx.fillStyle = "#222235"; ctx.fillRect(TW*0.3,TH*0.26,TW*0.4,TH*0.14);
+    ctx.fillStyle = "#333";
+    ctx.fillRect(TW*0.44,TH*0.16,18,TH*0.12);
+    ctx.fillRect(TW*0.56,TH*0.16,18,TH*0.12);
+
+    ctx.fillStyle = "rgba(255,220,100,0.7)";
+    [0.25,0.35,0.45,0.55,0.65,0.75].forEach(x => {
+      ctx.beginPath(); ctx.arc(TW*x,TH*0.51,3,0,Math.PI*2); ctx.fill();
+    });
+
+    ctx.fillStyle = "rgba(255,255,220,0.9)";
+    ctx.beginPath(); ctx.arc(TW*0.82,22,14,0,Math.PI*2); ctx.fill();
+
+    ctx.font = "bold 13px 'Courier New',monospace";
+    ctx.fillStyle = "#c8a87a"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText("MARTIN CROSS", TW/2, TH*0.66);
+    ctx.font = "8px 'Courier New',monospace";
+    ctx.fillStyle = "#888"; ctx.fillText("SS MERIDIAN", TW/2, TH*0.76);
+
+    // Ghost slots
+    for (let r = 0; r < ROWS; r++) {
+      for (let col = 0; col < COLS; col++) {
+        const slot = document.createElement("div");
+        slot.style.cssText = `position:absolute;left:${col*PW}px;top:${r*PH}px;width:${PW}px;height:${PH}px;border:1px dashed rgba(255,255,255,0.15);box-sizing:border-box;`;
+        slot.id = `slot-${r}-${col}`;
+        slot.dataset.row = r; slot.dataset.col = col; slot.dataset.filled = "0";
+        board.appendChild(slot);
+      }
+    }
+
+    // Shuffle piece order
+    const order = Array.from({length:COLS*ROWS},(_,i)=>i);
+    for (let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}
+
+    order.forEach(idx => {
+      const r = Math.floor(idx/COLS), col = idx%COLS;
+
+      const pc = document.createElement("canvas");
+      pc.width = PW; pc.height = PH;
+      pc.getContext("2d").drawImage(fullCanvas, col*PW, r*PH, PW, PH, 0, 0, PW, PH);
+      pc.style.cssText = `width:${PW}px;height:${PH}px;border:2px solid rgba(255,255,255,0.3);border-radius:4px;cursor:grab;display:block;`;
+      pc.dataset.row = r; pc.dataset.col = col; pc.dataset.placed = "0";
+      pool.appendChild(pc);
+
+      function startDrag(startX, startY) {
+        if (pc.dataset.placed === "1") return;
+
+        // Create floating ghost that follows cursor — fixed position, never clipped
+        const ghost = document.createElement("canvas");
+        ghost.width = PW; ghost.height = PH;
+        ghost.getContext("2d").drawImage(pc, 0, 0);
+        ghost.style.cssText = `position:fixed;width:${PW}px;height:${PH}px;pointer-events:none;z-index:9999;opacity:0.85;border:2px solid rgba(255,255,255,0.6);border-radius:4px;left:${startX - PW/2}px;top:${startY - PH/2}px;`;
+        document.body.appendChild(ghost);
+        pc.style.opacity = "0.3";
+
+        function move(cx, cy) {
+          ghost.style.left = (cx - PW/2) + "px";
+          ghost.style.top  = (cy - PH/2) + "px";
+          // Highlight nearest slot
+          const boardRect = board.getBoundingClientRect();
+          const bx = cx - boardRect.left, by = cy - boardRect.top;
+          const snapCol = Math.round((bx - PW/2) / PW);
+          const snapRow = Math.round((by - PH/2) / PH);
+          document.querySelectorAll("[id^='slot-']").forEach(s => s.style.background = "transparent");
+          const tgt = document.getElementById(`slot-${snapRow}-${snapCol}`);
+          if (tgt && tgt.dataset.filled === "0") tgt.style.background = "rgba(255,255,255,0.12)";
+        }
+
+        function drop(cx, cy) {
+          document.removeEventListener("mousemove", mm);
+          document.removeEventListener("mouseup", mu);
+          document.removeEventListener("touchmove", tm);
+          document.removeEventListener("touchend", tu);
+          document.querySelectorAll("[id^='slot-']").forEach(s => s.style.background = "transparent");
+          ghost.remove();
+
+          const boardRect = board.getBoundingClientRect();
+          const bx = cx - boardRect.left, by = cy - boardRect.top;
+          const snapCol = Math.round((bx - PW/2) / PW);
+          const snapRow = Math.round((by - PH/2) / PH);
+          const tgt = document.getElementById(`slot-${snapRow}-${snapCol}`);
+
+          if (tgt && tgt.dataset.filled === "0" &&
+              parseInt(tgt.dataset.row) === r && parseInt(tgt.dataset.col) === col) {
+            tgt.dataset.filled = "1";
+            const snap = document.createElement("canvas");
+            snap.width = PW; snap.height = PH;
+            snap.getContext("2d").drawImage(pc, 0, 0);
+            snap.style.cssText = `position:absolute;left:${col*PW}px;top:${r*PH}px;width:${PW}px;height:${PH}px;border:1px solid rgba(255,255,255,0.5);`;
+            board.appendChild(snap);
+            pc.style.opacity = "0.2"; pc.style.cursor = "default"; pc.dataset.placed = "1";
+            placed++;
+            if (placed === COLS*ROWS) {
+              document.getElementById("player-input").value = "martin cross";
+              board.style.boxShadow = "0 0 20px rgba(200,168,120,0.6)";
+            }
+          } else {
+            pc.style.opacity = "1";
+          }
+        }
+
+        function mm(e) { move(e.clientX, e.clientY); }
+        function mu(e) { drop(e.clientX, e.clientY); }
+        function tm(e) { e.preventDefault(); move(e.touches[0].clientX, e.touches[0].clientY); }
+        function tu(e) { drop(e.changedTouches[0].clientX, e.changedTouches[0].clientY); }
+        document.addEventListener("mousemove", mm);
+        document.addEventListener("mouseup", mu);
+        document.addEventListener("touchmove", tm, {passive:false});
+        document.addEventListener("touchend", tu);
+      }
+
+      pc.addEventListener("mousedown", e => { e.preventDefault(); startDrag(e.clientX, e.clientY); });
+      pc.addEventListener("touchstart", e => { e.preventDefault(); startDrag(e.touches[0].clientX, e.touches[0].clientY); }, {passive:false});
+    });
+  }
+
+
+  // ── GAME ENGINE ───────────────────────────────────────────
   function startGame() {
     playerName = document.getElementById("player-name").value.trim() || "UNKNOWN";
-    builtCiphers = puzzles.map(p => p.buildCipher());
     document.getElementById("intro-card").classList.add("hidden");
     document.getElementById("game-card").classList.remove("hidden");
     startTime = Date.now();
@@ -591,11 +990,12 @@
     document.getElementById("clue-label").textContent = p.label;
     document.getElementById("type-badge").textContent = p.type;
     document.getElementById("story-text").textContent = p.story;
-    document.getElementById("riddle-box").textContent = p.riddle;
-    document.getElementById("cipher-box").textContent = builtCiphers[current];
     document.getElementById("player-input").value = "";
     document.getElementById("feedback").className = "feedback";
     document.getElementById("feedback").textContent = "";
+    const area = document.getElementById("puzzle-area");
+    area.innerHTML = "";
+    p.renderPuzzle(area);
   }
 
   function updateProgress() {
@@ -661,9 +1061,23 @@
     fb.textContent = "💡 " + puzzles[current].hint;
   }
 
+  function formatTime(ms) {
+    const totalSec = Math.floor(ms / 1000);
+    const min = Math.floor(totalSec / 60);
+    const sec = totalSec % 60;
+    const msec = Math.floor((ms % 1000) / 10);
+    return `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}.${String(msec).padStart(2,"0")}`;
+  }
+
+  function formatCountdown(ms) {
+    const totalSec = Math.ceil(ms / 1000);
+    const min = Math.floor(totalSec / 60);
+    const sec = totalSec % 60;
+    return `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
+  }
+
   function getLeaderboard() {
-    try { return JSON.parse(localStorage.getItem(CASE_KEY) || "[]"); }
-    catch { return []; }
+    try { return JSON.parse(localStorage.getItem(CASE_KEY) || "[]"); } catch { return []; }
   }
 
   function saveScore(name, ms) {
@@ -690,7 +1104,7 @@
       html += `<div class="lb-dropdown-label" onclick="toggleLbDropdown()">▶ Show all scores</div>`;
       html += `<div class="lb-dropdown" id="lb-dropdown">`;
       rest.forEach((e, i) => {
-        html += `<div class="lb-entry">${i + 6}. ${e.name}<span>${formatTime(e.ms)}</span></div>`;
+        html += `<div class="lb-entry">${i+6}. ${e.name}<span>${formatTime(e.ms)}</span></div>`;
       });
       html += `</div>`;
     }
@@ -715,7 +1129,7 @@
       msg = "CASE COLD\nKILLER UNKNOWN\nFILE CLOSED";
     } else if (livesLost === 0) {
       rank = "MASTER DETECTIVE";
-      desc = "Flawless. Every clue decoded without hesitation. Martin Cross was arrested as the SS Meridian docked in Southampton. Eleanor's missing manuscript was found hidden in his luggage.";
+      desc = "Flawless. Every clue decoded without hesitation. Martin Cross was arrested as the SS Meridian docked at Southampton. Eleanor's missing manuscript was found hidden in his luggage.";
       stars = "🔍🔍🔍🔍🔍";
       msg = "CASE CLOSED\nMARTIN CROSS — GUILTY\nARRESTED AT PORT";
     } else if (livesLost <= 2) {
@@ -744,7 +1158,7 @@
 
   function restartGame() {
     current = 0; lives = 3; livesLost = 0;
-    caseSolved = false; builtCiphers = []; timeUsed = 0;
+    caseSolved = false; timeUsed = 0;
     clearInterval(timerInterval);
     document.getElementById("ending-card").classList.add("hidden");
     document.getElementById("intro-card").classList.remove("hidden");
