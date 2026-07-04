@@ -310,15 +310,15 @@
       flex-wrap: wrap;
     }
     .found-letter-box {
-      width: 40px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       border: 2px solid #ccc;
-      border-radius: 6px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: 'Courier New', monospace;
-      font-size: 22px;
+      font-size: 20px;
       font-weight: bold;
       background: #f9f9f9;
       transition: all 0.3s;
@@ -686,14 +686,10 @@
       ctx.fillStyle = "rgba(0,0,0,0.97)";
       ctx.fillRect(0,0,canvas.width,canvas.height);
       if (pos) {
-        const grad = ctx.createRadialGradient(pos.x,pos.y,0,pos.x,pos.y,90);
-        grad.addColorStop(0,"rgba(0,0,0,0)");
-        grad.addColorStop(0.6,"rgba(0,0,0,0)");
-        grad.addColorStop(1,"rgba(0,0,0,0.97)");
         ctx.globalCompositeOperation = "destination-out";
-        ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.arc(pos.x,pos.y,90,0,Math.PI*2);
+        ctx.arc(pos.x,pos.y,40,0,Math.PI*2);
+        ctx.fillStyle = "rgba(0,0,0,1)";
         ctx.fill();
         ctx.globalCompositeOperation = "source-over";
       }
@@ -805,31 +801,44 @@
     document.getElementById("player-input").value = "";
   };
 
-  // ── FIX 2: PUZZLE 3 — DRAG DIALS — remove live decoded display, no auto-fill ──
+  // ── PUZZLE 3 — DRAG DIALS — lights up green when correct, auto-submits when all done ──
   function renderDragDials(container) {
-    const encoded = caesarShift("JAMES IS MY SON HE WANTS EVERYTHING", 3);
+    const answer = "JAMES IS MY SON HE WANTS EVERYTHING";
+    const encoded = caesarShift(answer, 3);
     const chars = encoded.split("");
+    const decodedChars = answer.split("");
 
     container.innerHTML = `
       <div style="font-size:13px;color:#666;margin-bottom:12px;letter-spacing:1px;">
-        Drag each dial up ↑ or down ↓ to decode the message. Shift back by 3.
+        Drag each dial up ↑ or down ↓. Each dial shows its decoded letter. When a letter glows green it is correct.
+        Get all dials green to unlock the drawer.
       </div>
       <div style="background:rgba(0,0,0,0.85);border-radius:12px;padding:20px;margin-bottom:12px;overflow-x:auto;">
         <div class="spinner-container" id="spinner-container"></div>
       </div>
-      <div style="font-size:12px;color:#888;letter-spacing:1px;text-align:center;margin-bottom:12px;">
-        When you've decoded the full message, type it in the answer box below.
+      <div style="font-size:12px;color:#888;letter-spacing:1px;text-align:center;margin-bottom:12px;" id="dial-status">
+        0 / ${decodedChars.filter(c => c !== " ").length} dials aligned
       </div>
     `;
-    // NOTE: decoded-display div is intentionally removed — players must
-    // decode by eye and type the answer themselves.
 
     const sc = document.getElementById("spinner-container");
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
-    let dialStates = chars.map(c => {
-      if (c === " ") return { char: " ", idx: 26, isSpace: true };
-      return { char: c, idx: alphabet.indexOf(c), isSpace: false };
+    let dialStates = chars.map((c, i) => {
+      if (c === " ") return { char: " ", idx: 26, isSpace: true, correct: true };
+      return { char: c, idx: alphabet.indexOf(c), isSpace: false, correct: false };
     });
+
+    const totalNonSpace = dialStates.filter(s => !s.isSpace).length;
+
+    function checkAllCorrect() {
+      const correct = dialStates.filter(s => !s.isSpace && s.correct).length;
+      document.getElementById("dial-status").textContent = `${correct} / ${totalNonSpace} dials aligned`;
+      if (correct === totalNonSpace) {
+        document.getElementById("player-input").value = answer.toLowerCase();
+        document.getElementById("dial-status").textContent = "✓ All dials aligned — drawer unlocked!";
+        document.getElementById("dial-status").style.color = "#006400";
+      }
+    }
 
     function buildDials() {
       sc.innerHTML = "";
@@ -846,18 +855,37 @@
         const dial = document.createElement("div");
         dial.className = "drag-dial";
         dial.id = "ddial-" + i;
-        dial.textContent = state.char;
+        // Start at a random letter (not the answer)
+        const randomStart = Math.floor(Math.random() * 26);
+        dialStates[i].idx = randomStart;
+        dialStates[i].char = alphabet[randomStart];
+        const initDecoded = alphabet[((randomStart - 3) % 26 + 26) % 26];
+        dial.textContent = initDecoded;
 
-        let startY = 0;
-        let dragging = false;
-        let accDelta = 0;
+        let startY = 0, dragging = false, accDelta = 0;
+
+        function updateDial() {
+          // Dial displays the decoded letter (current encoded letter shifted back 3)
+          const decodedLetter = alphabet[((dialStates[i].idx - 3) % 26 + 26) % 26];
+          dial.textContent = decodedLetter;
+          const decodedTarget = decodedChars[i];
+          const isCorrect = decodedLetter === decodedTarget;
+          dialStates[i].correct = isCorrect;
+          if (isCorrect) {
+            dial.classList.add("correct");
+            dial.style.color = "#00ff88";
+            dial.style.textShadow = "0 0 12px rgba(0,255,136,0.8)";
+          } else {
+            dial.classList.remove("correct");
+            dial.style.color = "#f0e6d3";
+            dial.style.textShadow = "none";
+          }
+          checkAllCorrect();
+        }
 
         dial.addEventListener("mousedown", e => {
-          dragging = true;
-          startY = e.clientY;
-          accDelta = 0;
-          dial.classList.add("active");
-          e.preventDefault();
+          dragging = true; startY = e.clientY; accDelta = 0;
+          dial.classList.add("active"); e.preventDefault();
         });
 
         document.addEventListener("mousemove", e => {
@@ -871,10 +899,7 @@
             dialStates[i].char = alphabet[dialStates[i].idx];
             dial.textContent = dialStates[i].char;
             accDelta = 0;
-            // Show green glow only when this dial matches the encoded target letter
-            // (i.e. it's back to starting position) — no decoded text shown
-            const encodedChar = chars[i];
-            dial.classList.toggle("correct", dialStates[i].char === encodedChar);
+            updateDial();
           }
         });
 
@@ -883,9 +908,7 @@
         });
 
         dial.addEventListener("touchstart", e => {
-          dragging = true;
-          startY = e.touches[0].clientY;
-          accDelta = 0;
+          dragging = true; startY = e.touches[0].clientY; accDelta = 0;
           e.preventDefault();
         }, {passive:false});
 
@@ -900,6 +923,7 @@
             dialStates[i].char = alphabet[dialStates[i].idx];
             dial.textContent = dialStates[i].char;
             accDelta = 0;
+            updateDial();
           }
           e.preventDefault();
         }, {passive:false});
