@@ -19,11 +19,22 @@
       align-items: center;
       justify-content: center;
       padding: 40px 20px;
+      overflow-x: hidden;
+    }
+
+    /* ── ANIMATED OVERLAY ── */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
     }
 
     .container {
       width: 100%;
       max-width: 720px;
+      position: relative;
+      z-index: 1;
     }
 
     .header {
@@ -35,7 +46,14 @@
     .header .seal {
       font-size: 56px;
       margin-bottom: 16px;
-      display: block;
+      display: inline-block;
+      animation: rotateSeal 20s linear infinite;
+      transform-origin: center;
+    }
+
+    @keyframes rotateSeal {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     .header h1 {
@@ -45,6 +63,12 @@
       text-transform: uppercase;
       margin-bottom: 8px;
       text-shadow: 2px 2px 0px #000000;
+      animation: titlePulse 4s ease-in-out infinite;
+    }
+
+    @keyframes titlePulse {
+      0%, 100% { text-shadow: 2px 2px 0px #000000; }
+      50% { text-shadow: 2px 2px 20px rgba(255,255,255,0.4), 2px 2px 0px #000000; }
     }
 
     .header .tagline {
@@ -59,6 +83,13 @@
       height: 1px;
       background: #ffffff;
       margin: 16px auto;
+      animation: expandDivider 1.5s ease 0.5s forwards;
+      width: 0;
+    }
+
+    @keyframes expandDivider {
+      from { width: 0; }
+      to { width: 60px; }
     }
 
     .cases-label {
@@ -78,17 +109,41 @@
     }
 
     .case-card {
-      background: rgba(255, 255, 255, 0.88);
-      border: 1px solid rgba(0, 0, 0, 0.2);
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(0,0,0,0.2);
       border-radius: 12px;
       padding: 24px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.3s;
       animation: fadeUp 0.8s ease forwards;
       opacity: 0;
       display: flex;
       align-items: center;
       gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Shimmer sweep on hover */
+    .case-card::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transform: skewX(-20deg);
+      transition: none;
+      pointer-events: none;
+    }
+
+    .case-card:hover::after {
+      animation: shimmer 0.6s ease forwards;
+    }
+
+    @keyframes shimmer {
+      from { left: -100%; }
+      to { left: 150%; }
     }
 
     .case-card:nth-child(1) { animation-delay: 0.2s; }
@@ -96,9 +151,9 @@
     .case-card:nth-child(3) { animation-delay: 0.6s; }
 
     .case-card:hover {
-      background: rgba(255, 255, 255, 0.98);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      background: rgba(255,255,255,0.98);
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.2);
     }
 
     .case-card.locked {
@@ -115,6 +170,11 @@
       font-size: 36px;
       min-width: 50px;
       text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .case-card:hover .case-icon {
+      transform: scale(1.2) rotate(-5deg);
     }
 
     .case-info { flex: 1; }
@@ -160,16 +220,9 @@
     .difficulty.intermediate { color: #8B4513; border-color: #8B4513; }
     .difficulty.expert { color: #8B0000; border-color: #8B0000; }
 
-    .case-status {
-      font-size: 11px;
-      color: #666;
-      letter-spacing: 1px;
-    }
+    .case-status { font-size: 11px; color: #666; letter-spacing: 1px; }
 
-    .lock-icon {
-      font-size: 24px;
-      opacity: 0.4;
-    }
+    .lock-icon { font-size: 24px; opacity: 0.4; }
 
     .footer {
       text-align: center;
@@ -191,119 +244,74 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* ── MODALS ── */
     .modal-overlay {
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background: rgba(0,0,0,0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      padding: 20px;
+      display: none; align-items: center;
+      justify-content: center; z-index: 100; padding: 20px;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.open { display: flex; animation: modalIn 0.3s ease; }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
 
-    .modal-overlay.open { display: flex; }
-
     .modal {
-      background: #fff;
-      border-radius: 12px;
-      padding: 32px;
-      max-width: 420px;
-      width: 100%;
-      text-align: center;
+      background: #fff; border-radius: 12px; padding: 32px;
+      max-width: 420px; width: 100%; text-align: center;
       border: 1px solid #004d3a;
+      animation: modalSlide 0.3s ease;
+    }
+    @keyframes modalSlide {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .modal-icon { font-size: 40px; margin-bottom: 12px; }
-
-    .modal h2 {
-      font-size: 20px;
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-      color: #000000;
-    }
-
-    .modal p {
-      font-size: 14px;
-      color: #333;
-      line-height: 1.6;
-      margin-bottom: 24px;
-    }
-
-    .modal-buttons {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-    }
-
+    .modal h2 { font-size: 20px; letter-spacing: 2px; margin-bottom: 8px; color: #000000; }
+    .modal p { font-size: 14px; color: #333; line-height: 1.6; margin-bottom: 24px; }
+    .modal-buttons { display: flex; gap: 12px; justify-content: center; }
     .modal button {
-      padding: 10px 24px;
-      border: none;
-      border-radius: 8px;
-      background: #000000;
-      color: #ffffff;
-      font-size: 14px;
-      cursor: pointer;
-      font-family: 'Georgia', serif;
-      letter-spacing: 1px;
-      transition: background 0.2s;
+      padding: 10px 24px; border: none; border-radius: 8px;
+      background: #000000; color: #ffffff; font-size: 14px;
+      cursor: pointer; font-family: 'Georgia', serif;
+      letter-spacing: 1px; transition: all 0.2s;
     }
-
-    .modal button:hover { background: #333333; }
-
-    .modal .cancel-btn {
-      background: transparent;
-      color: #666;
-      border: 1px solid #ccc;
-    }
-
-    .modal .cancel-btn:hover { background: #eee; color: #000; }
+    .modal button:hover { background: #333333; transform: translateY(-1px); }
+    .modal .cancel-btn { background: transparent; color: #666; border: 1px solid #ccc; }
+    .modal .cancel-btn:hover { background: #eee; color: #000; transform: none; }
 
     .password-modal {
-      background: #fff;
-      border-radius: 12px;
-      padding: 32px;
-      max-width: 420px;
-      width: 100%;
-      text-align: center;
+      background: #fff; border-radius: 12px; padding: 32px;
+      max-width: 420px; width: 100%; text-align: center;
       border: 1px solid #000;
+      animation: modalSlide 0.3s ease;
     }
-
-    .password-modal h2 {
-      font-size: 18px;
-      margin-bottom: 8px;
-      letter-spacing: 2px;
-    }
-
-    .password-modal p {
-      font-size: 13px;
-      color: #555;
-      margin-bottom: 16px;
-      line-height: 1.6;
-    }
-
+    .password-modal h2 { font-size: 18px; margin-bottom: 8px; letter-spacing: 2px; }
+    .password-modal p { font-size: 13px; color: #555; margin-bottom: 16px; line-height: 1.6; }
     .password-modal input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 15px;
-      margin-bottom: 16px;
-      text-align: center;
-      font-family: 'Georgia', serif;
+      width: 100%; padding: 10px; border: 1px solid #ccc;
+      border-radius: 8px; font-size: 15px; margin-bottom: 16px;
+      text-align: center; font-family: 'Georgia', serif;
+      transition: border-color 0.2s;
     }
-
-    .password-modal .error {
-      color: #8B0000;
-      font-size: 13px;
-      margin-bottom: 12px;
-      display: none;
+    .password-modal input:focus { outline: none; border-color: #000; }
+    .password-modal .error { color: #8B0000; font-size: 13px; margin-bottom: 12px; display: none; animation: shake 0.4s ease; }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
     }
   </style>
 </head>
 <body>
-<div class="container">
 
+<!-- Animated particle canvas -->
+<canvas id="bg-canvas"></canvas>
+
+<div class="container">
   <div class="header">
     <span class="seal">🔍</span>
     <h1>Mystery Room</h1>
@@ -312,9 +320,9 @@
   </div>
 
   <p class="cases-label">— Select a Case —</p>
-<p style="text-align:center;color:#ffffff;font-size:13px;margin-bottom:16px;letter-spacing:1px;">Have a password? Click a locked case to enter it.</p>
-  <div class="cases">
+  <p style="text-align:center;color:#ffffff;font-size:13px;margin-bottom:16px;letter-spacing:1px;">Have a password? Click a locked case to enter it.</p>
 
+  <div class="cases">
     <div class="case-card" onclick="openCase(1)">
       <div class="case-icon">🏙️</div>
       <div class="case-info">
@@ -355,11 +363,9 @@
       </div>
       <div class="lock-icon" id="case3-lock">🔒</div>
     </div>
-
   </div>
 
   <div class="footer">— Mystery Room — Est. 2026 —</div>
-
 </div>
 
 <!-- ENTER CASE MODAL -->
@@ -381,36 +387,94 @@
     <div style="font-size:36px;margin-bottom:12px">🔒</div>
     <h2 id="pw-title">LOCKED</h2>
     <p id="pw-body"></p>
-<p style="font-size:12px;color:#888;margin-top:-16px;margin-bottom:16px;">Type the password in the box below and click Unlock.</p>
+    <p style="font-size:12px;color:#888;margin-top:-16px;margin-bottom:16px;">Type the password in the box below and click Unlock.</p>
     <input type="text" id="pw-input" placeholder="Enter password...">
     <div class="error" id="pw-error">Incorrect password. Keep investigating.</div>
     <div class="modal-buttons">
-      <button class="cancel-btn" onclick="closePasswordModal()" style="background:transparent;color:#666;border:1px solid #ccc;">Cancel</button>
+      <button class="cancel-btn" onclick="closePasswordModal()">Cancel</button>
       <button onclick="checkPassword()">Unlock</button>
     </div>
   </div>
 </div>
 
 <script>
-  const passwords = {
-    2: "the will",
-    3: "the queen of hearts"
-  };
+  // ── PARTICLE BACKGROUND ──────────────────────────────────
+  const canvas = document.getElementById("bg-canvas");
+  const ctx = canvas.getContext("2d");
 
-  const caseFiles = {
-    1: "manhattan.html",
-    2: "cipher_society.html",
-    3: "last_voyage.html"
-  };
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener("resize", resize);
 
+  const particles = [];
+  const NUM_PARTICLES = 60;
+
+  class Particle {
+    constructor() { this.reset(true); }
+    reset(randomY = false) {
+      this.x = Math.random() * canvas.width;
+      this.y = randomY ? Math.random() * canvas.height : canvas.height + 10;
+      this.size = Math.random() * 2.5 + 0.5;
+      this.speedY = Math.random() * 0.4 + 0.1;
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.opacity = Math.random() * 0.4 + 0.05;
+      this.flicker = Math.random() * Math.PI * 2;
+      this.flickerSpeed = Math.random() * 0.02 + 0.005;
+    }
+    update() {
+      this.y -= this.speedY;
+      this.x += this.speedX;
+      this.flicker += this.flickerSpeed;
+      this.currentOpacity = this.opacity + Math.sin(this.flicker) * 0.05;
+      if (this.y < -10) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,220,${this.currentOpacity})`;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < NUM_PARTICLES; i++) particles.push(new Particle());
+
+  // Vignette pulse
+  let vignettePhase = 0;
+
+  function drawVignette() {
+    vignettePhase += 0.005;
+    const intensity = 0.55 + Math.sin(vignettePhase) * 0.05;
+    const grad = ctx.createRadialGradient(
+      canvas.width/2, canvas.height/2, canvas.height * 0.2,
+      canvas.width/2, canvas.height/2, canvas.height * 0.85
+    );
+    grad.addColorStop(0, "rgba(0,0,0,0)");
+    grad.addColorStop(1, `rgba(0,0,0,${intensity})`);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawVignette();
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // ── CASE LOGIC ───────────────────────────────────────────
+  const passwords = { 2: "the will", 3: "the queen of hearts" };
+  const caseFiles = { 1: "manhattan.html", 2: "cipher_society.html", 3: "last_voyage.html" };
   const caseInfo = {
     1: { icon: "🏙️", title: "Death in Manhattan", body: "A wealthy developer. Four suspects. One truth hidden in the ciphers. Are you ready to enter the room?" },
     2: { icon: "🕯️", title: "The Cipher Society", body: "Westhaven Academy keeps its secrets well. Five trials stand between you and the truth. There are always three." },
     3: { icon: "🚢", title: "The Last Voyage", body: "Somewhere in international waters, a killer walks free among the passengers. You have until port to find them." }
   };
 
-  let selectedCase = null;
-  let pendingCase = null;
+  let selectedCase = null, pendingCase = null;
 
   function openCase(num) {
     if (num === 2 && document.getElementById("case2-card").classList.contains("locked")) {
@@ -475,10 +539,13 @@
   }
 
   function goToCase() {
-    if (selectedCase) {
-      window.location.href = caseFiles[selectedCase];
-    }
+    if (selectedCase) window.location.href = caseFiles[selectedCase];
   }
+
+  // Enter key for password
+  document.getElementById("pw-input").addEventListener("keydown", e => {
+    if (e.key === "Enter") checkPassword();
+  });
 </script>
 </body>
 </html>
