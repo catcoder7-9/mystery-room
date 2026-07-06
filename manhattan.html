@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Death in Manhattan</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Georgia', serif;
+      background-image: url('escaperoom.jpg');
+      background-size: cover;
+      background-position: center;
+      color: #000000;
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+    .container { width: 100%; max-width: 680px; }
+    h1 {
+      text-align: center;
+      font-size: 34px;
+      color: #ffffff;
+      text-shadow: 2px 2px 0px #000000;
+      letter-spacing: 5px;
+      margin-bottom: 4px;
+      min-height: 44px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #ffffff;
+      font-size: 12px;
+      margin-bottom: 28px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 2s forwards;
+    }
+    .card {
+      background: rgba(255,255,255,0.92);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(0,0,0,0.2);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+    }
+    .intro-card { animation-delay: 2.2s; }
+    .card-label {
+      font-size: 11px;
+      color: #666666;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 14px;
+    }
+    .story-text {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #000000;
+      margin-bottom: 20px;
+    }
+    .type-badge {
+      display: inline-block;
+      background: rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.2);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 11px;
+      color: #333333;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .timer-bar {
+      background: rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.2);
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Courier New', monospace;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .timer-bar.warning { background: rgba(255,165,0,0.2); border-color: orange; }
+    .timer-bar.danger { background: rgba(150,0,0,0.15); border-color: #8B0000; color: #8B0000; }
+    .lives {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 16px;
+      font-size: 14px;
+      color: #333333;
+    }
+    .life { font-size: 20px; transition: opacity 0.3s; }
+    .life.lost { opacity: 0.15; }
+    .progress {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+    .progress-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #cccccc;
+      border: 1px solid #999999;
+      transition: background 0.3s;
+    }
+    .progress-dot.done { background: #000000; }
+    .progress-dot.current { background: #666666; border: 2px solid #000000; }
+    .progress-label {
+      font-size: 11px;
+      color: #666666;
+      margin-left: 8px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.2);
+      background: #ffffff;
+      color: #000000;
+      font-size: 15px;
+      resize: vertical;
+      min-height: 70px;
+      margin-bottom: 12px;
+      font-family: 'Georgia', serif;
+    }
+    textarea::placeholder { color: #999999; }
+    .row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    button {
+      padding: 10px 22px;
+      border: 1px solid rgba(0,0,0,0.3);
+      border-radius: 8px;
+      background: #000000;
+      color: #ffffff;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+      letter-spacing: 1px;
+      font-family: 'Georgia', serif;
+    }
+    button:hover { background: #333333; }
+    .secondary-btn {
+      background: transparent;
+      border: 1px solid rgba(0,0,0,0.3);
+      color: #333333;
+      font-size: 13px;
+      padding: 8px 14px;
+    }
+    .secondary-btn:hover { background: #000000; color: #ffffff; }
+    .feedback {
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+      line-height: 1.6;
+    }
+    .feedback.correct { background: rgba(0,100,0,0.1); border: 1px solid #006400; color: #000000; display: block; }
+    .feedback.wrong { background: rgba(150,0,0,0.1); border: 1px solid #8B0000; color: #000000; display: block; }
+    .feedback.info { background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.2); color: #000000; display: block; }
+    .final-message {
+      background: rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.2);
+      border-radius: 8px;
+      padding: 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 15px;
+      color: #000000;
+      text-align: center;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+    .rank-name { font-size: 28px; color: #000000; text-align: center; margin-bottom: 8px; letter-spacing: 3px; }
+    .rank-desc { font-size: 14px; color: #000000; line-height: 1.7; text-align: center; margin-bottom: 24px; }
+    .stars { font-size: 26px; text-align: center; margin-bottom: 16px; }
+    .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+      padding: 10px 22px;
+      border: 1px solid rgba(0,0,0,0.3);
+      border-radius: 8px;
+      background: transparent;
+      color: #000000;
+      font-size: 13px;
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+      letter-spacing: 1px;
+      transition: background 0.2s;
+      width: 100%;
+    }
+    .back-btn:hover { background: #000000; color: #ffffff; }
+    .hidden { display: none; }
+    .seal { text-align: center; font-size: 48px; margin-bottom: 12px; }
+    .suspect-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .suspect {
+      background: rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 14px;
+      color: #000000;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .suspect.visible { opacity: 1; transform: translateX(0); }
+    .name-input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.2);
+      background: #ffffff;
+      color: #000000;
+      font-size: 16px;
+      margin-bottom: 16px;
+      font-family: 'Georgia', serif;
+      text-align: center;
+      letter-spacing: 2px;
+    }
+    .leaderboard-preview { margin-top: 16px; text-align: left; }
+    .lb-entry {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      font-size: 14px;
+      background: rgba(0,0,0,0.05);
+      font-family: 'Courier New', monospace;
+    }
+    .lb-entry.gold { background: rgba(255,215,0,0.3); font-weight: bold; }
+    .lb-entry.silver { background: rgba(192,192,192,0.3); }
+    .lb-entry.bronze { background: rgba(205,127,50,0.3); }
+    .lb-dropdown-label {
+      cursor: pointer;
+      font-size: 13px;
+      color: #666;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .lb-dropdown { display: none; }
+    .lb-dropdown.open { display: block; }
+    .title-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 32px;
+      background: #ffffff;
+      margin-left: 4px;
+      animation: blink 0.7s infinite;
+      vertical-align: middle;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── FLASHLIGHT PUZZLE ── */
+    .dark-room {
+      position: relative;
+      width: 100%;
+      height: 280px;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: none;
+      margin-bottom: 16px;
+      border: 1px solid #333;
+    }
+    .flashlight-mask {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .hidden-letter {
+      position: absolute;
+      font-family: 'Courier New', monospace;
+      font-size: 52px;
+      font-weight: bold;
+      color: #f5f0e8;
+      text-shadow: 0 0 20px rgba(255,255,200,0.8);
+      user-select: none;
+      pointer-events: none;
+    }
+    .found-letters {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .found-letter-box {
+      width: 44px;
+      height: 44px;
+      border: 2px solid #ccc;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Courier New', monospace;
+      font-size: 20px;
+      font-weight: bold;
+      background: #f9f9f9;
+      transition: all 0.3s;
+    }
+    .found-letter-box.filled {
+      border-color: #006400;
+      background: rgba(0,100,0,0.1);
+      color: #006400;
+    }
+
+    /* ── NUMBER TEXT PUZZLE ── */
+    .number-text {
+      font-size: 15px;
+      line-height: 2.4;
+      color: #000;
+      background: rgba(0,0,0,0.03);
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    /* Words containing hidden numbers — underlined, subtle */
+    .number-word {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-decoration-color: #8B0000;
+      cursor: pointer;
+      transition: background 0.2s;
+      border-radius: 3px;
+      padding: 0 2px;
+    }
+    .number-word:hover { background: rgba(139,0,0,0.08); }
+    .number-word.selected {
+      background: rgba(139,0,0,0.15);
+      color: #8B0000;
+      font-weight: bold;
+    }
+    .number-sequence {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .num-box {
+      width: 40px;
+      height: 48px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Courier New', monospace;
+      font-size: 20px;
+      font-weight: bold;
+      background: #f9f9f9;
+    }
+    .num-box.filled { border-color: #8B0000; background: rgba(139,0,0,0.08); color: #8B0000; }
+
+    /* ── DRAG SPINNER PUZZLE ── */
+    .spinner-container {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .dial-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .dial-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: #888;
+      text-transform: uppercase;
+    }
+    .drag-dial {
+      width: 60px;
+      height: 80px;
+      background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 40%, #333 50%, #2a2a2a 60%, #1a1a1a 100%);
+      border: 2px solid #444;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      color: #f0e6d3;
+      cursor: ns-resize;
+      user-select: none;
+      transition: border-color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .drag-dial::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 30%;
+      background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 100%);
+    }
+    .drag-dial::after {
+      content: "";
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 30%;
+      background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, transparent 100%);
+    }
+    .drag-dial.correct { border-color: #c8b89a; box-shadow: 0 0 12px rgba(200,184,154,0.4); }
+    .drag-dial.active { border-color: #ffffff; }
+    .dial-arrows {
+      display: flex;
+      gap: 4px;
+      font-size: 12px;
+      color: #888;
+    }
+
+    /* ── MIRROR PUZZLE ── */
+    .mirror-paper {
+      background: #fffef8;
+      border: 2px solid #ccc;
+      border-bottom: 5px solid #111;
+      border-radius: 8px 8px 0 0;
+      padding: 24px 16px 0 16px;
+      margin-bottom: 0;
+      overflow: hidden;
+    }
+    .mirror-surface {
+      background: linear-gradient(180deg, rgba(180,220,255,0.5) 0%, rgba(220,240,255,0.15) 100%);
+      border: 2px solid #ccc;
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      height: 44px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: #aaa;
+      text-transform: uppercase;
+    }
+    .mirror-hint {
+      font-size: 12px;
+      color: #888;
+      text-align: center;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+    .mirror-alphabet-note {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-align: center;
+      background: rgba(0,0,0,0.04);
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 16px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1 id="main-title"></h1>
+  <p class="subtitle">— Case 01 — Hotel Belmont — A Rainy Thursday Night —</p>
+
+  <!-- INTRO -->
+  <div class="card intro-card" id="intro-card">
+    <div class="seal">🌧️</div>
+    <div class="card-label">Case Briefing — Detective Eyes Only</div>
+    <div class="story-text">
+      It is 11:47pm on a Thursday in October. The rain has not stopped since morning.<br><br>
+      <strong>Victor Crane</strong>, 68, one of Manhattan's wealthiest real estate developers, has been found dead in his suite at the Hotel Belmont on Park Avenue. The door was locked from the inside. The window was open despite the storm.<br><br>
+      Four people were on his guest list that evening. One of them never left.
+    </div>
+    <div class="suspect-list" id="suspect-list">
+      <div class="suspect"><strong>Diana Crane</strong> — Victor's wife of 22 years. Stood to inherit everything.</div>
+      <div class="suspect"><strong>Roland Fitch</strong> — Victor's business partner. Owed Victor $4 million.</div>
+      <div class="suspect"><strong>Sylvia Moss</strong> — Victor's personal attorney. Drafted his will three times this year.</div>
+      <div class="suspect"><strong>James Whitmore</strong> — A stranger. No one knows why Victor invited him.</div>
+    </div>
+    <div class="story-text" id="closing-text" style="opacity:0;transition:opacity 0.8s ease;">Five clues are hidden in this hotel. Find them all and name the killer.<br><br>You have <strong>20 minutes</strong>. Enter your name for the leaderboard:</div>
+    <input class="name-input" id="player-name" type="text" placeholder="YOUR NAME" maxlength="20" style="opacity:0;transition:opacity 0.8s ease;">
+    <button id="start-btn" onclick="startGame()" style="opacity:0;transition:opacity 0.8s ease;">Begin Investigation</button>
+  </div>
+
+  <!-- GAME -->
+  <div class="hidden" id="game-card">
+    <div class="card">
+      <div class="timer-bar" id="timer-bar">
+        <span>⏱ TIME LEFT</span>
+        <span id="timer-display">20:00</span>
+      </div>
+      <div class="progress" id="progress-dots"></div>
+      <div class="lives" id="lives-display"></div>
+      <div class="card-label" id="clue-label"></div>
+      <div class="type-badge" id="type-badge"></div>
+      <div class="story-text" id="story-text"></div>
+      <!-- puzzle area -->
+      <div id="puzzle-area"></div>
+      <textarea id="player-input" placeholder="Enter your answer..."></textarea>
+      <div class="row">
+        <button onclick="submitAnswer()">Submit</button>
+        <button class="secondary-btn" onclick="showHint()">Request Hint (−1 life)</button>
+      </div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+  </div>
+
+  <!-- ENDING -->
+  <div class="hidden card" id="ending-card">
+    <div class="seal">🔍</div>
+    <div class="card-label" style="text-align:center">Case Closed</div>
+    <div class="final-message" id="final-message"></div>
+    <div class="stars" id="ending-stars"></div>
+    <div class="rank-name" id="rank-name"></div>
+    <div class="rank-desc" id="rank-desc"></div>
+    <div class="leaderboard-preview" id="leaderboard-preview"></div>
+    <div style="text-align:center;margin-top:20px">
+      <button onclick="restartGame()">Reinvestigate</button>
+      <button class="back-btn" onclick="window.location.href='escape_room.html'">Return to Mystery Room</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const CASE_KEY = "lb_manhattan";
+  const TIME_LIMIT = 20 * 60 * 1000;
+  const TITLE = "DEATH IN MANHATTAN";
+
+  window.addEventListener("load", () => { setTimeout(typeTitle, 400); });
+
+  function typeTitle() {
+    const el = document.getElementById("main-title");
+    let i = 0;
+    function typeChar() {
+      if (i <= TITLE.length) {
+        el.innerHTML = TITLE.slice(0, i) + '<span class="title-cursor"></span>';
+        i++;
+        setTimeout(typeChar, 80);
+      } else {
+        el.innerHTML = TITLE;
+        animateSuspects();
+      }
+    }
+    typeChar();
+  }
+
+  function animateSuspects() {
+    const suspects = document.querySelectorAll(".suspect");
+    suspects.forEach((s, i) => {
+      setTimeout(() => {
+        s.classList.add("visible");
+        if (i === suspects.length - 1) setTimeout(showStartElements, 400);
+      }, i * 300);
+    });
+  }
+
+  function showStartElements() {
+    document.getElementById("closing-text").style.opacity = "1";
+    document.getElementById("player-name").style.opacity = "1";
+    document.getElementById("start-btn").style.opacity = "1";
+  }
+
+  // ── PUZZLES ──────────────────────────────────────────────
+  const puzzles = [
+    {
+      label: "Clue 01 — The Front Desk",
+      type: "🔦 Find the Letter",
+      story: "The night manager points to the wall behind the front desk. Someone scratched letters into the dark wood panelling. The room is nearly pitch black — you'll need to search carefully.",
+      answer: "whitmore",
+      hint: "Move your cursor slowly over the dark panel. Eight letters are hidden there. They spell a suspect's last name.",
+      renderPuzzle: renderFlashlight
+    },
+    {
+      label: "Clue 02 — The Hotel Bar",
+      type: "🔢 Numbers in Text",
+      // ── FIX 1: Numbers are written as words hidden inside longer words ──
+      // "ninemile" contains "nine", "bone-idle" contains "one", "fortunate" contains "four", "seventh" contains "seven"
+      // Answer digits: 9, 1, 4, 7
+      story: "The bartender slides you a handwritten note. It looks like a normal drink order — but four numbers are hidden as words inside the text. Find and click each one in order.",
+      answer: "9147",
+      hint: "Look for number words (like 'nine', 'one', 'four', 'seven') hidden inside longer words. Click each underlined word to extract its number.",
+      renderPuzzle: renderNumberText
+    },
+    {
+      label: "Clue 03 — Victor's Suite",
+      type: "🔄 Drag the Dials",
+      story: "A rotary combination lock is built into Victor's desk drawer. Drag each dial up or down to align the letters. There are always three — and three is always the shift.",
+      answer: "james is my son he wants everything",
+      hint: "Drag each dial up or down with your cursor. Shift every letter back by 3. D→A, E→B, F→C.",
+      renderPuzzle: renderDragDials
+    },
+    {
+      label: "Clue 04 — The Attorney's Briefcase",
+      type: "🪞 Mirror Writing",
+      story: "Sylvia Moss left a document on the lobby desk. A single word is written across the page — but each letter is only half drawn, as if the paper was cut in half. Hold a mirror below the edge to complete each letter.",
+      answer: "checked",
+      hint: "Hold a real mirror (or the back of a phone) flat below the bottom edge of the paper. The word uses only letters that are symmetric — B, C, D, E, H, I, K, O, X.",
+      renderPuzzle: renderMirror
+    },
+    {
+      label: "Clue 05 — The Open Window",
+      type: "🔐 Caesar Cipher",
+      story: "On the windowsill, barely visible in the rain, someone scratched letters into the paint. Victor left one final message — his killer's full name. He always shifted by three.",
+      answer: "james whitmore",
+      hint: "Shift every letter back by 3. D becomes A, E becomes B, F becomes C.",
+      renderPuzzle: renderCaesar
+    }
+  ];
+
+  let current = 0, lives = 3, livesLost = 0;
+  let builtCiphers = [], caseSolved = false;
+  let startTime, timerInterval, timeUsed = 0;
+  let playerName = "";
+
+  // ── PUZZLE RENDERERS ─────────────────────────────────────
+
+  // PUZZLE 1: FLASHLIGHT (unchanged)
+  function renderFlashlight(container) {
+    const letters = "WHITMORE".split("");
+    const positions = [
+      {x:8,y:25},{x:20,y:55},{x:35,y:20},{x:48,y:60},
+      {x:60,y:30},{x:72,y:65},{x:83,y:25},{x:92,y:50}
+    ];
+    let found = new Array(8).fill(false);
+
+    container.innerHTML = `
+      <div style="font-size:13px;color:#666;margin-bottom:10px;letter-spacing:1px;">
+        Move your cursor over the dark panel to reveal hidden letters.
+      </div>
+      <div class="found-letters" id="found-letters">
+        ${letters.map((_,i) => `<div class="found-letter-box" id="fbox-${i}"></div>`).join("")}
+      </div>
+      <div class="dark-room" id="dark-room">
+        <canvas class="flashlight-mask" id="fl-canvas"></canvas>
+        ${letters.map((l,i) => `
+          <div class="hidden-letter" id="hl-${i}"
+            style="left:${positions[i].x}%;top:${positions[i].y}%;transform:translate(-50%,-50%)">
+            ${l}
+          </div>`).join("")}
+      </div>
+    `;
+
+    const room = document.getElementById("dark-room");
+    const canvas = document.getElementById("fl-canvas");
+    const ctx = canvas.getContext("2d");
+
+    function resize() {
+      canvas.width = room.offsetWidth;
+      canvas.height = room.offsetHeight;
+      drawDark(null);
+    }
+
+    function drawDark(pos) {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle = "rgba(0,0,0,0.97)";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      if (pos) {
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.beginPath();
+        ctx.arc(pos.x,pos.y,40,0,Math.PI*2);
+        ctx.fillStyle = "rgba(0,0,0,1)";
+        ctx.fill();
+        ctx.globalCompositeOperation = "source-over";
+      }
+      checkFound(pos);
+    }
+
+    function checkFound(pos) {
+      if (!pos) return;
+      letters.forEach((l, i) => {
+        if (found[i]) return;
+        const el = document.getElementById("hl-" + i);
+        const rect = el.getBoundingClientRect();
+        const roomRect = room.getBoundingClientRect();
+        const cx = rect.left + rect.width/2 - roomRect.left;
+        const cy = rect.top + rect.height/2 - roomRect.top;
+        const dist = Math.hypot(pos.x - cx, pos.y - cy);
+        if (dist < 70) {
+          found[i] = true;
+          const box = document.getElementById("fbox-" + i);
+          box.textContent = l;
+          box.classList.add("filled");
+          const input = document.getElementById("player-input");
+          input.value = found.map((f,j) => f ? letters[j] : "").join("").toLowerCase();
+        }
+      });
+    }
+
+    room.addEventListener("mousemove", e => {
+      const rect = room.getBoundingClientRect();
+      drawDark({x: e.clientX - rect.left, y: e.clientY - rect.top});
+    });
+
+    room.addEventListener("touchmove", e => {
+      e.preventDefault();
+      const rect = room.getBoundingClientRect();
+      const t = e.touches[0];
+      drawDark({x: t.clientX - rect.left, y: t.clientY - rect.top});
+    }, {passive: false});
+
+    room.addEventListener("mouseleave", () => drawDark(null));
+
+    setTimeout(resize, 50);
+    window.addEventListener("resize", resize);
+  }
+
+  // ── FIX 1: PUZZLE 2 — NUMBERS AS WRITTEN WORDS INSIDE LONGER WORDS ──────
+  // The note text embeds number-words inside longer words.
+  // "ninemile" → nine (9), "bone-idle" → one (1 → wait, we need 1)
+  // Chosen words: "nineteen" has "nine"=9, "alone" has "one"=1,
+  //               "fortunate" has "four"=4, "seventh" has "seven"=7
+  // Sentence built so the underlined words appear naturally in a drink-order context.
+  function renderNumberText(container) {
+    // Each entry: { pre, word, post, digit }
+    // The full word is underlined; the hidden number-word inside is the digit clue.
+    // Order in text gives the 4-digit code: 9, 1, 4, 7
+    const segments = [
+      { text: "Ordered for table ", plain: true },
+      { word: "nineteen", digit: "9", contains: "nine" },   // nine → 9
+      { text: ": one bottle Château Margaux (", plain: true },
+      { word: "alone", digit: "1", contains: "one" },        // one → 1
+      { text: " in the cellar), ", plain: true },
+      { word: "fortunate", digit: "4", contains: "four" },   // four → 4
+      { text: " if it arrives by the ", plain: true },
+      { word: "seventh", digit: "7", contains: "seven" },    // seven → 7
+      { text: " hour. Charge to suite.", plain: true }
+    ];
+
+    container.innerHTML = `
+      <div style="font-size:13px;color:#666;margin-bottom:10px;letter-spacing:1px;">
+        A number-word is hidden inside each underlined word. Click each one in the correct order to extract the code.
+      </div>
+      <div class="number-sequence" id="num-seq">
+        ${[0,1,2,3].map(i => `<div class="num-box" id="nbox-${i}"></div>`).join("")}
+      </div>
+      <div class="number-text" id="num-text"></div>
+      <button class="secondary-btn" style="margin-bottom:12px" onclick="resetNumbers()">Reset</button>
+    `;
+
+    // Build the HTML for the note text
+    let html = '<em style="font-size:12px;letter-spacing:1px;color:#888;display:block;margin-bottom:8px;">— Belmont Bar, Late Order Slip —</em>';
+    segments.forEach((seg, idx) => {
+      if (seg.plain) {
+        html += seg.text;
+      } else {
+        html += `<span class="number-word" data-digit="${seg.digit}" data-idx="${idx}" onclick="pickNumberWord(this)">${seg.word}</span>`;
+      }
+    });
+    document.getElementById("num-text").innerHTML = html;
+  }
+
+  window.pickNumberWord = function(el) {
+    if (el.classList.contains("selected")) return;
+    const allSelected = document.querySelectorAll(".number-word.selected");
+    if (allSelected.length >= 4) return;
+    el.classList.add("selected");
+    const pos = allSelected.length - 1; // already includes this one (just added)
+    // Actually count before adding: re-count
+    const idx = document.querySelectorAll(".number-word.selected").length - 1;
+    const box = document.getElementById("nbox-" + idx);
+    box.textContent = el.dataset.digit;
+    box.classList.add("filled");
+    const allBoxes = document.querySelectorAll(".num-box.filled");
+    document.getElementById("player-input").value = Array.from(allBoxes).map(b => b.textContent).join("");
+  };
+
+  window.resetNumbers = function() {
+    document.querySelectorAll(".number-word.selected").forEach(e => e.classList.remove("selected"));
+    document.querySelectorAll(".num-box").forEach(b => { b.textContent = ""; b.classList.remove("filled"); });
+    document.getElementById("player-input").value = "";
+  };
+
+  // ── PUZZLE 3 — DRAG DIALS — lights up green when correct, auto-submits when all done ──
+  function renderDragDials(container) {
+    const answer = "JAMES IS MY SON HE WANTS EVERYTHING";
+    const encoded = caesarShift(answer, 3);
+    const chars = encoded.split("");
+    const decodedChars = answer.split("");
+
+    container.innerHTML = `
+      <div style="font-size:13px;color:#666;margin-bottom:12px;letter-spacing:1px;">
+        Drag each dial up ↑ or down ↓. Each dial shows its decoded letter. When a letter glows green it is correct.
+        Get all dials green to unlock the drawer.
+      </div>
+      <div style="background:rgba(0,0,0,0.85);border-radius:12px;padding:20px;margin-bottom:12px;overflow-x:auto;">
+        <div class="spinner-container" id="spinner-container"></div>
+      </div>
+      <div style="font-size:12px;color:#888;letter-spacing:1px;text-align:center;margin-bottom:12px;" id="dial-status">
+        0 / ${decodedChars.filter(c => c !== " ").length} dials aligned
+      </div>
+    `;
+
+    const sc = document.getElementById("spinner-container");
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+    let dialStates = chars.map((c, i) => {
+      if (c === " ") return { char: " ", idx: 26, isSpace: true, correct: true };
+      return { char: c, idx: alphabet.indexOf(c), isSpace: false, correct: false };
+    });
+
+    const totalNonSpace = dialStates.filter(s => !s.isSpace).length;
+
+    function checkAllCorrect() {
+      const correct = dialStates.filter(s => !s.isSpace && s.correct).length;
+      document.getElementById("dial-status").textContent = `${correct} / ${totalNonSpace} dials aligned`;
+      if (correct === totalNonSpace) {
+        document.getElementById("player-input").value = answer.toLowerCase();
+        document.getElementById("dial-status").textContent = "✓ All dials aligned — drawer unlocked!";
+        document.getElementById("dial-status").style.color = "#006400";
+      }
+    }
+
+    function buildDials() {
+      sc.innerHTML = "";
+      dialStates.forEach((state, i) => {
+        if (state.isSpace) {
+          const sp = document.createElement("div");
+          sp.style.width = "12px";
+          sc.appendChild(sp);
+          return;
+        }
+        const group = document.createElement("div");
+        group.className = "dial-group";
+
+        const dial = document.createElement("div");
+        dial.className = "drag-dial";
+        dial.id = "ddial-" + i;
+        // Start at a random letter (not the answer)
+        const randomStart = Math.floor(Math.random() * 26);
+        dialStates[i].idx = randomStart;
+        dialStates[i].char = alphabet[randomStart];
+        const initDecoded = alphabet[((randomStart - 3) % 26 + 26) % 26];
+        dial.textContent = initDecoded;
+
+        let startY = 0, dragging = false, accDelta = 0;
+
+        function updateDial() {
+          // Dial displays the decoded letter (current encoded letter shifted back 3)
+          const decodedLetter = alphabet[((dialStates[i].idx - 3) % 26 + 26) % 26];
+          dial.textContent = decodedLetter;
+          const decodedTarget = decodedChars[i];
+          const isCorrect = decodedLetter === decodedTarget;
+          dialStates[i].correct = isCorrect;
+          if (isCorrect) {
+            dial.classList.add("correct");
+            dial.style.color = "#00ff88";
+            dial.style.textShadow = "0 0 12px rgba(0,255,136,0.8)";
+          } else {
+            dial.classList.remove("correct");
+            dial.style.color = "#f0e6d3";
+            dial.style.textShadow = "none";
+          }
+          checkAllCorrect();
+        }
+
+        dial.addEventListener("mousedown", e => {
+          dragging = true; startY = e.clientY; accDelta = 0;
+          dial.classList.add("active"); e.preventDefault();
+        });
+
+        document.addEventListener("mousemove", e => {
+          if (!dragging) return;
+          const delta = startY - e.clientY;
+          accDelta += delta * 0.15;
+          startY = e.clientY;
+          if (Math.abs(accDelta) >= 1) {
+            const steps = Math.round(accDelta);
+            dialStates[i].idx = ((dialStates[i].idx + steps) % 26 + 26) % 26;
+            dialStates[i].char = alphabet[dialStates[i].idx];
+            dial.textContent = dialStates[i].char;
+            accDelta = 0;
+            updateDial();
+          }
+        });
+
+        document.addEventListener("mouseup", () => {
+          if (dragging) { dragging = false; dial.classList.remove("active"); }
+        });
+
+        dial.addEventListener("touchstart", e => {
+          dragging = true; startY = e.touches[0].clientY; accDelta = 0;
+          e.preventDefault();
+        }, {passive:false});
+
+        dial.addEventListener("touchmove", e => {
+          if (!dragging) return;
+          const delta = startY - e.touches[0].clientY;
+          accDelta += delta * 0.15;
+          startY = e.touches[0].clientY;
+          if (Math.abs(accDelta) >= 1) {
+            const steps = Math.round(accDelta);
+            dialStates[i].idx = ((dialStates[i].idx + steps) % 26 + 26) % 26;
+            dialStates[i].char = alphabet[dialStates[i].idx];
+            dial.textContent = dialStates[i].char;
+            accDelta = 0;
+            updateDial();
+          }
+          e.preventDefault();
+        }, {passive:false});
+
+        dial.addEventListener("touchend", () => { dragging = false; });
+
+        const arrows = document.createElement("div");
+        arrows.className = "dial-arrows";
+        arrows.innerHTML = "↑↓";
+
+        group.appendChild(dial);
+        group.appendChild(arrows);
+        sc.appendChild(group);
+      });
+    }
+
+    buildDials();
+  }
+
+  // ── PUZZLE 4 — MIRROR — canvas half-letters, bold marker style ──
+  function renderMirror(container) {
+    // Use a phrase built ONLY from horizontally symmetric letters
+    // (look identical when a mirror is held below them):
+    // B C D E H I K O X
+    // Answer: "DECKED" → too random
+    // Best narrative fit: "HIDE CODE" → H,I,D,E,C,O,D,E ✓ all symmetric!
+    // Story: the attorney hid a code in the document. Answer = "hide code"
+    // Actually let's keep it story-relevant. "CHOKED" = C,H,O,K,E,D ✓
+    // Or "DECIDE" = D,E,C,I,D,E ✓  — but short
+    // Best: "HE DECIDED" = H,E,D,E,C,I,D,E,D ✓ all symmetric, story relevant
+    // → "He decided" — Victor decided something. Good clue.
+    // But we need it to feed the narrative. Original answer was "the secret heir".
+    // New answer: "ECKER" not a word. Let's go: "DECIDE" as a single-word clue
+    // meaning Victor decided to hide James. Or "OXIDE" = not narrative.
+    // BEST option — change answer to "CODED" (C,O,D,E,D — all symmetric ✓)
+    // Story: the document contains a single coded word — the method Victor used.
+    // But we need it to reveal something about the case.
+    // ── FINAL: answer = "CHECKBOOK" — C,H,E,C,K,B,O,O,K ✓ all symmetric!
+    // Story: the document reveals where Victor hid the evidence — his checkbook.
+    // This feeds nicely into the narrative (financial motive, Roland Fitch).
+    // Change puzzle answer + story accordingly.
+    // Actually simpler: answer = "CHECKED" C,H,E,C,K,E,D ✓
+    // Story hint: "The word reveals what Sylvia did to the will."
+
+    const answer = "CHECKED"; // all horizontally symmetric letters
+    const words = answer.split(" ");
+
+    container.innerHTML = `
+      <div style="font-size:13px;color:#666;margin-bottom:12px;letter-spacing:1px;">
+        Each letter is only half-drawn. Hold a mirror horizontally below the paper edge to complete them and read the hidden word.
+      </div>
+      <div class="mirror-paper">
+        <canvas id="mirror-canvas" style="display:block;width:100%;"></canvas>
+      </div>
+      <div class="mirror-surface">↑ hold mirror here ↑</div>
+      <div class="mirror-alphabet-note">
+        These letters look the same in a mirror: <strong>B &nbsp;C &nbsp;D &nbsp;E &nbsp;H &nbsp;I &nbsp;K &nbsp;O &nbsp;X</strong>
+      </div>
+      <div class="mirror-hint">
+        Hold a physical mirror (or a phone screen) flat below the bottom edge.<br>
+        Type the word you see.
+      </div>
+    `;
+
+    // Draw letters on canvas — bold, dark, clipped to top half only
+    const canvas = document.getElementById("mirror-canvas");
+    const letters = answer.replace(/ /g, "").split("");
+    const letterSize = 80;
+    const gap = 14;
+    const padX = 20;
+    const totalWidth = letters.length * (letterSize + gap) - gap + padX * 2;
+    const halfH = letterSize * 0.52; // show just above midpoint for clean clip
+
+    // Set canvas resolution
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = totalWidth * dpr;
+    canvas.height = halfH * dpr;
+    canvas.style.height = halfH + "px";
+
+    const ctx = canvas.getContext("2d");
+    ctx.scale(dpr, dpr);
+
+    // Cream paper background
+    ctx.fillStyle = "#fffef8";
+    ctx.fillRect(0, 0, totalWidth, halfH);
+
+    // Draw each letter — large, bold, dark marker style
+    ctx.font = `bold ${letterSize}px Georgia, serif`;
+    ctx.fillStyle = "#1a1a1a";
+    ctx.textBaseline = "top";
+
+    // Clip to top half — letters render from y=0, we only show top halfH pixels
+    ctx.save();
+    ctx.rect(0, 0, totalWidth, halfH);
+    ctx.clip();
+
+    let x = padX;
+    answer.split("").forEach(ch => {
+      if (ch === " ") {
+        x += letterSize * 0.5;
+        return;
+      }
+      ctx.fillText(ch, x, 0);
+      x += letterSize + gap;
+    });
+
+    ctx.restore();
+
+    // Draw a subtle ruled line just above the clip edge to suggest paper
+    ctx.strokeStyle = "rgba(0,0,0,0.08)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, halfH - 8);
+    ctx.lineTo(totalWidth, halfH - 8);
+    ctx.stroke();
+  }
+
+  // PUZZLE 5: CAESAR (unchanged)
+  function renderCaesar(container) {
+    const encoded = caesarShift("JAMES WHITMORE", 3);
+    container.innerHTML = `
+      <div style="background:rgba(0,0,0,0.05);border:1px solid rgba(0,0,0,0.15);border-radius:8px;padding:20px;margin-bottom:12px;">
+        <div style="font-size:11px;letter-spacing:3px;color:#888;text-transform:uppercase;margin-bottom:8px;">Encoded Message</div>
+        <div style="font-family:'Courier New',monospace;font-size:24px;letter-spacing:6px;text-align:center;color:#000;">${encoded}</div>
+      </div>
+      <div style="background:rgba(0,0,0,0.03);border:1px solid rgba(0,0,0,0.1);border-radius:8px;padding:16px;margin-bottom:12px;font-family:'Courier New',monospace;font-size:13px;line-height:2;color:#333;">
+        A B C D E F G H I J K L M<br>
+        D E F G H I J K L M N O P<br><br>
+        N O P Q R S T U V W X Y Z<br>
+        Q R S T U V W X Y Z A B C
+      </div>
+      <div style="font-size:13px;color:#666;letter-spacing:1px;">Shift every letter back by 3 to decode the killer's name.</div>
+    `;
+  }
+
+  // ── GAME ENGINE ───────────────────────────────────────────
+  function caesarShift(text, shift) {
+    return text.split("").map(ch => {
+      if (/[a-zA-Z]/.test(ch)) {
+        const base = ch >= 'a' ? 97 : 65;
+        return String.fromCharCode((ch.charCodeAt(0) - base + shift + 26) % 26 + base);
+      }
+      return ch;
+    }).join("");
+  }
+
+  function startGame() {
+    playerName = document.getElementById("player-name").value.trim() || "UNKNOWN";
+    document.getElementById("intro-card").classList.add("hidden");
+    document.getElementById("game-card").classList.remove("hidden");
+    startTime = Date.now();
+    timerInterval = setInterval(updateTimer, 100);
+    loadPuzzle();
+  }
+
+  function updateTimer() {
+    const elapsed = Date.now() - startTime;
+    const remaining = TIME_LIMIT - elapsed;
+    const bar = document.getElementById("timer-bar");
+    const display = document.getElementById("timer-display");
+    if (remaining <= 0) {
+      clearInterval(timerInterval);
+      display.textContent = "00:00";
+      bar.className = "timer-bar danger";
+      timeUsed = TIME_LIMIT;
+      showEnding();
+      return;
+    }
+    display.textContent = formatCountdown(remaining);
+    if (remaining < 60000) bar.className = "timer-bar danger";
+    else if (remaining < 180000) bar.className = "timer-bar warning";
+    else bar.className = "timer-bar";
+  }
+
+  function loadPuzzle() {
+    const p = puzzles[current];
+    updateProgress();
+    updateLives();
+    document.getElementById("clue-label").textContent = p.label;
+    document.getElementById("type-badge").textContent = p.type;
+    document.getElementById("story-text").textContent = p.story;
+    document.getElementById("player-input").value = "";
+    document.getElementById("feedback").className = "feedback";
+    document.getElementById("feedback").textContent = "";
+    const area = document.getElementById("puzzle-area");
+    area.innerHTML = "";
+    p.renderPuzzle(area);
+  }
+
+  function updateProgress() {
+    const dots = document.getElementById("progress-dots");
+    dots.innerHTML = puzzles.map((_, i) => {
+      let cls = i < current ? "done" : i === current ? "current" : "";
+      return `<div class="progress-dot ${cls}"></div>`;
+    }).join("") + `<span class="progress-label">Clue ${current + 1} of ${puzzles.length}</span>`;
+  }
+
+  function updateLives() {
+    document.getElementById("lives-display").innerHTML =
+      "Lives: " + [0,1,2].map(i =>
+        `<span class="life ${i >= lives ? 'lost' : ''}">🔍</span>`
+      ).join("");
+  }
+
+  function submitAnswer() {
+    const guess = document.getElementById("player-input").value.trim().toLowerCase();
+    const correct = puzzles[current].answer.toLowerCase();
+    const fb = document.getElementById("feedback");
+    if (guess === correct) {
+      fb.className = "feedback correct";
+      fb.textContent = "✓ Correct. Another piece of the puzzle falls into place.";
+      current++;
+      if (current >= puzzles.length) {
+        caseSolved = true;
+        clearInterval(timerInterval);
+        timeUsed = Date.now() - startTime;
+        setTimeout(showEnding, 1800);
+      } else {
+        setTimeout(loadPuzzle, 1800);
+      }
+    } else {
+      lives--;
+      livesLost++;
+      updateLives();
+      if (lives <= 0) {
+        clearInterval(timerInterval);
+        timeUsed = Date.now() - startTime;
+        fb.className = "feedback wrong";
+        fb.textContent = "✗ The case has gone cold. The killer walks free.";
+        setTimeout(showEnding, 2200);
+      } else {
+        fb.className = "feedback wrong";
+        fb.textContent = `✗ Wrong. The evidence doesn't add up. ${lives} chance${lives === 1 ? "" : "s"} remaining.`;
+      }
+    }
+  }
+
+  function showHint() {
+    if (lives <= 1) {
+      const fb = document.getElementById("feedback");
+      fb.className = "feedback info";
+      fb.textContent = "Not enough lives to use a hint.";
+      return;
+    }
+    lives--;
+    livesLost++;
+    updateLives();
+    const fb = document.getElementById("feedback");
+    fb.className = "feedback info";
+    fb.textContent = "💡 " + puzzles[current].hint;
+  }
+
+  function formatTime(ms) {
+    const totalSec = Math.floor(ms / 1000);
+    const min = Math.floor(totalSec / 60);
+    const sec = totalSec % 60;
+    const msec = Math.floor((ms % 1000) / 10);
+    return `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}.${String(msec).padStart(2,"0")}`;
+  }
+
+  function formatCountdown(ms) {
+    const totalSec = Math.ceil(ms / 1000);
+    const min = Math.floor(totalSec / 60);
+    const sec = totalSec % 60;
+    return `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
+  }
+
+  function getLeaderboard() {
+    try { return JSON.parse(localStorage.getItem(CASE_KEY) || "[]"); }
+    catch { return []; }
+  }
+
+  function saveScore(name, ms) {
+    let board = getLeaderboard();
+    board.push({ name, ms });
+    board.sort((a, b) => a.ms - b.ms);
+    board = board.slice(0, 20);
+    try { localStorage.setItem(CASE_KEY, JSON.stringify(board)); } catch {}
+    return board;
+  }
+
+  function renderLeaderboard(board, myMs) {
+    if (board.length === 0) return "";
+    const top5 = board.slice(0, 5);
+    const rest = board.slice(5);
+    const medals = ["🥇","🥈","🥉","4.","5."];
+    const classes = ["gold","silver","bronze","",""];
+    let html = `<div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;color:#666">🏆 Leaderboard — Death in Manhattan</div>`;
+    top5.forEach((e, i) => {
+      const highlight = e.ms === myMs && e.name === playerName ? "border:2px solid #000;" : "";
+      html += `<div class="lb-entry ${classes[i]}" style="${highlight}">${medals[i]} ${e.name}<span>${formatTime(e.ms)}</span></div>`;
+    });
+    if (rest.length > 0) {
+      html += `<div class="lb-dropdown-label" onclick="toggleLbDropdown()">▶ Show all scores</div>`;
+      html += `<div class="lb-dropdown" id="lb-dropdown">`;
+      rest.forEach((e, i) => {
+        html += `<div class="lb-entry">${i + 6}. ${e.name}<span>${formatTime(e.ms)}</span></div>`;
+      });
+      html += `</div>`;
+    }
+    return html;
+  }
+
+  function toggleLbDropdown() {
+    const el = document.getElementById("lb-dropdown");
+    const label = document.querySelector(".lb-dropdown-label");
+    el.classList.toggle("open");
+    label.textContent = el.classList.contains("open") ? "▼ Hide scores" : "▶ Show all scores";
+  }
+
+  function showEnding() {
+    document.getElementById("game-card").classList.add("hidden");
+    document.getElementById("ending-card").classList.remove("hidden");
+    let rank, desc, stars, msg;
+    if (!caseSolved) {
+      rank = "CASE UNSOLVED";
+      desc = "Too many mistakes. James Whitmore walked out of the hotel and disappeared into the rain.";
+      stars = "💀";
+      msg = "CASE COLD\nKILLER UNKNOWN\nFILE CLOSED";
+    } else if (livesLost === 0) {
+      rank = "MASTER DETECTIVE";
+      desc = "Flawless. Every clue decoded without hesitation. James Whitmore has been arrested. Justice is served.";
+      stars = "🔍🔍🔍🔍🔍";
+      msg = "CASE CLOSED\nJAMES WHITMORE — GUILTY\nSENTENCED TO LIFE";
+    } else if (livesLost <= 2) {
+      rank = "SENIOR DETECTIVE";
+      desc = "Good work. You stumbled but got there. James Whitmore is in custody.";
+      stars = "🔍🔍🔍🔍";
+      msg = "CASE CLOSED\nJAMES WHITMORE — GUILTY\nAWAITING TRIAL";
+    } else {
+      rank = "JUNIOR DETECTIVE";
+      desc = "You solved it but left too many loose ends.";
+      stars = "🔍🔍🔍";
+      msg = "CASE CLOSED\nJAMES WHITMORE — SUSPECT\nEVIDENCE UNDER REVIEW";
+    }
+    const pwHint = caseSolved ? `<br><br><div style="font-size:12px;color:#666;margin-top:12px;letter-spacing:2px">PASSWORD TO UNLOCK CASE 02:</div><div style="font-size:18px;font-weight:bold;letter-spacing:2px;margin-top:6px">THE WILL</div>` : "";
+    const timeStr = caseSolved ? `<br><div style="font-size:13px;color:#333;margin-top:12px;letter-spacing:2px">YOUR TIME: <strong>${formatTime(timeUsed)}</strong></div>` : "";
+    document.getElementById("final-message").innerHTML =
+      `<div style="color:#666;font-size:11px;letter-spacing:3px;margin-bottom:12px">CASE REPORT</div>${msg}${timeStr}${pwHint}`;
+    document.getElementById("ending-stars").textContent = stars;
+    document.getElementById("rank-name").textContent = rank;
+    document.getElementById("rank-desc").textContent = desc;
+    if (caseSolved) {
+      const board = saveScore(playerName, timeUsed);
+      document.getElementById("leaderboard-preview").innerHTML = renderLeaderboard(board, timeUsed);
+    }
+  }
+
+  function restartGame() {
+    current = 0; lives = 3; livesLost = 0;
+    caseSolved = false; timeUsed = 0;
+    clearInterval(timerInterval);
+    document.getElementById("ending-card").classList.add("hidden");
+    document.getElementById("intro-card").classList.remove("hidden");
+    document.getElementById("leaderboard-preview").innerHTML = "";
+    document.getElementById("main-title").innerHTML = "";
+    document.querySelectorAll(".suspect").forEach(s => s.classList.remove("visible"));
+    document.getElementById("closing-text").style.opacity = "0";
+    document.getElementById("player-name").style.opacity = "0";
+    document.getElementById("start-btn").style.opacity = "0";
+    setTimeout(typeTitle, 400);
+  }
+</script>
+</body>
+</html>
