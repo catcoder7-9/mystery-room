@@ -304,50 +304,113 @@
   }
 
   function startAmbientRain() {
-    if (audioStarted) return;
-    audioStarted = true;
-    const ctx = getAudioCtx();
+  if (audioStarted) return;
+  audioStarted = true;
+  const ctx = getAudioCtx();
 
-    // Layer 1: High-frequency hiss (spray/mist)
-    function makeNoise(freq, q, gainVal, loop = true) {
-      const bufSize = ctx.sampleRate * 4;
-      const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
-      const d = buf.getChannelData(0);
-      for (let i = 0; i < bufSize; i++) d[i] = Math.random() * 2 - 1;
-      const src = ctx.createBufferSource();
-      src.buffer = buf; src.loop = loop;
-      const filt = ctx.createBiquadFilter();
-      filt.type = "bandpass"; filt.frequency.value = freq; filt.Q.value = q;
-      const g = ctx.createGain(); g.gain.value = 0;
-      src.connect(filt); filt.connect(g); g.connect(ctx.destination);
-      src.start();
-      return { src, g };
+  // ── APPROACH: rapidly triggered random impulses = raindrop impacts ──
+  // Each "drop" is a short burst of filtered noise at a random pitch
+  // Fired hundreds of times per second = heavy rain texture
+
+  function makeDropBuffer() {
+    const len = Math.floor(ctx.sampleRate * 0.08); // 80ms impulse
+    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) {
+      // Exponential decay from random noise — like a drop hitting a surface
+      d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
     }
-
-    // Three layered noise bands = proper rain sound
-    const hiss   = makeNoise(6000, 0.5, 0); // high spray
-    const patter = makeNoise(1800, 1.2, 0); // mid drop patter
-    const rumble = makeNoise(400,  0.6, 0); // low background
-
-    // Fade all in
-    const now = ctx.currentTime;
-    hiss.g.gain.linearRampToValueAtTime(0.12, now + 3);
-    patter.g.gain.linearRampToValueAtTime(0.20, now + 3);
-    rumble.g.gain.linearRampToValueAtTime(0.06, now + 3);
-
-    // Random intensity swells for gusts
-    function gust() {
-      const t = ctx.currentTime;
-      const peak = 0.9 + Math.random() * 0.3;
-      hiss.g.gain.linearRampToValueAtTime(0.12 * peak, t + 2);
-      patter.g.gain.linearRampToValueAtTime(0.20 * peak, t + 2);
-      hiss.g.gain.linearRampToValueAtTime(0.12, t + 5);
-      patter.g.gain.linearRampToValueAtTime(0.20, t + 5);
-      setTimeout(gust, 7000 + Math.random() * 12000);
-    }
-    setTimeout(gust, 4000);
+    return buf;
   }
 
+  // Long background noise — very low rumble underneath
+  const bgBufSize = ctx.sampleRate * 4;
+  const bgBuf = ctx.createBuffer(1, bgBufSize, ctx.sampleRate);
+  const bgData = bgBuf.getChannelData(0);
+  for (let i = 0; i < bgBufSize; i++) bgData[i] = Math.random() * 2 - 1;
+  const bgSrc = ctx.createBufferSource();
+  bgSrc.buffer = bgBuf; bgSrc.loop = true;
+
+  // Low pass — only rumble gets through
+  const bgLp = ctx.createBiquadFilter();
+  bgLp.type = "lowpass"; bgLp.frequency.value = 200; bgLp.Q.value = 0.5;
+
+  const bgGain = ctx.createGain(); bgGain.gain.value = 0;
+  bgSrc.connect(bgLp); bgLp.connect(bgGain); bgGain.connect(ctx.destination);
+  bgSrc.start();
+  bgGain.gain.linearRampToValueAtTime(0.08, ctx.currentTime + 2);
+
+  // Individual drop impacts — fired rapidly and randomly
+  const dropBuf = makeDropBuffer();
+
+  function scheduleDrops() {
+    const now = ctx.currentTime;
+    // Heavy rain: ~400-800 drops per second
+    const rate = 500 + Math.random() * 300;
+    const interval = 1 / rate;
+    const count = Math.floor(0.1 * rate); // schedule 100ms worth at a time
+
+    for (let i = 0; i < count; i++) {
+      const t = now + i * interval + Math.random() * interval;
+
+      // Each drop has a slightly different bandpass frequency = varied impact character
+      const src = ctx.createBufferSource();
+      src.buffer = dropBuf;
+      src.playbackRate.value = 0.5 + Math.random() * 3; // pitch variation
+
+      const bp = ctx.createBiquadFilter();
+      bp.type = "bandpass";
+      bp.frequency.value = 800 + Math.random() * 3200; // 800Hz–4000Hz range
+      bp.Q.value = 0.3 + Math.random() * 1.5;
+
+      const g = ctx.createGain();
+      // Vary volume — some drops loud, most quiet
+      g.gain.value = 0.002 + Math.random() * 0.018;
+
+      src.connect(bp); bp.connect(g); g.connect(ctx.destination);
+      src.start(t);
+    }
+
+    // Occasional heavy individual drops — like big drops hitting a surface
+    if (Math.random() < 0.3) {
+      const heavySrc = ctx.createBufferSource();
+      heavySrc.buffer = dropBuf;
+      heavySrc.playbackRate.value = 0.4 + Math.random() * 0.6;
+
+      const heavyBp = ctx.createBiquadFilter();
+      heavyBp.type = "lowpass"; heavyBp.frequency.value = 600 + Math.random() * 400;
+
+      const heavyG = ctx.createGain();
+      heavyG.gain.value = 0.04 + Math.random() * 0.06;
+
+      heavySrc.connect(heavyBp); heavyBp.connect(heavyG); heavyG.connect(ctx.destination);
+      heavySrc.start(now + Math.random() * 0.1);
+    }
+
+    // Repeat every 100ms
+    setTimeout(scheduleDrops, 90);
+  }
+
+  scheduleDrops();
+
+  // Gust swells — random bursts of heavier rain
+  function gust() {
+    const gustBufSize = ctx.sampleRate * 2;
+    const gustBuf = ctx.createBuffer(1, gustBufSize, ctx.sampleRate);
+    const gd = gustBuf.getChannelData(0);
+    for (let i = 0; i < gustBufSize; i++) gd[i] = Math.random() * 2 - 1;
+    const gs = ctx.createBufferSource(); gs.buffer = gustBuf;
+    const gbp = ctx.createBiquadFilter(); gbp.type = "bandpass"; gbp.frequency.value = 1500; gbp.Q.value = 0.8;
+    const gg = ctx.createGain();
+    gg.gain.setValueAtTime(0, ctx.currentTime);
+    gg.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 1);
+    gg.gain.linearRampToValueAtTime(0, ctx.currentTime + 2.5);
+    gs.connect(gbp); gbp.connect(gg); gg.connect(ctx.destination);
+    gs.start(); gs.stop(ctx.currentTime + 3);
+    setTimeout(gust, 6000 + Math.random() * 10000);
+  }
+  setTimeout(gust, 3000);
+}
   function playCorrectSound() {
     const ctx = getAudioCtx();
     [523.25, 659.25, 783.99].forEach((freq, i) => {
