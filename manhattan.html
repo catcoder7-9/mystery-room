@@ -308,69 +308,98 @@
   audioStarted = true;
   const ctx = getAudioCtx();
 
-  // ── APPROACH: rapidly triggered random impulses = raindrop impacts ──
-  // Each "drop" is a short burst of filtered noise at a random pitch
-  // Fired hundreds of times per second = heavy rain texture
+  // Pre-render 3 seconds of rain into a buffer offline, then loop it
+  // This does all the work upfront — zero lag during playback
+  const duration = 3;
+  const sr = ctx.sampleRate;
+  const offline = new OfflineAudioContext(1, sr * duration, sr);
 
-  function makeDropBuffer() {
-    const len = Math.floor(ctx.sampleRate * 0.08); // 80ms impulse
-    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
-    const d = buf.getChannelData(0);
-    for (let i = 0; i < len; i++) {
-      // Exponential decay from random noise — like a drop hitting a surface
-      d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
-    }
-    return buf;
+  // Layer 1: many rapid impulses = rain texture
+  const dropLen = Math.floor(sr * 0.06);
+  const dropBuf = offline.createBuffer(1, dropLen, sr);
+  const dropData = dropBuf.getChannelData(0);
+  for (let i = 0; i < dropLen; i++) {
+    dropData[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / dropLen, 4);
   }
 
-  // Long background noise — very low rumble underneath
-  const bgBufSize = ctx.sampleRate * 4;
-  const bgBuf = ctx.createBuffer(1, bgBufSize, ctx.sampleRate);
-  const bgData = bgBuf.getChannelData(0);
-  for (let i = 0; i < bgBufSize; i++) bgData[i] = Math.random() * 2 - 1;
-  const bgSrc = ctx.createBufferSource();
-  bgSrc.buffer = bgBuf; bgSrc.loop = true;
+  // Schedule ~1800 drops spread across 3 seconds
+  for (let i = 0; i < 1800; i++) {
+    const t = Math.random() * duration;
+    const src = offline.createBufferSource();
+    src.buffer = dropBuf;
+    src.playbackRate.value = 0.4 + Math.random() * 3.5;
 
-  // Low pass — only rumble gets through
-  const bgLp = ctx.createBiquadFilter();
-  bgLp.type = "lowpass"; bgLp.frequency.value = 200; bgLp.Q.value = 0.5;
+    const bp = offline.createBiquadFilter();
+    bp.type = "bandpass";
+    bp.frequency.value = 600 + Math.random() * 3500;
+    bp.Q.value = 0.2 + Math.random() * 2;
 
-  const bgGain = ctx.createGain(); bgGain.gain.value = 0;
-  bgSrc.connect(bgLp); bgLp.connect(bgGain); bgGain.connect(ctx.destination);
-  bgSrc.start();
-  bgGain.gain.linearRampToValueAtTime(0.08, ctx.currentTime + 2);
+    const g = offline.createGain();
+    g.gain.value = 0.003 + Math.random() * 0.022;
 
-  // Individual drop impacts — fired rapidly and randomly
-  const dropBuf = makeDropBuffer();
+    src.connect(bp); bp.connect(g); g.connect(offline.destination);
+    src.start(t);
+  }
 
-  function scheduleDrops() {
-    const now = ctx.currentTime;
-    // Heavy rain: ~400-800 drops per second
-    const rate = 500 + Math.random() * 300;
-    const interval = 1 / rate;
-    const count = Math.floor(0.1 * rate); // schedule 100ms worth at a time
+  // Layer 2: low rumble background
+  const rumbleBuf = offline.createBuffer(1, sr * duration, sr);
+  const rd = rumbleBuf.getChannelData(0);
+  for (let i = 0; i < rd.length; i++) rd[i] = Math.random() * 2 - 1;
+  const rumbleSrc = offline.createBufferSource();
+  rumbleSrc.buffer = rumbleBuf;
+  const lp = offline.createBiquadFilter();
+  lp.type = "lowpass"; lp.frequency.value = 180;
+  const rg = offline.createGain(); rg.gain.value = 0.07;
+  rumbleSrc.connect(lp); lp.connect(rg); rg.connect(offline.destination);
+  rumbleSrc.start(0);
 
-    for (let i = 0; i < count; i++) {
-      const t = now + i * interval + Math.random() * interval;
+  // Layer 3: high hiss
+  const hissBuf = offline.createBuffer(1, sr * duration, sr);
+  const hd = hissBuf.getChannelData(0);
+  for (let i = 0; i < hd.length; i++) hd[i] = Math.random() * 2 - 1;
+  const hissSrc = offline.createBufferSource();
+  hissSrc.buffer = hissBuf;
+  const hp = offline.createBiquadFilter();
+  hp.type = "highpass"; hp.frequency.value = 4000;
+  const hg = offline.createGain(); hg.gain.value = 0.04;
+  hissSrc.connect(hp); hp.connect(hg); hg.connect(offline.destination);
+  hissSrc.start(0);
 
-      // Each drop has a slightly different bandpass frequency = varied impact character
-      const src = ctx.createBufferSource();
-      src.buffer = dropBuf;
-      src.playbackRate.value = 0.5 + Math.random() * 3; // pitch variation
+  // Render offline then loop the result — one AudioBufferSource, zero CPU lag
+  offline.startRendering().then(renderedBuffer => {
+    const player = ctx.createBufferSource();
+    player.buffer = renderedBuffer;
+    player.loop = true;
 
-      const bp = ctx.createBiquadFilter();
-      bp.type = "bandpass";
-      bp.frequency.value = 800 + Math.random() * 3200; // 800Hz–4000Hz range
-      bp.Q.value = 0.3 + Math.random() * 1.5;
+    const masterGain = ctx.createGain();
+    masterGain.gain.value = 0;
+    player.connect(masterGain);
+    masterGain.connect(ctx.destination);
+    player.start();
 
-      const g = ctx.createGain();
-      // Vary volume — some drops loud, most quiet
-      g.gain.value = 0.002 + Math.random() * 0.018;
+    // Fade in
+    masterGain.gain.linearRampToValueAtTime(1.0, ctx.currentTime + 3);
 
-      src.connect(bp); bp.connect(g); g.connect(ctx.destination);
-      src.start(t);
+    // Gust swells — just modulate the master gain
+    function gust() {
+      const t = ctx.currentTime;
+      const peak = 1.0 + Math.random() * 0.5;
+      masterGain.gain.linearRampToValueAtTime(peak, t + 2);
+      masterGust.gain.linearRampToValueAtTime(1.0, t + 5);
+      setTimeout(gust, 7000 + Math.random() * 10000);
     }
 
+    // Fix typo — use masterGain not masterGust
+    function scheduleGust() {
+      const t = ctx.currentTime;
+      const peak = 1.0 + Math.random() * 0.5;
+      masterGain.gain.linearRampToValueAtTime(peak, t + 2);
+      masterGain.gain.linearRampToValueAtTime(1.0, t + 5);
+      setTimeout(scheduleGust, 7000 + Math.random() * 10000);
+    }
+    setTimeout(scheduleGust, 4000);
+  });
+}
     // Occasional heavy individual drops — like big drops hitting a surface
     if (Math.random() < 0.3) {
       const heavySrc = ctx.createBufferSource();
