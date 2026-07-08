@@ -20,20 +20,8 @@
     }
     .container { width: 100%; max-width: 680px; position: relative; z-index: 1; }
     h1 { text-align: center; font-size: 34px; color: #ffffff; text-shadow: 2px 2px 0px #000000; letter-spacing: 5px; margin-bottom: 4px; min-height: 44px; }
-    .subtitle { text-align: center; color: #ffffff; font-size: 12px; margin-bottom: 28px; letter-spacing: 3px; text-transform: uppercase; opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards; }
-
-    .card {
-      background: #f5e6c8;
-      background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
-      background-size: 100% 28px, 28px 100%;
-      border-radius: 4px;
-      padding: 28px;
-      margin-bottom: 16px;
-      border: 1px solid #c8a87a;
-      border-top: 3px solid #b8945a;
-      box-shadow: 2px 3px 12px rgba(0,0,0,0.25);
-      position: relative;
-    }
+    .subtitle { text-align: center; color: #ffffff; font-size: 12px; margin-bottom: 28px; letter-spacing: 3px; text-transform: uppercase; opacity: 0; transition: opacity 0.8s ease; }
+    .card { background: #f5e6c8; background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px); background-size: 100% 28px, 28px 100%; border-radius: 4px; padding: 28px; margin-bottom: 16px; border: 1px solid #c8a87a; border-top: 3px solid #b8945a; box-shadow: 2px 3px 12px rgba(0,0,0,0.25); position: relative; }
     .card-label { font-size: 11px; color: #6b4c1e; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 14px; }
     .story-text { font-size: 15px; line-height: 1.9; color: #2a1a0a; margin-bottom: 20px; }
     .type-badge { display: inline-block; background: rgba(100,60,10,0.1); border: 1px solid rgba(100,60,10,0.3); border-radius: 20px; padding: 4px 14px; font-size: 11px; color: #5c3a10; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
@@ -80,17 +68,14 @@
     .lb-dropdown { display: none; }
     .lb-dropdown.open { display: block; }
     .title-cursor { display: inline-block; width: 3px; height: 32px; background: #ffffff; margin-left: 4px; animation: blink 0.7s infinite; vertical-align: middle; }
-    @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
-    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes blink { 0%,100%{opacity:1;}50%{opacity:0;} }
 
     #rain-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
     #lightning-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 2; background: rgba(220,230,255,0); transition: background 0.05s; }
-
     .droplet { position: fixed; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; background: radial-gradient(ellipse at 35% 35%, rgba(255,255,255,0.75), rgba(180,210,240,0.3)); border: 1px solid rgba(140,180,220,0.5); pointer-events: none; z-index: 10; transition: opacity 0.4s ease; }
-
-    @keyframes correctFlash { 0% { background:#f5e6c8; } 30% { background:#c8e8c0; } 100% { background:#f5e6c8; } }
+    @keyframes correctFlash { 0%{background:#f5e6c8;}30%{background:#c8e8c0;}100%{background:#f5e6c8;} }
     .card.flash-correct { animation: correctFlash 0.6s ease forwards !important; }
-    @keyframes wrongShake { 0%,100%{transform:translateX(0);} 20%{transform:translateX(-8px);} 40%{transform:translateX(8px);} 60%{transform:translateX(-5px);} 80%{transform:translateX(5px);} }
+    @keyframes wrongShake { 0%,100%{transform:translateX(0);}20%{transform:translateX(-8px);}40%{transform:translateX(8px);}60%{transform:translateX(-5px);}80%{transform:translateX(5px);} }
     .card.shake-wrong { animation: wrongShake 0.4s ease forwards !important; }
 
     .dark-room { position: relative; width: 100%; height: 280px; background: #000; border-radius: 4px; overflow: hidden; cursor: none; margin-bottom: 16px; border: 1px solid #5c3a10; }
@@ -99,7 +84,6 @@
     .found-letters { display: flex; gap: 8px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
     .found-letter-box { width: 44px; height: 44px; border: 2px solid #c8a87a; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Courier New', monospace; font-size: 20px; font-weight: bold; background: rgba(255,248,235,0.9); transition: all 0.3s; }
     .found-letter-box.filled { border-color: #4a7a20; background: rgba(74,122,32,0.1); color: #2a5000; }
-
     .number-text { font-size: 15px; line-height: 2.4; color: #2a1a0a; background: rgba(255,248,235,0.5); border: 1px solid rgba(100,60,10,0.15); border-radius: 4px; padding: 16px; margin-bottom: 16px; }
     .number-word { text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #8B0000; cursor: pointer; transition: background 0.2s; border-radius: 3px; padding: 0 2px; }
     .number-word:hover { background: rgba(139,0,0,0.08); }
@@ -107,7 +91,6 @@
     .number-sequence { display: flex; gap: 8px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
     .num-box { width: 40px; height: 48px; border: 2px solid #c8a87a; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: 'Courier New', monospace; font-size: 20px; font-weight: bold; background: rgba(255,248,235,0.8); }
     .num-box.filled { border-color: #8B0000; background: rgba(139,0,0,0.08); color: #8B0000; }
-
     .spinner-container { display: flex; gap: 16px; justify-content: center; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
     .dial-group { display: flex; flex-direction: column; align-items: center; gap: 4px; }
     .drag-dial { width: 60px; height: 80px; background: linear-gradient(180deg,#1a1a1a 0%,#2a2a2a 40%,#333 50%,#2a2a2a 60%,#1a1a1a 100%); border: 2px solid #444; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 30px; font-family: 'Courier New', monospace; font-weight: bold; color: #f0e6d3; cursor: ns-resize; user-select: none; transition: border-color 0.2s; position: relative; overflow: hidden; }
@@ -116,7 +99,6 @@
     .drag-dial.correct { border-color:#00ff88; box-shadow:0 0 12px rgba(0,255,136,0.4); }
     .drag-dial.active { border-color:#ffffff; }
     .dial-arrows { display:flex; gap:4px; font-size:12px; color:#a07840; }
-
     .mirror-paper { background:#fffef8; border:2px solid #c8a87a; border-bottom:5px solid #5c3a10; border-radius:4px 4px 0 0; padding:24px 16px 0 16px; margin-bottom:0; overflow:hidden; }
     .mirror-surface { background:linear-gradient(180deg,rgba(180,220,255,0.5) 0%,rgba(220,240,255,0.15) 100%); border:2px solid #c8a87a; border-top:none; border-radius:0 0 4px 4px; height:44px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; font-size:11px; letter-spacing:2px; color:#a07840; text-transform:uppercase; }
     .mirror-hint { font-size:12px; color:#6b4c1e; text-align:center; letter-spacing:1px; margin-bottom:16px; line-height:1.8; }
@@ -130,9 +112,9 @@
 
 <div class="container">
   <h1 id="main-title"></h1>
-  <p class="subtitle">— Case 01 — Hotel Belmont — A Rainy Thursday Night —</p>
+  <p class="subtitle" id="subtitle">— Case 01 — Hotel Belmont — A Rainy Thursday Night —</p>
 
-  <div class="card" id="intro-card">
+  <div class="card" id="intro-card" style="opacity:0;transform:translateY(16px);transition:opacity 0.8s ease,transform 0.8s ease;">
     <div class="seal">🌧️</div>
     <div class="card-label">Case Briefing — Detective Eyes Only</div>
     <div class="story-text">
@@ -140,15 +122,15 @@
       <strong>Victor Crane</strong>, 68, one of Manhattan's wealthiest real estate developers, has been found dead in his suite at the Hotel Belmont on Park Avenue. The door was locked from the inside. The window was open despite the storm.<br><br>
       Four people were on his guest list that evening. One of them never left.
     </div>
-    <div class="suspect-list" id="suspect-list">
-      <div class="suspect"><strong>Diana Crane</strong> — Victor's wife of 22 years. Stood to inherit everything.</div>
-      <div class="suspect"><strong>Roland Fitch</strong> — Victor's business partner. Owed Victor $4 million.</div>
-      <div class="suspect"><strong>Sylvia Moss</strong> — Victor's personal attorney. Drafted his will three times this year.</div>
-      <div class="suspect"><strong>James Whitmore</strong> — A stranger. No one knows why Victor invited him.</div>
+    <div class="suspect-list">
+      <div class="suspect" id="s0"><strong>Diana Crane</strong> — Victor's wife of 22 years. Stood to inherit everything.</div>
+      <div class="suspect" id="s1"><strong>Roland Fitch</strong> — Victor's business partner. Owed Victor $4 million.</div>
+      <div class="suspect" id="s2"><strong>Sylvia Moss</strong> — Victor's personal attorney. Drafted his will three times this year.</div>
+      <div class="suspect" id="s3"><strong>James Whitmore</strong> — A stranger. No one knows why Victor invited him.</div>
     </div>
     <div class="story-text" id="closing-text" style="opacity:0;transition:opacity 0.8s ease;">Five clues are hidden in this hotel. Find them all and name the killer.<br><br>You have <strong>20 minutes</strong>. Enter your name for the leaderboard:</div>
-    <input class="name-input" id="player-name" type="text" placeholder="YOUR NAME" maxlength="20" style="opacity:0;transition:opacity 0.8s ease;">
-    <button id="start-btn" onclick="startGame()" style="opacity:0;transition:opacity 0.8s ease;">Begin Investigation</button>
+    <input class="name-input" id="player-name" type="text" placeholder="YOUR NAME" maxlength="20" style="opacity:0;transition:opacity 0.6s ease;">
+    <button id="start-btn" onclick="startGame()" style="opacity:0;transition:opacity 0.6s ease;">Begin Investigation</button>
   </div>
 
   <div class="hidden" id="game-card">
@@ -192,311 +174,183 @@ const TITLE = "DEATH IN MANHATTAN";
 // ── RAIN CANVAS ───────────────────────────────────────────
 const rainCanvas = document.getElementById("rain-canvas");
 const rctx = rainCanvas.getContext("2d");
-function resizeRain() { rainCanvas.width = window.innerWidth; rainCanvas.height = window.innerHeight; }
-resizeRain();
-window.addEventListener("resize", resizeRain);
-const drops = [];
+function resizeRain(){ rainCanvas.width=window.innerWidth; rainCanvas.height=window.innerHeight; }
+resizeRain(); window.addEventListener("resize", resizeRain);
 class RainDrop {
-  constructor() { this.reset(true); }
-  reset(rand) {
-    this.x = Math.random() * rainCanvas.width;
-    this.y = rand ? Math.random() * rainCanvas.height : -20;
-    this.len = 8 + Math.random() * 16;
-    this.speed = 10 + Math.random() * 14;
-    this.opacity = 0.1 + Math.random() * 0.25;
-  }
-  update() { this.y += this.speed; this.x += this.speed * 0.2; if (this.y > rainCanvas.height + 20) this.reset(false); }
-  draw() {
-    rctx.beginPath();
-    rctx.moveTo(this.x, this.y);
-    rctx.lineTo(this.x - this.len * 0.2, this.y - this.len);
-    rctx.strokeStyle = `rgba(180,200,255,${this.opacity})`;
-    rctx.lineWidth = 0.8; rctx.stroke();
-  }
+  constructor(){ this.reset(true); }
+  reset(rand){ this.x=Math.random()*rainCanvas.width; this.y=rand?Math.random()*rainCanvas.height:-20; this.len=8+Math.random()*16; this.speed=10+Math.random()*14; this.opacity=0.1+Math.random()*0.25; }
+  update(){ this.y+=this.speed; this.x+=this.speed*0.2; if(this.y>rainCanvas.height+20)this.reset(false); }
+  draw(){ rctx.beginPath(); rctx.moveTo(this.x,this.y); rctx.lineTo(this.x-this.len*0.2,this.y-this.len); rctx.strokeStyle=`rgba(180,200,255,${this.opacity})`; rctx.lineWidth=0.8; rctx.stroke(); }
 }
-for (let i = 0; i < 180; i++) drops.push(new RainDrop());
-function animateRain() { rctx.clearRect(0,0,rainCanvas.width,rainCanvas.height); drops.forEach(d => { d.update(); d.draw(); }); requestAnimationFrame(animateRain); }
+const drops = Array.from({length:180}, ()=>new RainDrop());
+function animateRain(){ rctx.clearRect(0,0,rainCanvas.width,rainCanvas.height); drops.forEach(d=>{d.update();d.draw();}); requestAnimationFrame(animateRain); }
 animateRain();
 
 // ── LIGHTNING ─────────────────────────────────────────────
 const lightningEl = document.getElementById("lightning-overlay");
-function triggerLightning() {
-  lightningEl.style.background = "rgba(220,230,255,0.35)";
-  setTimeout(() => { lightningEl.style.background = "rgba(220,230,255,0)"; }, 80);
-  setTimeout(() => { lightningEl.style.background = "rgba(220,230,255,0.2)"; setTimeout(() => { lightningEl.style.background = "rgba(220,230,255,0)"; }, 60); }, 120);
-  setTimeout(triggerLightning, 15000 + Math.random() * 25000);
+function triggerLightning(){
+  lightningEl.style.background="rgba(220,230,255,0.35)";
+  setTimeout(()=>lightningEl.style.background="rgba(220,230,255,0)",80);
+  setTimeout(()=>{ lightningEl.style.background="rgba(220,230,255,0.2)"; setTimeout(()=>lightningEl.style.background="rgba(220,230,255,0)",60); },120);
+  setTimeout(triggerLightning, 15000+Math.random()*25000);
 }
-setTimeout(triggerLightning, 8000 + Math.random() * 10000);
+setTimeout(triggerLightning, 8000+Math.random()*10000);
 
 // ── RAIN SOUND ────────────────────────────────────────────
-let rainAudio = null;
-let audioStarted = false;
-
-function startRainSound() {
-  if (audioStarted) return;
-  audioStarted = true;
-  const sr = 22050, dur = 5, n = sr * dur;
-  const pcm = new Float32Array(n);
-  for (let d = 0; d < 4000; d++) {
-    const start = Math.floor(Math.random() * n);
-    const impLen = Math.floor(sr * (0.005 + Math.random() * 0.03));
-    const amp = 0.015 + Math.random() * 0.08;
-    const freq = 300 + Math.random() * 4000;
-    for (let j = 0; j < impLen && start + j < n; j++) {
-      const decay = Math.pow(1 - j / impLen, 2.5);
-      pcm[start + j] += (Math.sin(2 * Math.PI * freq * j / sr) * 0.6 + (Math.random() - 0.5) * 0.4) * amp * decay;
-    }
+let rainAudio=null, audioStarted=false;
+function startRainSound(){
+  if(audioStarted)return; audioStarted=true;
+  const sr=22050,dur=5,n=sr*dur,pcm=new Float32Array(n);
+  for(let d=0;d<4000;d++){
+    const start=Math.floor(Math.random()*n),impLen=Math.floor(sr*(0.005+Math.random()*0.03)),amp=0.015+Math.random()*0.08,freq=300+Math.random()*4000;
+    for(let j=0;j<impLen&&start+j<n;j++){ const decay=Math.pow(1-j/impLen,2.5); pcm[start+j]+=(Math.sin(2*Math.PI*freq*j/sr)*0.6+(Math.random()-0.5)*0.4)*amp*decay; }
   }
-  for (let i = 0; i < n; i++) pcm[i] += (Math.random() - 0.5) * 0.035;
-  for (let i = 4; i < n; i++) pcm[i] = (pcm[i] + pcm[i-1] + pcm[i-2] + pcm[i-3]) / 4;
-  let peak = 0;
-  for (let i = 0; i < n; i++) peak = Math.max(peak, Math.abs(pcm[i]));
-  const norm = peak > 0 ? 0.85 / peak : 1;
-  for (let i = 0; i < n; i++) pcm[i] *= norm;
-  const buf = new ArrayBuffer(44 + n * 2);
-  const v = new DataView(buf);
-  const ws = (o, s) => { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
-  ws(0,'RIFF'); v.setUint32(4, 36 + n * 2, true);
-  ws(8,'WAVE'); ws(12,'fmt ');
-  v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
-  v.setUint32(24,sr,true); v.setUint32(28,sr*2,true);
-  v.setUint16(32,2,true); v.setUint16(34,16,true);
-  ws(36,'data'); v.setUint32(40,n*2,true);
-  for (let i = 0; i < n; i++) {
-    const s = Math.max(-1, Math.min(1, pcm[i]));
-    v.setInt16(44 + i * 2, s < 0 ? s * 32768 : s * 32767, true);
-  }
-  const blob = new Blob([buf], { type: 'audio/wav' });
-  rainAudio = new Audio(URL.createObjectURL(blob));
-  rainAudio.loop = true; rainAudio.volume = 0;
-  rainAudio.play().catch(() => {});
-  let vol = 0;
-  const fi = setInterval(() => { vol = Math.min(0.55, vol + 0.015); rainAudio.volume = vol; if (vol >= 0.55) clearInterval(fi); }, 80);
-  function gust() {
-    if (!rainAudio) return;
-    const target = 0.55 + Math.random() * 0.3;
-    let cv = rainAudio.volume;
-    const up = setInterval(() => { cv = Math.min(target, cv + 0.02); rainAudio.volume = cv; if (cv >= target) clearInterval(up); }, 80);
-    setTimeout(() => { const dn = setInterval(() => { cv = Math.max(0.55, cv - 0.01); rainAudio.volume = cv; if (cv <= 0.55) clearInterval(dn); }, 100); }, 2500 + Math.random() * 1500);
-    setTimeout(gust, 6000 + Math.random() * 10000);
-  }
-  setTimeout(gust, 4000);
+  for(let i=0;i<n;i++) pcm[i]+=(Math.random()-0.5)*0.035;
+  for(let i=4;i<n;i++) pcm[i]=(pcm[i]+pcm[i-1]+pcm[i-2]+pcm[i-3])/4;
+  let peak=0; for(let i=0;i<n;i++) peak=Math.max(peak,Math.abs(pcm[i]));
+  const norm=peak>0?0.85/peak:1; for(let i=0;i<n;i++) pcm[i]*=norm;
+  const buf=new ArrayBuffer(44+n*2),v=new DataView(buf);
+  const ws=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i));};
+  ws(0,'RIFF');v.setUint32(4,36+n*2,true);ws(8,'WAVE');ws(12,'fmt ');
+  v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
+  v.setUint32(24,sr,true);v.setUint32(28,sr*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);
+  ws(36,'data');v.setUint32(40,n*2,true);
+  for(let i=0;i<n;i++){const s=Math.max(-1,Math.min(1,pcm[i]));v.setInt16(44+i*2,s<0?s*32768:s*32767,true);}
+  const blob=new Blob([buf],{type:'audio/wav'});
+  rainAudio=new Audio(URL.createObjectURL(blob)); rainAudio.loop=true; rainAudio.volume=0;
+  rainAudio.play().catch(()=>{});
+  let vol=0; const fi=setInterval(()=>{ vol=Math.min(0.55,vol+0.015); rainAudio.volume=vol; if(vol>=0.55)clearInterval(fi); },80);
+  function gust(){ if(!rainAudio)return; const target=0.55+Math.random()*0.3; let cv=rainAudio.volume; const up=setInterval(()=>{ cv=Math.min(target,cv+0.02); rainAudio.volume=cv; if(cv>=target)clearInterval(up); },80); setTimeout(()=>{ const dn=setInterval(()=>{ cv=Math.max(0.55,cv-0.01); rainAudio.volume=cv; if(cv<=0.55)clearInterval(dn); },100); },2500+Math.random()*1500); setTimeout(gust,6000+Math.random()*10000); }
+  setTimeout(gust,4000);
 }
 
 // ── SOUND EFFECTS ─────────────────────────────────────────
-let audioCtx = null;
-function getCtx() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); return audioCtx; }
-
-function playCorrectSound() {
-  const ctx = getCtx();
-  [523.25, 659.25, 783.99].forEach((freq, i) => {
-    const osc = ctx.createOscillator(), g = ctx.createGain();
-    osc.connect(g); g.connect(ctx.destination);
-    osc.type = "sine"; osc.frequency.value = freq;
-    const t = ctx.currentTime + i * 0.12;
-    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.3, t + 0.02); g.gain.exponentialRampToValueAtTime(0.001, t + 0.8);
-    osc.start(t); osc.stop(t + 0.8);
-  });
+let audioCtx=null;
+function getCtx(){ if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)(); return audioCtx; }
+function playCorrectSound(){
+  const ctx=getCtx();
+  [523.25,659.25,783.99].forEach((freq,i)=>{ const osc=ctx.createOscillator(),g=ctx.createGain(); osc.connect(g);g.connect(ctx.destination); osc.type="sine";osc.frequency.value=freq; const t=ctx.currentTime+i*0.12; g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.3,t+0.02);g.gain.exponentialRampToValueAtTime(0.001,t+0.8); osc.start(t);osc.stop(t+0.8); });
 }
-
-function playWrongSound() {
-  const ctx = getCtx();
-  const osc = ctx.createOscillator(), g = ctx.createGain();
-  osc.connect(g); g.connect(ctx.destination);
-  osc.type = "sawtooth";
-  osc.frequency.setValueAtTime(120, ctx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.3);
-  g.gain.setValueAtTime(0.35, ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
-  osc.start(); osc.stop(ctx.currentTime + 0.4);
+function playWrongSound(){
+  const ctx=getCtx(); const osc=ctx.createOscillator(),g=ctx.createGain(); osc.connect(g);g.connect(ctx.destination); osc.type="sawtooth"; osc.frequency.setValueAtTime(120,ctx.currentTime);osc.frequency.exponentialRampToValueAtTime(40,ctx.currentTime+0.3); g.gain.setValueAtTime(0.35,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.4); osc.start();osc.stop(ctx.currentTime+0.4);
 }
 
 // ── DROPLETS ──────────────────────────────────────────────
-function spawnDroplets(card) {
-  function make() {
-    if (!document.body.contains(card)) return;
-    const rect = card.getBoundingClientRect();
-    const el = document.createElement("div");
-    el.className = "droplet";
-    const w = 5 + Math.random() * 13, h = w * (0.65 + Math.random() * 0.5);
-    el.style.cssText = `width:${w}px;height:${h}px;left:${rect.left + 10 + Math.random() * (rect.width - 20)}px;top:${rect.top + 10 + Math.random() * (rect.height - 20)}px;transform:rotate(${Math.random()*30-15}deg);opacity:0;`;
+function spawnDroplets(card){
+  function make(){
+    if(!document.body.contains(card))return;
+    const rect=card.getBoundingClientRect(),el=document.createElement("div"); el.className="droplet";
+    const w=5+Math.random()*13,h=w*(0.65+Math.random()*0.5);
+    el.style.cssText=`width:${w}px;height:${h}px;left:${rect.left+10+Math.random()*(rect.width-20)}px;top:${rect.top+10+Math.random()*(rect.height-20)}px;transform:rotate(${Math.random()*30-15}deg);opacity:0;`;
     document.body.appendChild(el);
-    requestAnimationFrame(() => requestAnimationFrame(() => { el.style.opacity = "0.85"; }));
-    setTimeout(() => { el.style.opacity = "0"; setTimeout(() => el.remove(), 500); }, 8000 + Math.random() * 8000);
-    setTimeout(make, 1200 + Math.random() * 2000);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>el.style.opacity="0.85"));
+    setTimeout(()=>{ el.style.opacity="0"; setTimeout(()=>el.remove(),500); },8000+Math.random()*8000);
+    setTimeout(make,1200+Math.random()*2000);
   }
-  for (let i = 0; i < 7; i++) setTimeout(make, i * 300);
+  for(let i=0;i<7;i++) setTimeout(make,i*300);
 }
 
 // ── FEEDBACK ──────────────────────────────────────────────
-function flashCorrect() {
-  const card = document.querySelector("#game-card .card"); if (!card) return;
-  card.classList.remove("shake-wrong"); card.classList.add("flash-correct");
-  setTimeout(() => card.classList.remove("flash-correct"), 600);
-}
-function shakeWrong() {
-  const card = document.querySelector("#game-card .card"); if (!card) return;
-  card.classList.remove("flash-correct"); card.classList.add("shake-wrong");
-  setTimeout(() => card.classList.remove("shake-wrong"), 400);
-}
+function flashCorrect(){ const c=document.querySelector("#game-card .card"); if(!c)return; c.classList.remove("shake-wrong");c.classList.add("flash-correct"); setTimeout(()=>c.classList.remove("flash-correct"),600); }
+function shakeWrong(){ const c=document.querySelector("#game-card .card"); if(!c)return; c.classList.remove("flash-correct");c.classList.add("shake-wrong"); setTimeout(()=>c.classList.remove("shake-wrong"),400); }
 
 // ── INTRO SEQUENCE ────────────────────────────────────────
-// No CSS animation delays on intro card — we control everything with JS
-document.getElementById("intro-card").style.opacity = "0";
-document.getElementById("intro-card").style.transform = "translateY(16px)";
-document.getElementById("intro-card").style.transition = "opacity 0.8s ease, transform 0.8s ease";
+document.addEventListener("click", startRainSound, {once:true});
+document.addEventListener("touchstart", startRainSound, {once:true});
 
-document.addEventListener("click", startRainSound, { once: true });
-document.addEventListener("touchstart", startRainSound, { once: true });
+window.addEventListener("load", runIntro);
 
-window.addEventListener("load", function() {
-  // Step 1: type the title immediately
-  typeTitle(function() {
-    // Step 2: fade in the card
-    const card = document.getElementById("intro-card");
-    card.style.opacity = "1";
-    card.style.transform = "translateY(0)";
-    // Step 3: animate suspects after card fades in
-    setTimeout(animateSuspects, 900);
+function runIntro(){
+  // Step 1: type title
+  typeTitle(()=>{
+    // Step 2: fade in subtitle
+    document.getElementById("subtitle").style.opacity="1";
+    // Step 3: fade in card
+    setTimeout(()=>{
+      const card=document.getElementById("intro-card");
+      card.style.opacity="1"; card.style.transform="translateY(0)";
+      // Step 4: after card visible, slide in suspects
+      setTimeout(()=>{
+        const suspects=[0,1,2,3].map(i=>document.getElementById("s"+i));
+        suspects.forEach((s,i)=>{
+          setTimeout(()=>{
+            s.classList.add("visible");
+            // Step 5: after last suspect, show closing text then name + button
+            if(i===suspects.length-1){
+              setTimeout(()=>{
+                document.getElementById("closing-text").style.opacity="1";
+                setTimeout(()=>{
+                  document.getElementById("player-name").style.opacity="1";
+                  setTimeout(()=>document.getElementById("start-btn").style.opacity="1", 200);
+                },400);
+              },400);
+            }
+          }, i*300);
+        });
+      },900);
+    },300);
   });
-});
+}
 
-function typeTitle(onDone) {
-  const el = document.getElementById("main-title");
-  let i = 0;
-  function t() {
-    if (i <= TITLE.length) {
-      el.innerHTML = TITLE.slice(0, i) + '<span class="title-cursor"></span>';
-      i++;
-      setTimeout(t, 80);
-    } else {
-      el.innerHTML = TITLE;
-      if (onDone) onDone();
-    }
+function typeTitle(onDone){
+  const el=document.getElementById("main-title"); let i=0;
+  function t(){
+    if(i<=TITLE.length){ el.innerHTML=TITLE.slice(0,i)+'<span class="title-cursor"></span>'; i++; setTimeout(t,80); }
+    else{ el.innerHTML=TITLE; if(onDone)onDone(); }
   }
   t();
 }
 
-function animateSuspects() {
-  const suspects = document.querySelectorAll(".suspect");
-  suspects.forEach((s, i) => {
-    setTimeout(() => {
-      s.classList.add("visible");
-      if (i === suspects.length - 1) {
-        setTimeout(() => {
-          document.getElementById("closing-text").style.opacity = "1";
-          setTimeout(() => {
-            document.getElementById("player-name").style.opacity = "1";
-            document.getElementById("start-btn").style.opacity = "1";
-          }, 400);
-        }, 400);
-      }
-    }, i * 300);
-  });
-}
-
 // ── PUZZLES ───────────────────────────────────────────────
-const puzzles = [
-  { label:"Clue 01 — The Front Desk", type:"🔦 Find the Letter", story:"The night manager points to the wall behind the front desk. Someone scratched letters into the dark wood panelling. The room is nearly pitch black — you'll need to search carefully.", answer:"whitmore", hint:"Move your cursor slowly over the dark panel. Eight letters are hidden there. They spell a suspect's last name.", renderPuzzle:renderFlashlight },
-  { label:"Clue 02 — The Hotel Bar", type:"🔢 Numbers in Text", story:"The bartender slides you a handwritten note. It looks like a normal drink order — but four numbers are hidden as words inside the text. Find and click each one in order.", answer:"9147", hint:"Look for number words hidden inside longer words. Click each underlined word to extract its number.", renderPuzzle:renderNumberText },
-  { label:"Clue 03 — Victor's Suite", type:"🔄 Drag the Dials", story:"A rotary combination lock is built into Victor's desk drawer. Drag each dial up or down to align the letters. There are always three — and three is always the shift.", answer:"james is my son he wants everything", hint:"Drag each dial up or down. Shift every letter back by 3. D→A, E→B, F→C.", renderPuzzle:renderDragDials },
-  { label:"Clue 04 — The Attorney's Briefcase", type:"🪞 Mirror Writing", story:"Sylvia Moss left a document on the lobby desk. A single word is written across the page — but each letter is only half drawn. Hold a mirror below the edge to complete each letter.", answer:"checked", hint:"Hold a real mirror flat below the bottom edge. The word uses only symmetric letters — B, C, D, E, H, I, K, O, X.", renderPuzzle:renderMirror },
-  { label:"Clue 05 — The Open Window", type:"🔐 Caesar Cipher", story:"On the windowsill, barely visible in the rain, someone scratched letters into the paint. Victor left one final message — his killer's full name. He always shifted by three.", answer:"james whitmore", hint:"Shift every letter back by 3. D becomes A, E becomes B, F becomes C.", renderPuzzle:renderCaesar }
+const puzzles=[
+  {label:"Clue 01 — The Front Desk",type:"🔦 Find the Letter",story:"The night manager points to the wall behind the front desk. Someone scratched letters into the dark wood panelling. The room is nearly pitch black — you'll need to search carefully.",answer:"whitmore",hint:"Move your cursor slowly over the dark panel. Eight letters are hidden there. They spell a suspect's last name.",renderPuzzle:renderFlashlight},
+  {label:"Clue 02 — The Hotel Bar",type:"🔢 Numbers in Text",story:"The bartender slides you a handwritten note. It looks like a normal drink order — but four numbers are hidden as words inside the text. Find and click each one in order.",answer:"9147",hint:"Look for number words hidden inside longer words. Click each underlined word to extract its number.",renderPuzzle:renderNumberText},
+  {label:"Clue 03 — Victor's Suite",type:"🔄 Drag the Dials",story:"A rotary combination lock is built into Victor's desk drawer. Drag each dial up or down to align the letters. There are always three — and three is always the shift.",answer:"james is my son he wants everything",hint:"Drag each dial up or down. Shift every letter back by 3. D→A, E→B, F→C.",renderPuzzle:renderDragDials},
+  {label:"Clue 04 — The Attorney's Briefcase",type:"🪞 Mirror Writing",story:"Sylvia Moss left a document on the lobby desk. A single word is written across the page — but each letter is only half drawn. Hold a mirror below the edge to complete each letter.",answer:"checked",hint:"Hold a real mirror flat below the bottom edge. The word uses only symmetric letters — B, C, D, E, H, I, K, O, X.",renderPuzzle:renderMirror},
+  {label:"Clue 05 — The Open Window",type:"🔐 Caesar Cipher",story:"On the windowsill, barely visible in the rain, someone scratched letters into the paint. Victor left one final message — his killer's full name. He always shifted by three.",answer:"james whitmore",hint:"Shift every letter back by 3. D becomes A, E becomes B, F becomes C.",renderPuzzle:renderCaesar}
 ];
 
-let current=0, lives=3, livesLost=0, caseSolved=false;
-let startTime, timerInterval, timeUsed=0, playerName="";
+let current=0,lives=3,livesLost=0,caseSolved=false,startTime,timerInterval,timeUsed=0,playerName="";
 
 // ── PUZZLE RENDERERS ──────────────────────────────────────
-function renderFlashlight(container) {
-  const letters = "WHITMORE".split("");
-  const positions = [{x:8,y:25},{x:20,y:55},{x:35,y:20},{x:48,y:60},{x:60,y:30},{x:72,y:65},{x:83,y:25},{x:92,y:50}];
-  let found = new Array(8).fill(false);
-  container.innerHTML = `
-    <div style="font-size:13px;color:#6b4c1e;margin-bottom:10px;letter-spacing:1px;">Move your cursor over the dark panel to reveal hidden letters.</div>
-    <div class="found-letters" id="found-letters">${letters.map((_,i)=>`<div class="found-letter-box" id="fbox-${i}"></div>`).join("")}</div>
-    <div class="dark-room" id="dark-room">
-      <canvas class="flashlight-mask" id="fl-canvas"></canvas>
-      ${letters.map((l,i)=>`<div class="hidden-letter" id="hl-${i}" style="left:${positions[i].x}%;top:${positions[i].y}%;transform:translate(-50%,-50%)">${l}</div>`).join("")}
-    </div>`;
-  const room=document.getElementById("dark-room"), canvas=document.getElementById("fl-canvas"), ctx=canvas.getContext("2d");
+function renderFlashlight(container){
+  const letters="WHITMORE".split(""),positions=[{x:8,y:25},{x:20,y:55},{x:35,y:20},{x:48,y:60},{x:60,y:30},{x:72,y:65},{x:83,y:25},{x:92,y:50}];
+  let found=new Array(8).fill(false);
+  container.innerHTML=`<div style="font-size:13px;color:#6b4c1e;margin-bottom:10px;letter-spacing:1px;">Move your cursor over the dark panel to reveal hidden letters.</div><div class="found-letters" id="found-letters">${letters.map((_,i)=>`<div class="found-letter-box" id="fbox-${i}"></div>`).join("")}</div><div class="dark-room" id="dark-room"><canvas class="flashlight-mask" id="fl-canvas"></canvas>${letters.map((l,i)=>`<div class="hidden-letter" id="hl-${i}" style="left:${positions[i].x}%;top:${positions[i].y}%;transform:translate(-50%,-50%)">${l}</div>`).join("")}</div>`;
+  const room=document.getElementById("dark-room"),canvas=document.getElementById("fl-canvas"),ctx=canvas.getContext("2d");
   function resize(){canvas.width=room.offsetWidth;canvas.height=room.offsetHeight;drawDark(null);}
-  function drawDark(pos){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle="rgba(0,0,0,0.97)";ctx.fillRect(0,0,canvas.width,canvas.height);
-    if(pos){ctx.globalCompositeOperation="destination-out";ctx.beginPath();ctx.arc(pos.x,pos.y,40,0,Math.PI*2);ctx.fillStyle="rgba(0,0,0,1)";ctx.fill();ctx.globalCompositeOperation="source-over";checkFound(pos);}
-  }
-  function checkFound(pos){
-    letters.forEach((l,i)=>{
-      if(found[i])return;
-      const el=document.getElementById("hl-"+i),rect=el.getBoundingClientRect(),rr=room.getBoundingClientRect();
-      if(Math.hypot(pos.x-(rect.left+rect.width/2-rr.left), pos.y-(rect.top+rect.height/2-rr.top))<70){
-        found[i]=true;
-        const box=document.getElementById("fbox-"+i);box.textContent=l;box.classList.add("filled");
-        document.getElementById("player-input").value=found.map((f,j)=>f?letters[j]:"").join("").toLowerCase();
-      }
-    });
-  }
+  function drawDark(pos){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle="rgba(0,0,0,0.97)";ctx.fillRect(0,0,canvas.width,canvas.height);if(pos){ctx.globalCompositeOperation="destination-out";ctx.beginPath();ctx.arc(pos.x,pos.y,40,0,Math.PI*2);ctx.fillStyle="rgba(0,0,0,1)";ctx.fill();ctx.globalCompositeOperation="source-over";checkFound(pos);}}
+  function checkFound(pos){letters.forEach((l,i)=>{if(found[i])return;const el=document.getElementById("hl-"+i),rect=el.getBoundingClientRect(),rr=room.getBoundingClientRect();if(Math.hypot(pos.x-(rect.left+rect.width/2-rr.left),pos.y-(rect.top+rect.height/2-rr.top))<70){found[i]=true;const box=document.getElementById("fbox-"+i);box.textContent=l;box.classList.add("filled");document.getElementById("player-input").value=found.map((f,j)=>f?letters[j]:"").join("").toLowerCase();}});}
   room.addEventListener("mousemove",e=>{const r=room.getBoundingClientRect();drawDark({x:e.clientX-r.left,y:e.clientY-r.top});});
   room.addEventListener("touchmove",e=>{e.preventDefault();const r=room.getBoundingClientRect(),t=e.touches[0];drawDark({x:t.clientX-r.left,y:t.clientY-r.top});},{passive:false});
   room.addEventListener("mouseleave",()=>drawDark(null));
   setTimeout(resize,50);window.addEventListener("resize",resize);
 }
 
-function renderNumberText(container) {
+function renderNumberText(container){
   const segs=[{text:"Ordered for table ",plain:true},{word:"nineteen",digit:"9"},{text:": one bottle Château Margaux (",plain:true},{word:"alone",digit:"1"},{text:" in the cellar), ",plain:true},{word:"fortunate",digit:"4"},{text:" if it arrives by the ",plain:true},{word:"seventh",digit:"7"},{text:" hour. Charge to suite.",plain:true}];
-  container.innerHTML=`
-    <div style="font-size:13px;color:#6b4c1e;margin-bottom:10px;letter-spacing:1px;">A number-word is hidden inside each underlined word. Click each one in order.</div>
-    <div class="number-sequence" id="num-seq">${[0,1,2,3].map(i=>`<div class="num-box" id="nbox-${i}"></div>`).join("")}</div>
-    <div class="number-text" id="num-text"></div>
-    <button class="secondary-btn" style="margin-bottom:12px" onclick="resetNumbers()">Reset</button>`;
+  container.innerHTML=`<div style="font-size:13px;color:#6b4c1e;margin-bottom:10px;letter-spacing:1px;">A number-word is hidden inside each underlined word. Click each one in order.</div><div class="number-sequence" id="num-seq">${[0,1,2,3].map(i=>`<div class="num-box" id="nbox-${i}"></div>`).join("")}</div><div class="number-text" id="num-text"></div><button class="secondary-btn" style="margin-bottom:12px" onclick="resetNumbers()">Reset</button>`;
   let html='<em style="font-size:12px;letter-spacing:1px;color:#a07840;display:block;margin-bottom:8px;">— Belmont Bar, Late Order Slip —</em>';
   segs.forEach(s=>{if(s.plain)html+=s.text;else html+=`<span class="number-word" data-digit="${s.digit}" onclick="pickNumberWord(this)">${s.word}</span>`;});
   document.getElementById("num-text").innerHTML=html;
 }
-window.pickNumberWord=function(el){
-  if(el.classList.contains("selected"))return;
-  if(document.querySelectorAll(".number-word.selected").length>=4)return;
-  el.classList.add("selected");
-  const idx=document.querySelectorAll(".number-word.selected").length-1;
-  const box=document.getElementById("nbox-"+idx);box.textContent=el.dataset.digit;box.classList.add("filled");
-  document.getElementById("player-input").value=Array.from(document.querySelectorAll(".num-box.filled")).map(b=>b.textContent).join("");
-};
-window.resetNumbers=function(){
-  document.querySelectorAll(".number-word.selected").forEach(e=>e.classList.remove("selected"));
-  document.querySelectorAll(".num-box").forEach(b=>{b.textContent="";b.classList.remove("filled");});
-  document.getElementById("player-input").value="";
-};
+window.pickNumberWord=function(el){if(el.classList.contains("selected"))return;if(document.querySelectorAll(".number-word.selected").length>=4)return;el.classList.add("selected");const idx=document.querySelectorAll(".number-word.selected").length-1;const box=document.getElementById("nbox-"+idx);box.textContent=el.dataset.digit;box.classList.add("filled");document.getElementById("player-input").value=Array.from(document.querySelectorAll(".num-box.filled")).map(b=>b.textContent).join("");};
+window.resetNumbers=function(){document.querySelectorAll(".number-word.selected").forEach(e=>e.classList.remove("selected"));document.querySelectorAll(".num-box").forEach(b=>{b.textContent="";b.classList.remove("filled");});document.getElementById("player-input").value="";};
 
-function renderDragDials(container) {
-  const answer="JAMES IS MY SON HE WANTS EVERYTHING";
-  const encoded=caesarShift(answer,3),chars=encoded.split(""),decodedChars=answer.split("");
-  container.innerHTML=`
-    <div style="font-size:13px;color:#6b4c1e;margin-bottom:12px;letter-spacing:1px;">Drag each dial ↑ or ↓. Each dial shows its decoded letter. Glow green = correct. Get all green to unlock.</div>
-    <div style="background:rgba(0,0,0,0.85);border-radius:8px;padding:20px;margin-bottom:12px;overflow-x:auto;"><div class="spinner-container" id="spinner-container"></div></div>
-    <div style="font-size:12px;color:#a07840;letter-spacing:1px;text-align:center;margin-bottom:12px;" id="dial-status">0 / ${decodedChars.filter(c=>c!==" ").length} dials aligned</div>`;
+function renderDragDials(container){
+  const answer="JAMES IS MY SON HE WANTS EVERYTHING",encoded=caesarShift(answer,3),chars=encoded.split(""),decodedChars=answer.split("");
+  container.innerHTML=`<div style="font-size:13px;color:#6b4c1e;margin-bottom:12px;letter-spacing:1px;">Drag each dial ↑ or ↓. Each dial shows its decoded letter. Glow green = correct. Get all green to unlock.</div><div style="background:rgba(0,0,0,0.85);border-radius:8px;padding:20px;margin-bottom:12px;overflow-x:auto;"><div class="spinner-container" id="spinner-container"></div></div><div style="font-size:12px;color:#a07840;letter-spacing:1px;text-align:center;margin-bottom:12px;" id="dial-status">0 / ${decodedChars.filter(c=>c!==" ").length} dials aligned</div>`;
   const sc=document.getElementById("spinner-container"),alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
   let dialStates=chars.map(c=>c===" "?{idx:26,isSpace:true,correct:true}:{idx:alphabet.indexOf(c),isSpace:false,correct:false});
   const total=dialStates.filter(s=>!s.isSpace).length;
-  function checkAll(){
-    const c=dialStates.filter(s=>!s.isSpace&&s.correct).length;
-    const statusEl=document.getElementById("dial-status");
-    statusEl.textContent=`${c} / ${total} dials aligned`;
-    if(c===total){document.getElementById("player-input").value=answer.toLowerCase();statusEl.textContent="✓ All dials aligned — drawer unlocked!";statusEl.style.color="#4a7a20";playCorrectSound();}
-  }
+  function checkAll(){const c=dialStates.filter(s=>!s.isSpace&&s.correct).length;const st=document.getElementById("dial-status");st.textContent=`${c} / ${total} dials aligned`;if(c===total){document.getElementById("player-input").value=answer.toLowerCase();st.textContent="✓ All dials aligned — drawer unlocked!";st.style.color="#4a7a20";playCorrectSound();}}
   dialStates.forEach((state,i)=>{
     if(state.isSpace){const sp=document.createElement("div");sp.style.width="12px";sc.appendChild(sp);return;}
     const group=document.createElement("div");group.className="dial-group";
     const dial=document.createElement("div");dial.className="drag-dial";
-    const r=Math.floor(Math.random()*26);dialStates[i].idx=r;
-    dial.textContent=alphabet[((r-3)%26+26)%26];
+    const r=Math.floor(Math.random()*26);dialStates[i].idx=r;dial.textContent=alphabet[((r-3)%26+26)%26];
     let startY=0,dragging=false,acc=0;
-    function upd(){
-      const dl=alphabet[((dialStates[i].idx-3)%26+26)%26];dial.textContent=dl;
-      const ok=dl===decodedChars[i],was=dialStates[i].correct;dialStates[i].correct=ok;
-      if(ok&&!was){dial.classList.add("correct");dial.style.color="#00ff88";dial.style.textShadow="0 0 12px rgba(0,255,136,0.8)";}
-      else if(!ok){dial.classList.remove("correct");dial.style.color="#f0e6d3";dial.style.textShadow="none";}
-      checkAll();
-    }
+    function upd(){const dl=alphabet[((dialStates[i].idx-3)%26+26)%26];dial.textContent=dl;const ok=dl===decodedChars[i],was=dialStates[i].correct;dialStates[i].correct=ok;if(ok&&!was){dial.classList.add("correct");dial.style.color="#00ff88";dial.style.textShadow="0 0 12px rgba(0,255,136,0.8)";}else if(!ok){dial.classList.remove("correct");dial.style.color="#f0e6d3";dial.style.textShadow="none";}checkAll();}
     dial.addEventListener("mousedown",e=>{dragging=true;startY=e.clientY;acc=0;dial.classList.add("active");e.preventDefault();});
     document.addEventListener("mousemove",e=>{if(!dragging)return;acc+=(startY-e.clientY)*0.15;startY=e.clientY;if(Math.abs(acc)>=1){dialStates[i].idx=((dialStates[i].idx+Math.round(acc))%26+26)%26;acc=0;upd();}});
     document.addEventListener("mouseup",()=>{if(dragging){dragging=false;dial.classList.remove("active");}});
@@ -508,36 +362,18 @@ function renderDragDials(container) {
   });
 }
 
-function renderMirror(container) {
-  container.innerHTML=`
-    <div style="font-size:13px;color:#6b4c1e;margin-bottom:12px;letter-spacing:1px;">Each letter is only half-drawn. Hold a mirror horizontally below the paper edge to complete them and read the hidden word.</div>
-    <div class="mirror-paper"><canvas id="mirror-canvas" style="display:block;width:100%;"></canvas></div>
-    <div class="mirror-surface">↑ hold mirror here ↑</div>
-    <div class="mirror-alphabet-note">These letters look the same in a mirror: <strong>B &nbsp;C &nbsp;D &nbsp;E &nbsp;H &nbsp;I &nbsp;K &nbsp;O &nbsp;X</strong></div>
-    <div class="mirror-hint">Hold a physical mirror (or a phone screen) flat below the bottom edge.<br>Type the word you see.</div>`;
-  const answer="CHECKED",canvas=document.getElementById("mirror-canvas");
-  const ls=80,gap=14,padX=20,tw=answer.length*(ls+gap)-gap+padX*2,hh=ls*0.52,dpr=window.devicePixelRatio||1;
+function renderMirror(container){
+  container.innerHTML=`<div style="font-size:13px;color:#6b4c1e;margin-bottom:12px;letter-spacing:1px;">Each letter is only half-drawn. Hold a mirror horizontally below the paper edge to complete them and read the hidden word.</div><div class="mirror-paper"><canvas id="mirror-canvas" style="display:block;width:100%;"></canvas></div><div class="mirror-surface">↑ hold mirror here ↑</div><div class="mirror-alphabet-note">These letters look the same in a mirror: <strong>B &nbsp;C &nbsp;D &nbsp;E &nbsp;H &nbsp;I &nbsp;K &nbsp;O &nbsp;X</strong></div><div class="mirror-hint">Hold a physical mirror (or a phone screen) flat below the bottom edge.<br>Type the word you see.</div>`;
+  const answer="CHECKED",canvas=document.getElementById("mirror-canvas"),ls=80,gap=14,padX=20,tw=answer.length*(ls+gap)-gap+padX*2,hh=ls*0.52,dpr=window.devicePixelRatio||1;
   canvas.width=tw*dpr;canvas.height=hh*dpr;canvas.style.height=hh+"px";
-  const ctx=canvas.getContext("2d");ctx.scale(dpr,dpr);
-  ctx.fillStyle="#fffef8";ctx.fillRect(0,0,tw,hh);
-  ctx.font=`bold ${ls}px Georgia, serif`;ctx.fillStyle="#1a1a1a";ctx.textBaseline="top";
-  ctx.save();ctx.rect(0,0,tw,hh);ctx.clip();
-  let x=padX;answer.split("").forEach(ch=>{ctx.fillText(ch,x,0);x+=ls+gap;});
-  ctx.restore();
+  const ctx=canvas.getContext("2d");ctx.scale(dpr,dpr);ctx.fillStyle="#fffef8";ctx.fillRect(0,0,tw,hh);ctx.font=`bold ${ls}px Georgia, serif`;ctx.fillStyle="#1a1a1a";ctx.textBaseline="top";
+  ctx.save();ctx.rect(0,0,tw,hh);ctx.clip();let x=padX;answer.split("").forEach(ch=>{ctx.fillText(ch,x,0);x+=ls+gap;});ctx.restore();
   ctx.strokeStyle="rgba(0,0,0,0.08)";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,hh-8);ctx.lineTo(tw,hh-8);ctx.stroke();
 }
 
-function renderCaesar(container) {
+function renderCaesar(container){
   const encoded=caesarShift("JAMES WHITMORE",3);
-  container.innerHTML=`
-    <div style="background:rgba(100,60,10,0.06);border:1px solid rgba(100,60,10,0.2);border-radius:4px;padding:20px;margin-bottom:12px;">
-      <div style="font-size:11px;letter-spacing:3px;color:#a07840;text-transform:uppercase;margin-bottom:8px;">Encoded Message</div>
-      <div style="font-family:'Courier New',monospace;font-size:24px;letter-spacing:6px;text-align:center;color:#2a1a0a;">${encoded}</div>
-    </div>
-    <div style="background:rgba(255,248,235,0.5);border:1px solid rgba(100,60,10,0.15);border-radius:4px;padding:16px;margin-bottom:12px;font-family:'Courier New',monospace;font-size:13px;line-height:2;color:#3a2010;">
-      A B C D E F G H I J K L M<br>D E F G H I J K L M N O P<br><br>N O P Q R S T U V W X Y Z<br>Q R S T U V W X Y Z A B C
-    </div>
-    <div style="font-size:13px;color:#6b4c1e;letter-spacing:1px;">Shift every letter back by 3 to decode the killer's name.</div>`;
+  container.innerHTML=`<div style="background:rgba(100,60,10,0.06);border:1px solid rgba(100,60,10,0.2);border-radius:4px;padding:20px;margin-bottom:12px;"><div style="font-size:11px;letter-spacing:3px;color:#a07840;text-transform:uppercase;margin-bottom:8px;">Encoded Message</div><div style="font-family:'Courier New',monospace;font-size:24px;letter-spacing:6px;text-align:center;color:#2a1a0a;">${encoded}</div></div><div style="background:rgba(255,248,235,0.5);border:1px solid rgba(100,60,10,0.15);border-radius:4px;padding:16px;margin-bottom:12px;font-family:'Courier New',monospace;font-size:13px;line-height:2;color:#3a2010;">A B C D E F G H I J K L M<br>D E F G H I J K L M N O P<br><br>N O P Q R S T U V W X Y Z<br>Q R S T U V W X Y Z A B C</div><div style="font-size:13px;color:#6b4c1e;letter-spacing:1px;">Shift every letter back by 3 to decode the killer's name.</div>`;
 }
 
 // ── GAME ENGINE ───────────────────────────────────────────
@@ -547,15 +383,13 @@ function startGame(){
   playerName=document.getElementById("player-name").value.trim()||"UNKNOWN";
   document.getElementById("intro-card").classList.add("hidden");
   document.getElementById("game-card").classList.remove("hidden");
-  startTime=Date.now();
-  timerInterval=setInterval(updateTimer,100);
+  startTime=Date.now(); timerInterval=setInterval(updateTimer,100);
   spawnDroplets(document.querySelector("#game-card .card"));
   loadPuzzle();
 }
 
 function updateTimer(){
-  const remaining=TIME_LIMIT-(Date.now()-startTime);
-  const bar=document.getElementById("timer-bar"),disp=document.getElementById("timer-display");
+  const remaining=TIME_LIMIT-(Date.now()-startTime),bar=document.getElementById("timer-bar"),disp=document.getElementById("timer-display");
   if(remaining<=0){clearInterval(timerInterval);disp.textContent="00:00";bar.className="timer-bar danger";timeUsed=TIME_LIMIT;showEnding();return;}
   disp.textContent=formatCountdown(remaining);
   bar.className=remaining<60000?"timer-bar danger":remaining<180000?"timer-bar warning":"timer-bar";
@@ -563,29 +397,18 @@ function updateTimer(){
 
 function loadPuzzle(){
   const p=puzzles[current];updateProgress();updateLives();
-  document.getElementById("clue-label").textContent=p.label;
-  document.getElementById("type-badge").textContent=p.type;
-  document.getElementById("story-text").textContent=p.story;
-  document.getElementById("player-input").value="";
-  document.getElementById("feedback").className="feedback";document.getElementById("feedback").textContent="";
+  document.getElementById("clue-label").textContent=p.label;document.getElementById("type-badge").textContent=p.type;document.getElementById("story-text").textContent=p.story;
+  document.getElementById("player-input").value="";document.getElementById("feedback").className="feedback";document.getElementById("feedback").textContent="";
   const area=document.getElementById("puzzle-area");area.innerHTML="";p.renderPuzzle(area);
 }
 
-function updateProgress(){
-  document.getElementById("progress-dots").innerHTML=puzzles.map((_,i)=>`<div class="progress-dot ${i<current?"done":i===current?"current":""}"></div>`).join("")+`<span class="progress-label">Clue ${current+1} of ${puzzles.length}</span>`;
-}
-function updateLives(){
-  document.getElementById("lives-display").innerHTML="Lives: "+[0,1,2].map(i=>`<span class="life ${i>=lives?"lost":""}">🔍</span>`).join("");
-}
+function updateProgress(){document.getElementById("progress-dots").innerHTML=puzzles.map((_,i)=>`<div class="progress-dot ${i<current?"done":i===current?"current":""}"></div>`).join("")+`<span class="progress-label">Clue ${current+1} of ${puzzles.length}</span>`;}
+function updateLives(){document.getElementById("lives-display").innerHTML="Lives: "+[0,1,2].map(i=>`<span class="life ${i>=lives?"lost":""}">🔍</span>`).join("");}
 
 function submitAnswer(){
-  const guess=document.getElementById("player-input").value.trim().toLowerCase();
-  const correct=puzzles[current].answer.toLowerCase();
-  const fb=document.getElementById("feedback");
+  const guess=document.getElementById("player-input").value.trim().toLowerCase(),correct=puzzles[current].answer.toLowerCase(),fb=document.getElementById("feedback");
   if(guess===correct){
-    playCorrectSound();flashCorrect();
-    fb.className="feedback correct";fb.textContent="✓ Correct. Another piece of the puzzle falls into place.";
-    current++;
+    playCorrectSound();flashCorrect();fb.className="feedback correct";fb.textContent="✓ Correct. Another piece of the puzzle falls into place.";current++;
     if(current>=puzzles.length){caseSolved=true;clearInterval(timerInterval);timeUsed=Date.now()-startTime;setTimeout(showEnding,1800);}
     else setTimeout(loadPuzzle,1800);
   }else{
@@ -597,8 +420,7 @@ function submitAnswer(){
 
 function showHint(){
   if(lives<=1){const fb=document.getElementById("feedback");fb.className="feedback info";fb.textContent="Not enough lives to use a hint.";return;}
-  lives--;livesLost++;updateLives();playWrongSound();
-  const fb=document.getElementById("feedback");fb.className="feedback info";fb.textContent="💡 "+puzzles[current].hint;
+  lives--;livesLost++;updateLives();playWrongSound();const fb=document.getElementById("feedback");fb.className="feedback info";fb.textContent="💡 "+puzzles[current].hint;
 }
 
 function formatTime(ms){const s=Math.floor(ms/1000);return`${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}.${String(Math.floor((ms%1000)/10)).padStart(2,"0")}`;}
@@ -626,9 +448,7 @@ function showEnding(){
   const pw=caseSolved?`<br><br><div style="font-size:12px;color:#6b4c1e;margin-top:12px;letter-spacing:2px">PASSWORD TO UNLOCK CASE 02:</div><div style="font-size:18px;font-weight:bold;letter-spacing:2px;margin-top:6px;color:#3a2010">THE WILL</div>`:"";
   const ts=caseSolved?`<br><div style="font-size:13px;color:#3a2010;margin-top:12px;letter-spacing:2px">YOUR TIME: <strong>${formatTime(timeUsed)}</strong></div>`:"";
   document.getElementById("final-message").innerHTML=`<div style="color:#a07840;font-size:11px;letter-spacing:3px;margin-bottom:12px">CASE REPORT</div>${msg}${ts}${pw}`;
-  document.getElementById("ending-stars").textContent=stars;
-  document.getElementById("rank-name").textContent=rank;
-  document.getElementById("rank-desc").textContent=desc;
+  document.getElementById("ending-stars").textContent=stars;document.getElementById("rank-name").textContent=rank;document.getElementById("rank-desc").textContent=desc;
   if(caseSolved){const board=saveScore(playerName,timeUsed);document.getElementById("leaderboard-preview").innerHTML=renderLeaderboard(board,timeUsed);}
 }
 
@@ -638,17 +458,14 @@ function restartGame(){
   document.getElementById("intro-card").classList.remove("hidden");
   document.getElementById("intro-card").style.opacity="0";
   document.getElementById("intro-card").style.transform="translateY(16px)";
+  document.getElementById("subtitle").style.opacity="0";
   document.getElementById("leaderboard-preview").innerHTML="";
   document.getElementById("main-title").innerHTML="";
-  document.querySelectorAll(".suspect").forEach(s=>s.classList.remove("visible"));
+  [0,1,2,3].forEach(i=>document.getElementById("s"+i).classList.remove("visible"));
   document.getElementById("closing-text").style.opacity="0";
   document.getElementById("player-name").style.opacity="0";
   document.getElementById("start-btn").style.opacity="0";
-  typeTitle(function(){
-    const card=document.getElementById("intro-card");
-    card.style.opacity="1";card.style.transform="translateY(0)";
-    setTimeout(animateSuspects,900);
-  });
+  setTimeout(runIntro, 200);
 }
 </script>
 </body>
