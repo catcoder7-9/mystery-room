@@ -289,68 +289,65 @@ function animateCandle(){
 animateCandle();
 
 // ── AMBIENT SOUND ─────────────────────────────────────────
-let ambientAudio = null, audioStarted = false;
+let audioStarted = false;
 let audioCtx = null;
-function getCtx(){ if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)(); return audioCtx; }
+let windGain = null;
+
+function getCtx(){
+  if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==='suspended') audioCtx.resume();
+  return audioCtx;
+}
 
 function startAmbientSound(){
   if(audioStarted) return;
   audioStarted = true;
+  const ctx = getCtx();
 
-  // Pre-render wind + creak as WAV blob
-  const sr = 22050, dur = 6, n = sr * dur;
-  const pcm = new Float32Array(n);
+  // Wind — looping filtered noise node, zero lag
+  const bufSize = ctx.sampleRate * 2;
+  const noiseBuf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+  const nd = noiseBuf.getChannelData(0);
+  for(let i=0;i<bufSize;i++) nd[i] = Math.random()*2-1;
+  const noiseSource = ctx.createBufferSource();
+  noiseSource.buffer = noiseBuf; noiseSource.loop = true;
+  const lp = ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=300; lp.Q.value=0.5;
+  windGain = ctx.createGain(); windGain.gain.value=0;
+  noiseSource.connect(lp); lp.connect(windGain); windGain.connect(ctx.destination);
+  noiseSource.start();
+  // Fade wind in
+  windGain.gain.linearRampToValueAtTime(0.06, ctx.currentTime+3);
 
-  // Low wind — filtered noise
-  for(let i=0;i<n;i++) pcm[i] += (Math.random()-0.5)*0.06;
-  // Smooth into wind (low-pass via moving average)
-  for(let i=8;i<n;i++) pcm[i]=(pcm[i]+pcm[i-1]+pcm[i-2]+pcm[i-3]+pcm[i-4]+pcm[i-5]+pcm[i-6]+pcm[i-7])/8;
-
-  // Occasional creak — short sine burst at low freq
-  for(let c=0;c<4;c++){
-    const start=Math.floor((0.5+c*1.2)*sr);
-    const len=Math.floor(sr*0.18);
-    const freq=60+Math.random()*40;
-    for(let j=0;j<len&&start+j<n;j++){
-      const env=Math.sin(Math.PI*j/len);
-      pcm[start+j]+=Math.sin(2*Math.PI*freq*j/sr)*0.12*env;
-    }
+  // Creak — periodic low sine burst
+  function creak(){
+    const ctx2=getCtx();
+    const osc=ctx2.createOscillator(), g=ctx2.createGain();
+    osc.connect(g); g.connect(ctx2.destination);
+    osc.type='sine'; osc.frequency.value=55+Math.random()*30;
+    g.gain.setValueAtTime(0,ctx2.currentTime);
+    g.gain.linearRampToValueAtTime(0.08,ctx2.currentTime+0.05);
+    g.gain.exponentialRampToValueAtTime(0.001,ctx2.currentTime+0.4);
+    osc.start(); osc.stop(ctx2.currentTime+0.5);
+    setTimeout(creak, 5000+Math.random()*8000);
   }
+  setTimeout(creak, 3000);
 
-  // Distant clock tick every ~1.5s
-  for(let t=0;t<dur;t+=1.5){
-    const s=Math.floor(t*sr);
-    for(let j=0;j<400&&s+j<n;j++){
-      const env=Math.pow(1-j/400,3);
-      pcm[s+j]+=Math.sin(2*Math.PI*1200*j/sr)*0.08*env;
-    }
+  // Clock tick
+  function tick(){
+    const ctx2=getCtx();
+    const osc=ctx2.createOscillator(), g=ctx2.createGain();
+    osc.connect(g); g.connect(ctx2.destination);
+    osc.type='square'; osc.frequency.value=800;
+    g.gain.setValueAtTime(0.05,ctx2.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,ctx2.currentTime+0.04);
+    osc.start(); osc.stop(ctx2.currentTime+0.05);
+    setTimeout(tick, 1500);
   }
-
-  // Normalize
-  let peak=0; for(let i=0;i<n;i++) peak=Math.max(peak,Math.abs(pcm[i]));
-  const norm=peak>0?0.8/peak:1; for(let i=0;i<n;i++) pcm[i]*=norm;
-
-  // Encode WAV
-  const buf=new ArrayBuffer(44+n*2), v=new DataView(buf);
-  const ws=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i));};
-  ws(0,'RIFF');v.setUint32(4,36+n*2,true);ws(8,'WAVE');ws(12,'fmt ');
-  v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
-  v.setUint32(24,sr,true);v.setUint32(28,sr*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);
-  ws(36,'data');v.setUint32(40,n*2,true);
-  for(let i=0;i<n;i++){const s=Math.max(-1,Math.min(1,pcm[i]));v.setInt16(44+i*2,s<0?s*32768:s*32767,true);}
-
-  const blob=new Blob([buf],{type:'audio/wav'});
-  ambientAudio=new Audio(URL.createObjectURL(blob));
-  ambientAudio.loop=true; ambientAudio.volume=0;
-  ambientAudio.play().catch(()=>{});
-
-  // Fade in
-  let vol=0; const fi=setInterval(()=>{ vol=Math.min(0.4,vol+0.01); ambientAudio.volume=vol; if(vol>=0.4)clearInterval(fi); },80);
+  setTimeout(tick, 1000);
 }
 
 // ── SOUND EFFECTS ─────────────────────────────────────────
 function playCorrectSound(){
-  // Soft bell chime — like a grandfather clock
   const ctx=getCtx();
   [349.23,440,523.25].forEach((freq,i)=>{
     const osc=ctx.createOscillator(),g=ctx.createGain();
@@ -365,7 +362,6 @@ function playCorrectSound(){
 }
 
 function playWrongSound(){
-  // Candle snuff — low thud + hiss
   const ctx=getCtx();
   const osc=ctx.createOscillator(),g=ctx.createGain();
   osc.connect(g);g.connect(ctx.destination);
