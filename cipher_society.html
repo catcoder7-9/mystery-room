@@ -17,60 +17,33 @@
     }
     .container { width: 100%; max-width: 680px; }
     h1 {
-      text-align: center;
-      font-size: 34px;
-      color: #ffffff;
-      text-shadow: 1px 1px 0px #004d3a;
-      letter-spacing: 5px;
-      margin-bottom: 4px;
-      min-height: 44px;
+      text-align: center; font-size: 34px; color: #ffffff;
+      text-shadow: 1px 1px 0px #004d3a; letter-spacing: 5px;
+      margin-bottom: 4px; min-height: 44px;
     }
     .subtitle {
-      text-align: center;
-      color: #ffffff;
-      font-size: 12px;
-      margin-bottom: 28px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      opacity: 0;
-      animation: fadeUp 0.8s ease 2.5s forwards;
+      text-align: center; color: #ffffff; font-size: 12px;
+      margin-bottom: 28px; letter-spacing: 3px; text-transform: uppercase;
+      opacity: 0; transition: opacity 0.8s ease;
     }
     .card {
-      background: rgba(255,255,255,0.85);
-      border-radius: 12px;
-      padding: 28px;
-      margin-bottom: 16px;
-      border: 1px solid #004d3a;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards;
+      background: rgba(255,255,255,0.85); border-radius: 12px; padding: 28px;
+      margin-bottom: 16px; border: 1px solid #004d3a;
+      opacity: 0; animation: fadeUp 0.8s ease forwards;
     }
     .intro-card { animation-delay: 2.8s; }
     .card-label { font-size: 11px; color: #000000; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 14px; }
     .story-text { font-size: 15px; line-height: 1.9; color: #000000; margin-bottom: 20px; }
     .type-badge {
-      display: inline-block;
-      background: rgba(0,103,79,0.2);
-      border: 1px solid #004d3a;
-      border-radius: 20px;
-      padding: 4px 14px;
-      font-size: 11px;
-      color: #000000;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 16px;
+      display: inline-block; background: rgba(0,103,79,0.2); border: 1px solid #004d3a;
+      border-radius: 20px; padding: 4px 14px; font-size: 11px; color: #000000;
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px;
     }
     .timer-bar {
-      background: rgba(0,103,79,0.1);
-      border: 1px solid #004d3a;
-      border-radius: 8px;
-      padding: 10px 16px;
-      margin-bottom: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: 'Courier New', monospace;
-      font-size: 18px;
-      font-weight: bold;
+      background: rgba(0,103,79,0.1); border: 1px solid #004d3a; border-radius: 8px;
+      padding: 10px 16px; margin-bottom: 16px; display: flex;
+      justify-content: space-between; align-items: center;
+      font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold;
     }
     .timer-bar.warning { background: rgba(255,165,0,0.2); border-color: orange; }
     .timer-bar.danger { background: rgba(150,0,0,0.15); border-color: #8B0000; color: #8B0000; }
@@ -78,10 +51,7 @@
     .life { font-size: 20px; transition: opacity 0.3s; }
     .life.lost { opacity: 0.15; }
     .progress { display: flex; gap: 8px; margin-bottom: 20px; align-items: center; }
-    .progress-dot {
-      width: 10px; height: 10px; border-radius: 50%;
-      background: #004d3a; border: 1px solid #004d3a; transition: background 0.3s;
-    }
+    .progress-dot { width: 10px; height: 10px; border-radius: 50%; background: #004d3a; border: 1px solid #004d3a; transition: background 0.3s; }
     .progress-dot.done { background: #000000; }
     .progress-dot.current { background: #00674F; border: 2px solid #000000; }
     .progress-label { font-size: 11px; color: #000000; margin-left: 8px; letter-spacing: 2px; text-transform: uppercase; }
@@ -100,10 +70,7 @@
     button:hover { background: #004d3a; color: #ffffff; }
     .secondary-btn { background: transparent; border: 1px solid #004d3a; color: #000000; font-size: 13px; padding: 8px 14px; }
     .secondary-btn:hover { background: #004d3a; color: #ffffff; }
-    .feedback {
-      border-radius: 8px; padding: 12px 16px; font-size: 14px;
-      margin-top: 10px; display: none; line-height: 1.6; color: #000000;
-    }
+    .feedback { border-radius: 8px; padding: 12px 16px; font-size: 14px; margin-top: 10px; display: none; line-height: 1.6; color: #000000; }
     .feedback.correct { background: rgba(0,103,79,0.2); border: 1px solid #00674F; color: #000000; display: block; }
     .feedback.wrong { background: rgba(150,0,0,0.15); border: 1px solid #8B0000; color: #000000; display: block; }
     .feedback.info { background: rgba(0,103,79,0.15); border: 1px solid #004d3a; color: #000000; display: block; }
@@ -141,160 +108,72 @@
     .lb-dropdown-label { cursor: pointer; font-size: 13px; color: #004d3a; margin-top: 8px; display: flex; align-items: center; gap: 6px; }
     .lb-dropdown { display: none; }
     .lb-dropdown.open { display: block; }
-    .title-cursor {
-      display: inline-block; width: 3px; height: 32px; background: #000000;
-      margin-left: 4px; animation: blink 0.7s infinite; vertical-align: middle;
-    }
+    .title-cursor { display: inline-block; width: 3px; height: 32px; background: #ffffff; margin-left: 4px; animation: blink 0.7s infinite; vertical-align: middle; }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
+    /* ── CANDLE FLICKER ── */
+    #candle-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+
     /* ── ANAGRAM ── */
-    .anagram-pool {
-      display: flex; flex-wrap: wrap; gap: 8px;
-      justify-content: center; margin-bottom: 16px; min-height: 50px;
-      padding: 12px; background: rgba(0,103,79,0.06);
-      border: 1px solid #004d3a; border-radius: 8px;
-    }
-    .anagram-answer-area {
-      display: flex; flex-wrap: wrap; gap: 8px;
-      justify-content: center; margin-bottom: 16px; min-height: 50px;
-      padding: 12px; background: rgba(0,77,58,0.12);
-      border: 2px dashed #004d3a; border-radius: 8px;
-    }
-    .anagram-tile {
-      width: 38px; height: 44px;
-      background: #00674F; color: #fff;
-      border: 2px solid #004d3a; border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Courier New', monospace; font-size: 20px; font-weight: bold;
-      cursor: pointer; user-select: none; transition: transform 0.1s, background 0.2s;
-    }
+    .anagram-pool { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 16px; min-height: 50px; padding: 12px; background: rgba(0,103,79,0.06); border: 1px solid #004d3a; border-radius: 8px; }
+    .anagram-answer-area { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 16px; min-height: 50px; padding: 12px; background: rgba(0,77,58,0.12); border: 2px dashed #004d3a; border-radius: 8px; }
+    .anagram-tile { width: 38px; height: 44px; background: #00674F; color: #fff; border: 2px solid #004d3a; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: 'Courier New', monospace; font-size: 20px; font-weight: bold; cursor: pointer; user-select: none; transition: transform 0.1s, background 0.2s; }
     .anagram-tile:hover { background: #004d3a; transform: translateY(-2px); }
-    .anagram-tile.space-tile {
-      width: 20px; background: transparent; border: 2px dashed #aaa;
-      cursor: default; pointer-events: none;
-    }
+    .anagram-tile.space-tile { width: 20px; background: transparent; border: 2px dashed #aaa; cursor: default; pointer-events: none; }
     .anagram-label { font-size: 11px; color: #666; letter-spacing: 2px; text-transform: uppercase; text-align: center; margin-bottom: 6px; }
 
     /* ── CHIMES ── */
-    .chime-display {
-      display: flex; gap: 20px; justify-content: center;
-      align-items: flex-end; margin-bottom: 20px;
-      background: rgba(0,103,79,0.06); border: 1px solid #004d3a;
-      border-radius: 8px; padding: 24px;
-    }
+    .chime-display { display: flex; gap: 20px; justify-content: center; align-items: flex-end; margin-bottom: 20px; background: rgba(0,103,79,0.06); border: 1px solid #004d3a; border-radius: 8px; padding: 24px; }
     .chime-bar-group { display: flex; flex-direction: column; align-items: center; gap: 8px; }
     .chime-bars { display: flex; gap: 4px; align-items: flex-end; height: 80px; }
-    .chime-bar {
-      width: 14px; border-radius: 3px 3px 0 0;
-      background: #004d3a; transition: background 0.1s;
-    }
+    .chime-bar { width: 14px; border-radius: 3px 3px 0 0; background: #004d3a; transition: background 0.1s; }
     .chime-bar.lit { background: #f5d76e; box-shadow: 0 0 8px rgba(245,215,110,0.8); }
-    .chime-count {
-      font-family: 'Courier New', monospace; font-size: 32px; font-weight: bold;
-      color: #004d3a; min-width: 40px; text-align: center; letter-spacing: 2px;
-    }
+    .chime-count { font-family: 'Courier New', monospace; font-size: 32px; font-weight: bold; color: #004d3a; min-width: 40px; text-align: center; letter-spacing: 2px; }
     .chime-count.revealed { color: #000; }
     .chime-sep { font-size: 28px; color: #aaa; padding-bottom: 16px; }
     .chime-btn { margin: 0 auto 16px; display: block; }
 
-    /* ── LOCK DRAG ── */
-    .lock-container {
-      display: flex; gap: 24px; justify-content: center;
-      align-items: flex-start; flex-wrap: wrap; margin-bottom: 16px;
-    }
-    .lock-diagram {
-      background: rgba(0,103,79,0.06); border: 1px solid #004d3a;
-      border-radius: 8px; padding: 16px; text-align: center;
-    }
+    /* ── LOCK ── */
+    .lock-container { display: flex; gap: 24px; justify-content: center; align-items: flex-start; flex-wrap: wrap; margin-bottom: 16px; }
+    .lock-diagram { background: rgba(0,103,79,0.06); border: 1px solid #004d3a; border-radius: 8px; padding: 16px; text-align: center; }
     .lock-diagram-label { font-size: 11px; letter-spacing: 2px; color: #666; text-transform: uppercase; margin-bottom: 10px; }
-    .arrow-grid {
-      display: grid; grid-template-columns: repeat(3, 36px);
-      grid-template-rows: repeat(3, 36px); gap: 4px; margin: 0 auto;
-    }
-    .arrow-cell {
-      width: 36px; height: 36px; border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; background: rgba(0,103,79,0.15);
-      border: 1px solid #004d3a;
-    }
-    .arrow-cell.step {
-      background: #00674F; color: #fff; font-weight: bold;
-      border-color: #003d2e;
-    }
-    .arrow-cell.center { background: rgba(0,0,0,0.08); }
-    .lock-step-sequence {
-      display: flex; gap: 6px; margin-top: 10px; justify-content: center; flex-wrap: wrap;
-    }
-    .step-badge {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: #ccc; border: 2px solid #aaa;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; transition: all 0.3s;
-    }
+    .lock-step-sequence { display: flex; gap: 6px; margin-top: 10px; justify-content: center; flex-wrap: wrap; }
+    .step-badge { width: 28px; height: 28px; border-radius: 50%; background: #ccc; border: 2px solid #aaa; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.3s; }
     .step-badge.done { background: #00674F; border-color: #003d2e; color: #fff; }
     .step-badge.current { background: #f5d76e; border-color: #c8a800; }
-    .lock-arena {
-      background: rgba(0,103,79,0.06); border: 1px solid #004d3a;
-      border-radius: 8px; padding: 16px; text-align: center; flex: 1; min-width: 200px;
-    }
+    .lock-arena { background: rgba(0,103,79,0.06); border: 1px solid #004d3a; border-radius: 8px; padding: 16px; text-align: center; flex: 1; min-width: 200px; }
     .lock-arena-label { font-size: 11px; letter-spacing: 2px; color: #666; text-transform: uppercase; margin-bottom: 10px; }
-    .lock-pad {
-      position: relative; width: 160px; height: 160px;
-      background: rgba(0,0,0,0.05); border: 1px solid #ccc;
-      border-radius: 12px; margin: 0 auto 12px;
-    }
-    .lock-knob {
-      position: absolute; width: 48px; height: 48px;
-      background: radial-gradient(circle at 35% 35%, #555, #222);
-      border: 3px solid #111; border-radius: 50%;
-      cursor: grab; display: flex; align-items: center;
-      justify-content: center; font-size: 20px;
-      transition: box-shadow 0.2s; user-select: none;
-      box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
-    }
+    .lock-pad { position: relative; width: 160px; height: 160px; background: rgba(0,0,0,0.05); border: 1px solid #ccc; border-radius: 12px; margin: 0 auto 12px; }
+    .lock-knob { position: absolute; width: 48px; height: 48px; background: radial-gradient(circle at 35% 35%, #555, #222); border: 3px solid #111; border-radius: 50%; cursor: grab; display: flex; align-items: center; justify-content: center; font-size: 20px; transition: box-shadow 0.2s; user-select: none; box-shadow: 2px 2px 6px rgba(0,0,0,0.4); }
     .lock-knob:active { cursor: grabbing; box-shadow: 0 0 12px rgba(0,103,79,0.6); }
     .lock-status { font-size: 13px; color: #666; letter-spacing: 1px; min-height: 20px; }
 
     /* ── BOOK CIPHER ── */
-    .book-cover {
-      background: linear-gradient(135deg, #1a3a2a 0%, #0d2018 100%);
-      border: 3px solid #8b7355; border-radius: 8px; padding: 24px;
-      text-align: center; margin-bottom: 16px; color: #f5e6c8;
-    }
+    .book-cover { background: linear-gradient(135deg, #1a3a2a 0%, #0d2018 100%); border: 3px solid #8b7355; border-radius: 8px; padding: 24px; text-align: center; margin-bottom: 16px; color: #f5e6c8; }
     .book-title { font-size: 18px; letter-spacing: 3px; margin-bottom: 4px; font-style: italic; }
     .book-author { font-size: 12px; letter-spacing: 2px; color: #c8a87a; }
-    .book-page {
-      background: #fffef8; border: 1px solid #d4c5a0;
-      border-radius: 4px; padding: 20px; margin-bottom: 16px;
-      font-size: 14px; line-height: 2; color: #2a1a0a;
-      max-height: 420px; overflow-y: auto;
-      box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
-      font-family: 'Georgia', serif;
-    }
+    .book-page { background: #fffef8; border: 1px solid #d4c5a0; border-radius: 4px; padding: 20px; margin-bottom: 16px; font-size: 14px; line-height: 2; color: #2a1a0a; max-height: 420px; overflow-y: auto; box-shadow: inset 0 0 8px rgba(0,0,0,0.05); font-family: 'Georgia', serif; }
     .book-page p { margin-bottom: 12px; }
-    .book-page .chapter-heading {
-      font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
-      color: #8b7355; margin-bottom: 16px; text-align: center; font-style: normal;
-    }
-    .book-code-display {
-      background: rgba(0,77,58,0.12); border: 1px solid #004d3a;
-      border-radius: 8px; padding: 16px; margin-bottom: 12px; text-align: center;
-    }
-    .book-code-number {
-      font-family: 'Courier New', monospace; font-size: 28px;
-      font-weight: bold; letter-spacing: 6px; color: #004d3a;
-    }
-    .book-code-legend {
-      font-size: 11px; letter-spacing: 2px; color: #888;
-      text-transform: uppercase; margin-top: 6px;
-    }
+    .book-page .chapter-heading { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #8b7355; margin-bottom: 16px; text-align: center; font-style: normal; }
+    .book-code-display { background: rgba(0,77,58,0.12); border: 1px solid #004d3a; border-radius: 8px; padding: 16px; margin-bottom: 12px; text-align: center; }
+    .book-code-number { font-family: 'Courier New', monospace; font-size: 28px; font-weight: bold; letter-spacing: 6px; color: #004d3a; }
+    .book-code-legend { font-size: 11px; letter-spacing: 2px; color: #888; text-transform: uppercase; margin-top: 6px; }
+
+    /* ── CORRECT/WRONG FLASH ── */
+    @keyframes correctFlash { 0%{background:rgba(255,255,255,0.85);}30%{background:rgba(0,200,100,0.15);}100%{background:rgba(255,255,255,0.85);} }
+    .card.flash-correct { animation: correctFlash 0.6s ease forwards !important; opacity: 1 !important; }
+    @keyframes wrongShake { 0%,100%{transform:translateX(0);}20%{transform:translateX(-8px);}40%{transform:translateX(8px);}60%{transform:translateX(-5px);}80%{transform:translateX(5px);} }
+    .card.shake-wrong { animation: wrongShake 0.4s ease forwards !important; opacity: 1 !important; }
   </style>
 </head>
 <body>
+
+<canvas id="candle-canvas"></canvas>
+
 <div class="container">
   <h1 id="main-title"></h1>
-  <p class="subtitle">— Westhaven Academy — Est. 1887 —</p>
+  <p class="subtitle" id="subtitle">— Westhaven Academy — Est. 1887 —</p>
 
   <!-- INTRO -->
   <div class="card intro-card" id="intro-card">
@@ -313,10 +192,7 @@
   <!-- GAME -->
   <div class="hidden" id="game-card">
     <div class="card">
-      <div class="timer-bar" id="timer-bar">
-        <span>⏱ TIME LEFT</span>
-        <span id="timer-display">20:00</span>
-      </div>
+      <div class="timer-bar" id="timer-bar"><span>⏱ TIME LEFT</span><span id="timer-display">20:00</span></div>
       <div class="progress" id="progress-dots"></div>
       <div class="lives" id="lives-display"></div>
       <div class="card-label" id="clue-label"></div>
@@ -349,669 +225,487 @@
 </div>
 
 <script>
-  const CASE_KEY = "lb_cipher";
-  const TIME_LIMIT = 20 * 60 * 1000;
-  const TITLE = "THE CIPHER SOCIETY";
+const CASE_KEY = "lb_cipher";
+const TIME_LIMIT = 20 * 60 * 1000;
+const TITLE = "THE CIPHER SOCIETY";
 
-  window.addEventListener("load", () => { setTimeout(typeTitle, 400); });
+// ── CANDLE FLICKER CANVAS ─────────────────────────────────
+const candleCanvas = document.getElementById("candle-canvas");
+const cctx = candleCanvas.getContext("2d");
+function resizeCandle(){ candleCanvas.width=window.innerWidth; candleCanvas.height=window.innerHeight; }
+resizeCandle(); window.addEventListener("resize", resizeCandle);
 
-  function typeTitle() {
-    const el = document.getElementById("main-title");
-    let i = 0;
-    function typeChar() {
-      if (i <= TITLE.length) {
-        el.innerHTML = TITLE.slice(0, i) + '<span class="title-cursor"></span>';
-        i++;
-        setTimeout(typeChar, 80);
-      } else {
-        el.innerHTML = TITLE;
-        setTimeout(showIntroContent, 400);
-      }
+// Floating candle particles — warm amber glow dots drifting upward
+const particles = [];
+class CandleParticle {
+  constructor(){ this.reset(); }
+  reset(){
+    this.x = Math.random() * candleCanvas.width;
+    this.y = candleCanvas.height + 10;
+    this.size = 1 + Math.random() * 3;
+    this.speedY = 0.3 + Math.random() * 0.7;
+    this.speedX = (Math.random() - 0.5) * 0.4;
+    this.opacity = 0.03 + Math.random() * 0.08;
+    this.life = 0;
+    this.maxLife = 120 + Math.random() * 180;
+  }
+  update(){
+    this.y -= this.speedY;
+    this.x += this.speedX + Math.sin(this.life * 0.05) * 0.3;
+    this.life++;
+    if(this.life > this.maxLife || this.y < -10) this.reset();
+  }
+  draw(){
+    const alpha = this.opacity * Math.sin(Math.PI * this.life / this.maxLife);
+    cctx.beginPath();
+    cctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+    cctx.fillStyle = `rgba(255,180,60,${alpha})`;
+    cctx.fill();
+  }
+}
+for(let i=0;i<60;i++){ const p=new CandleParticle(); p.life=Math.random()*p.maxLife; particles.push(p); }
+
+// Vignette that pulses like candlelight
+let vignettePhase = 0;
+function drawVignette(){
+  vignettePhase += 0.008;
+  const flicker = 0.55 + Math.sin(vignettePhase)*0.04 + Math.sin(vignettePhase*2.3)*0.02;
+  const grad = cctx.createRadialGradient(
+    candleCanvas.width/2, candleCanvas.height/2, candleCanvas.height*0.2,
+    candleCanvas.width/2, candleCanvas.height/2, candleCanvas.height*0.85
+  );
+  grad.addColorStop(0, "rgba(0,0,0,0)");
+  grad.addColorStop(1, `rgba(0,0,0,${flicker})`);
+  cctx.fillStyle = grad;
+  cctx.fillRect(0,0,candleCanvas.width,candleCanvas.height);
+}
+
+function animateCandle(){
+  cctx.clearRect(0,0,candleCanvas.width,candleCanvas.height);
+  drawVignette();
+  particles.forEach(p=>{ p.update(); p.draw(); });
+  requestAnimationFrame(animateCandle);
+}
+animateCandle();
+
+// ── AMBIENT SOUND ─────────────────────────────────────────
+let ambientAudio = null, audioStarted = false;
+let audioCtx = null;
+function getCtx(){ if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)(); return audioCtx; }
+
+function startAmbientSound(){
+  if(audioStarted) return;
+  audioStarted = true;
+
+  // Pre-render wind + creak as WAV blob
+  const sr = 22050, dur = 6, n = sr * dur;
+  const pcm = new Float32Array(n);
+
+  // Low wind — filtered noise
+  for(let i=0;i<n;i++) pcm[i] += (Math.random()-0.5)*0.06;
+  // Smooth into wind (low-pass via moving average)
+  for(let i=8;i<n;i++) pcm[i]=(pcm[i]+pcm[i-1]+pcm[i-2]+pcm[i-3]+pcm[i-4]+pcm[i-5]+pcm[i-6]+pcm[i-7])/8;
+
+  // Occasional creak — short sine burst at low freq
+  for(let c=0;c<4;c++){
+    const start=Math.floor((0.5+c*1.2)*sr);
+    const len=Math.floor(sr*0.18);
+    const freq=60+Math.random()*40;
+    for(let j=0;j<len&&start+j<n;j++){
+      const env=Math.sin(Math.PI*j/len);
+      pcm[start+j]+=Math.sin(2*Math.PI*freq*j/sr)*0.12*env;
     }
-    typeChar();
   }
 
-  function showIntroContent() {
-    document.getElementById("intro-text").style.opacity = "1";
-    setTimeout(() => {
-      document.getElementById("player-name").style.opacity = "1";
-      document.getElementById("start-btn").style.opacity = "1";
-    }, 600);
-  }
-
-  // ── PUZZLES ──────────────────────────────────────────────
-  const puzzles = [
-    {
-      label: "Trial I — The Card Room",
-      type: "🔤 Anagram",
-      story: "In the basement of Westhaven, behind a green baize door, there is a card room no teacher admits exists. On the table, a single playing card with one word written across it in red ink. The house always wins — but rearrange who's in charge and everything changes.",
-      answer: "leader",
-      hint: "One word is written on the card. Rearrange all its letters to find who really runs the Society.",
-      renderPuzzle: renderAnagram
-    },
-    {
-      label: "Trial II — The Bell Tower",
-      type: "🔔 Chime Sequence",
-      story: "The Academy bell tower rings at strange hours. Tonight it rang three times — but not in the way bells normally ring. Listen carefully. Count each group. The three numbers together form the combination.",
-      answer: "374",
-      hint: "Three separate groups of chimes with a pause between each. Count how many chimes are in each group. Write the three counts together as a number.",
-      renderPuzzle: renderChimes
-    },
-    {
-      label: "Trial III — The Headmaster's Study",
-      type: "🔒 Lock Sequence",
-      story: "The Headmaster's cabinet has a strange knob instead of a keyhole. A diagram was left on his desk — a path the knob must trace to open the lock. Follow the sequence exactly.",
-      answer: "open",
-      hint: "Drag the knob in the exact order shown in the diagram on the left. Follow each arrow in sequence.",
-      renderPuzzle: renderLock
-    },
-    {
-      label: "Trial IV — The Library",
-      type: "📖 Book Cipher",
-      story: "A copy of 'The Chronicles of Westhaven' was left on your desk, open to a dog-eared page. A note tucked inside reads only four numbers: 3 · 2 · 1 · 5. Chapter, paragraph, sentence, word.",
-      answer: "heart",
-      hint: "Find Chapter 3, then the 2nd paragraph, then the 1st sentence, then count to the 5th word. That single word is your answer.",
-      renderPuzzle: renderBookCipher
-    },
-    {
-      label: "Trial V — The Archive",
-      type: "🔡 Every 3rd Letter",
-      story: "The final transmission was printed on a long scroll of parchment and pinned to the archive door. The Society never wastes a letter — and they never forget their favourite number.",
-      answer: "the queen of hearts",
-      hint: "Take every third letter — the 3rd, 6th, 9th, and so on. Write them all in order. Ignore spaces.",
-      renderPuzzle: renderEveryThird
+  // Distant clock tick every ~1.5s
+  for(let t=0;t<dur;t+=1.5){
+    const s=Math.floor(t*sr);
+    for(let j=0;j<400&&s+j<n;j++){
+      const env=Math.pow(1-j/400,3);
+      pcm[s+j]+=Math.sin(2*Math.PI*1200*j/sr)*0.08*env;
     }
-  ];
-
-  let current = 0, lives = 3, livesLost = 0;
-  let caseSolved = false;
-  let startTime, timerInterval, timeUsed = 0;
-  let playerName = "";
-
-  // ── PUZZLE 1: ANAGRAM ────────────────────────────────────
-  function renderAnagram(container) {
-    const scrambled = "DEALER";
-
-    container.innerHTML = `
-      <div style="font-size:13px;color:#666;margin-bottom:16px;letter-spacing:1px;">
-        Rearrange all the letters of the word on the card to find the answer.
-      </div>
-      <div style="background:rgba(0,77,58,0.12);border:2px solid #004d3a;border-radius:12px;padding:32px 20px;text-align:center;margin-bottom:20px;">
-        <div style="font-size:11px;letter-spacing:3px;color:#888;text-transform:uppercase;margin-bottom:12px;">The Card Reads</div>
-        <div style="font-family:'Courier New',monospace;font-size:48px;font-weight:bold;letter-spacing:10px;color:#8B0000;">${scrambled}</div>
-        <div style="font-size:12px;color:#aaa;margin-top:16px;letter-spacing:2px;font-style:italic;">"The house always wins."</div>
-      </div>
-      <div style="font-size:13px;color:#666;text-align:center;letter-spacing:1px;">
-        Rearrange the letters and type the new word below.
-      </div>
-    `;
   }
 
-  // ── PUZZLE 2: CHIMES ─────────────────────────────────────
-  function renderChimes(container) {
-    const groups = [3, 7, 4]; // answer: 374
-    let revealed = [false, false, false];
-    let playing = false;
+  // Normalize
+  let peak=0; for(let i=0;i<n;i++) peak=Math.max(peak,Math.abs(pcm[i]));
+  const norm=peak>0?0.8/peak:1; for(let i=0;i<n;i++) pcm[i]*=norm;
 
-    container.innerHTML = `
-      <div style="font-size:13px;color:#666;margin-bottom:16px;letter-spacing:1px;">
-        Press Play to hear the bells ring. Count each group — there will be a pause between them.
-      </div>
-      <div class="chime-display" id="chime-display">
-        ${groups.map((n, gi) => `
-          <div class="chime-bar-group">
-            <div class="chime-bars" id="bars-${gi}">
-              ${Array.from({length: n}, (_, bi) => {
-                const h = 20 + bi * 8;
-                return `<div class="chime-bar" id="bar-${gi}-${bi}" style="height:${h}px"></div>`;
-              }).join("")}
-            </div>
-            <div class="chime-count" id="count-${gi}">?</div>
-          </div>
-          ${gi < groups.length - 1 ? '<div class="chime-sep">·</div>' : ''}
-        `).join("")}
-      </div>
-      <button class="chime-btn secondary-btn" id="play-btn" onclick="playChimes()">▶ Ring the Bells</button>
-      <div style="font-size:12px;color:#888;text-align:center;letter-spacing:1px;margin-bottom:12px;">
-        Three groups · count each group · combine the three counts
-      </div>
-    `;
+  // Encode WAV
+  const buf=new ArrayBuffer(44+n*2), v=new DataView(buf);
+  const ws=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i));};
+  ws(0,'RIFF');v.setUint32(4,36+n*2,true);ws(8,'WAVE');ws(12,'fmt ');
+  v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
+  v.setUint32(24,sr,true);v.setUint32(28,sr*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);
+  ws(36,'data');v.setUint32(40,n*2,true);
+  for(let i=0;i<n;i++){const s=Math.max(-1,Math.min(1,pcm[i]));v.setInt16(44+i*2,s<0?s*32768:s*32767,true);}
 
-    // Create AudioContext for chime sounds
-    window.playChimes = function() {
-      if (playing) return;
-      playing = true;
-      document.getElementById("play-btn").textContent = "🔔 Ringing...";
-      document.getElementById("play-btn").disabled = true;
-      revealed = [false, false, false];
-      groups.forEach((n, gi) => {
-        document.getElementById("count-" + gi).textContent = "?";
-        document.getElementById("count-" + gi).classList.remove("revealed");
-        for (let bi = 0; bi < n; bi++) {
-          const bar = document.getElementById(`bar-${gi}-${bi}`);
-          if (bar) bar.classList.remove("lit");
-        }
-      });
+  const blob=new Blob([buf],{type:'audio/wav'});
+  ambientAudio=new Audio(URL.createObjectURL(blob));
+  ambientAudio.loop=true; ambientAudio.volume=0;
+  ambientAudio.play().catch(()=>{});
 
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  // Fade in
+  let vol=0; const fi=setInterval(()=>{ vol=Math.min(0.4,vol+0.01); ambientAudio.volume=vol; if(vol>=0.4)clearInterval(fi); },80);
+}
 
-      function playChime(time, freq) {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(freq, time);
-        gain.gain.setValueAtTime(0.4, time);
-        gain.gain.exponentialRampToValueAtTime(0.001, time + 1.2);
-        osc.start(time);
-        osc.stop(time + 1.3);
+// ── SOUND EFFECTS ─────────────────────────────────────────
+function playCorrectSound(){
+  // Soft bell chime — like a grandfather clock
+  const ctx=getCtx();
+  [349.23,440,523.25].forEach((freq,i)=>{
+    const osc=ctx.createOscillator(),g=ctx.createGain();
+    osc.connect(g);g.connect(ctx.destination);
+    osc.type="sine";osc.frequency.value=freq;
+    const t=ctx.currentTime+i*0.18;
+    g.gain.setValueAtTime(0,t);
+    g.gain.linearRampToValueAtTime(0.25,t+0.01);
+    g.gain.exponentialRampToValueAtTime(0.001,t+1.4);
+    osc.start(t);osc.stop(t+1.5);
+  });
+}
+
+function playWrongSound(){
+  // Candle snuff — low thud + hiss
+  const ctx=getCtx();
+  const osc=ctx.createOscillator(),g=ctx.createGain();
+  osc.connect(g);g.connect(ctx.destination);
+  osc.type="sawtooth";
+  osc.frequency.setValueAtTime(80,ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(30,ctx.currentTime+0.35);
+  g.gain.setValueAtTime(0.3,ctx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.4);
+  osc.start();osc.stop(ctx.currentTime+0.4);
+  // Hiss
+  const bufSize=ctx.sampleRate*0.2,hbuf=ctx.createBuffer(1,bufSize,ctx.sampleRate);
+  const hd=hbuf.getChannelData(0);
+  for(let i=0;i<bufSize;i++) hd[i]=(Math.random()-0.5)*0.15*Math.pow(1-i/bufSize,2);
+  const hsrc=ctx.createBufferSource();hsrc.buffer=hbuf;
+  const hg=ctx.createGain();hg.gain.value=0.4;
+  hsrc.connect(hg);hg.connect(ctx.destination);
+  hsrc.start();
+}
+
+// ── FEEDBACK ANIMATIONS ───────────────────────────────────
+function flashCorrect(){
+  const card=document.querySelector("#game-card .card");if(!card)return;
+  card.classList.remove("shake-wrong");card.classList.add("flash-correct");
+  setTimeout(()=>card.classList.remove("flash-correct"),600);
+}
+function shakeWrong(){
+  const card=document.querySelector("#game-card .card");if(!card)return;
+  card.classList.remove("flash-correct");card.classList.add("shake-wrong");
+  setTimeout(()=>card.classList.remove("shake-wrong"),400);
+}
+
+// ── INTRO SEQUENCE ────────────────────────────────────────
+document.addEventListener("click", startAmbientSound, {once:true});
+document.addEventListener("touchstart", startAmbientSound, {once:true});
+window.addEventListener("load", runIntro);
+
+function runIntro(){
+  typeTitle(()=>{
+    document.getElementById("subtitle").style.opacity="1";
+    setTimeout(()=>{
+      document.getElementById("intro-text").style.opacity="1";
+      setTimeout(()=>{
+        document.getElementById("player-name").style.opacity="1";
+        setTimeout(()=>document.getElementById("start-btn").style.opacity="1",200);
+      },600);
+    },400);
+  });
+}
+
+function typeTitle(onDone){
+  const el=document.getElementById("main-title");let i=0;
+  function t(){
+    if(i<=TITLE.length){el.innerHTML=TITLE.slice(0,i)+'<span class="title-cursor"></span>';i++;setTimeout(t,80);}
+    else{el.innerHTML=TITLE;if(onDone)onDone();}
+  }
+  t();
+}
+
+// ── PUZZLES ───────────────────────────────────────────────
+const puzzles=[
+  {label:"Trial I — The Card Room",type:"🔤 Anagram",story:"In the basement of Westhaven, behind a green baize door, there is a card room no teacher admits exists. On the table, a single playing card with one word written across it in red ink. The house always wins — but rearrange who's in charge and everything changes.",answer:"leader",hint:"One word is written on the card. Rearrange all its letters to find who really runs the Society.",renderPuzzle:renderAnagram},
+  {label:"Trial II — The Bell Tower",type:"🔔 Chime Sequence",story:"The Academy bell tower rings at strange hours. Tonight it rang three times — but not in the way bells normally ring. Listen carefully. Count each group. The three numbers together form the combination.",answer:"374",hint:"Three separate groups of chimes with a pause between each. Count how many chimes are in each group. Write the three counts together as a number.",renderPuzzle:renderChimes},
+  {label:"Trial III — The Headmaster's Study",type:"🔒 Lock Sequence",story:"The Headmaster's cabinet has a strange knob instead of a keyhole. A diagram was left on his desk — a path the knob must trace to open the lock. Follow the sequence exactly.",answer:"open",hint:"Drag the knob in the exact order shown in the diagram on the left. Follow each arrow in sequence.",renderPuzzle:renderLock},
+  {label:"Trial IV — The Library",type:"📖 Book Cipher",story:"A copy of 'The Chronicles of Westhaven' was left on your desk, open to a dog-eared page. A note tucked inside reads only four numbers: 3 · 2 · 1 · 5. Chapter, paragraph, sentence, word.",answer:"heart",hint:"Find Chapter 3, then the 2nd paragraph, then the 1st sentence, then count to the 5th word. That single word is your answer.",renderPuzzle:renderBookCipher},
+  {label:"Trial V — The Archive",type:"🔡 Every 3rd Letter",story:"The final transmission was printed on a long scroll of parchment and pinned to the archive door. The Society never wastes a letter — and they never forget their favourite number.",answer:"the queen of hearts",hint:"Take every third letter — the 3rd, 6th, 9th, and so on. Write them all in order. Ignore spaces.",renderPuzzle:renderEveryThird}
+];
+
+let current=0,lives=3,livesLost=0,caseSolved=false,startTime,timerInterval,timeUsed=0,playerName="";
+
+// ── PUZZLE RENDERERS ──────────────────────────────────────
+function renderAnagram(container){
+  const scrambled="DEALER";
+  container.innerHTML=`
+    <div style="font-size:13px;color:#666;margin-bottom:16px;letter-spacing:1px;">Rearrange all the letters of the word on the card to find the answer.</div>
+    <div style="background:rgba(0,77,58,0.12);border:2px solid #004d3a;border-radius:12px;padding:32px 20px;text-align:center;margin-bottom:20px;">
+      <div style="font-size:11px;letter-spacing:3px;color:#888;text-transform:uppercase;margin-bottom:12px;">The Card Reads</div>
+      <div style="font-family:'Courier New',monospace;font-size:48px;font-weight:bold;letter-spacing:10px;color:#8B0000;">${scrambled}</div>
+      <div style="font-size:12px;color:#aaa;margin-top:16px;letter-spacing:2px;font-style:italic;">"The house always wins."</div>
+    </div>
+    <div style="font-size:13px;color:#666;text-align:center;letter-spacing:1px;">Rearrange the letters and type the new word below.</div>`;
+}
+
+function renderChimes(container){
+  const groups=[3,7,4];let revealed=[false,false,false],playing=false;
+  container.innerHTML=`
+    <div style="font-size:13px;color:#666;margin-bottom:16px;letter-spacing:1px;">Press Play to hear the bells ring. Count each group — there will be a pause between them.</div>
+    <div class="chime-display" id="chime-display">
+      ${groups.map((n,gi)=>`
+        <div class="chime-bar-group">
+          <div class="chime-bars" id="bars-${gi}">${Array.from({length:n},(_,bi)=>`<div class="chime-bar" id="bar-${gi}-${bi}" style="height:${20+bi*8}px"></div>`).join("")}</div>
+          <div class="chime-count" id="count-${gi}">?</div>
+        </div>${gi<groups.length-1?'<div class="chime-sep">·</div>':''}
+      `).join("")}
+    </div>
+    <button class="chime-btn secondary-btn" id="play-btn" onclick="playChimes()">▶ Ring the Bells</button>
+    <div style="font-size:12px;color:#888;text-align:center;letter-spacing:1px;margin-bottom:12px;">Three groups · count each group · combine the three counts</div>`;
+
+  window.playChimes=function(){
+    if(playing)return;playing=true;
+    document.getElementById("play-btn").textContent="🔔 Ringing...";
+    document.getElementById("play-btn").disabled=true;
+    revealed=[false,false,false];
+    groups.forEach((n,gi)=>{
+      document.getElementById("count-"+gi).textContent="?";
+      document.getElementById("count-"+gi).classList.remove("revealed");
+      for(let bi=0;bi<n;bi++){const b=document.getElementById(`bar-${gi}-${bi}`);if(b)b.classList.remove("lit");}
+    });
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    function playChime(time,freq){
+      const osc=ctx.createOscillator(),gain=ctx.createGain();
+      osc.connect(gain);gain.connect(ctx.destination);
+      osc.type="sine";osc.frequency.setValueAtTime(freq,time);
+      gain.gain.setValueAtTime(0.4,time);gain.gain.exponentialRampToValueAtTime(0.001,time+1.2);
+      osc.start(time);osc.stop(time+1.3);
+    }
+    let t=ctx.currentTime+0.3;
+    const freqs=[523.25,659.25,783.99];
+    groups.forEach((n,gi)=>{
+      for(let bi=0;bi<n;bi++){
+        const ct=t,bid=`bar-${gi}-${bi}`;
+        playChime(ct,freqs[gi]);
+        const delay=(ct-ctx.currentTime)*1000;
+        setTimeout(()=>{const b=document.getElementById(bid);if(b){b.classList.add("lit");setTimeout(()=>b.classList.remove("lit"),400);}},delay);
+        t+=0.55;
       }
+      const get=t;
+      setTimeout(()=>{revealed[gi]=true;const ce=document.getElementById("count-"+gi);if(ce){ce.textContent=groups[gi];ce.classList.add("revealed");}if(revealed.every(Boolean))document.getElementById("player-input").value=groups.join("");},(get-ctx.currentTime)*1000);
+      t+=1.2;
+    });
+    const total=(t-ctx.currentTime)*1000+500;
+    setTimeout(()=>{playing=false;const btn=document.getElementById("play-btn");if(btn){btn.textContent="▶ Ring Again";btn.disabled=false;}},total);
+  };
+}
 
-      let t = ctx.currentTime + 0.3;
-      const chimeFreqs = [523.25, 659.25, 783.99]; // C5, E5, G5
-
-      groups.forEach((n, gi) => {
-        for (let bi = 0; bi < n; bi++) {
-          const chimeTime = t;
-          const barId = `bar-${gi}-${bi}`;
-          playChime(chimeTime, chimeFreqs[gi]);
-          // Schedule visual flash
-          const delay = (chimeTime - ctx.currentTime) * 1000;
-          setTimeout(() => {
-            const bar = document.getElementById(barId);
-            if (bar) {
-              bar.classList.add("lit");
-              setTimeout(() => bar.classList.remove("lit"), 400);
-            }
-          }, delay);
-          t += 0.55;
-        }
-        // pause between groups
-        const groupEndTime = t;
-        setTimeout(() => {
-          revealed[gi] = true;
-          const countEl = document.getElementById("count-" + gi);
-          if (countEl) {
-            countEl.textContent = groups[gi];
-            countEl.classList.add("revealed");
-          }
-          // Update input if all revealed
-          if (revealed.every(Boolean)) {
-            document.getElementById("player-input").value = groups.join("");
-          }
-        }, (groupEndTime - ctx.currentTime) * 1000);
-        t += 1.2; // pause between groups
-      });
-
-      const totalTime = (t - ctx.currentTime) * 1000 + 500;
-      setTimeout(() => {
-        playing = false;
-        const btn = document.getElementById("play-btn");
-        if (btn) { btn.textContent = "▶ Ring Again"; btn.disabled = false; }
-      }, totalTime);
-    };
-  }
-
-  // ── PUZZLE 3: LOCK DRAG ──────────────────────────────────
-  function renderLock(container) {
-    // Sequence: Up, Right, Down, Left (spells a path)
-    const sequence = ["↑", "→", "↓", "←"];
-    const dirNames = ["Up", "Right", "Down", "Left"];
-    const dirVecs = { "↑": {x:0,y:-1}, "→": {x:1,y:0}, "↓": {x:0,y:1}, "←": {x:-1,y:0} };
-    let currentStep = 0;
-    let knobPos = { x: 56, y: 56 }; // center of 160x160 pad
-    let dragging = false;
-    let dragStart = { x: 0, y: 0 };
-    let stepComplete = false;
-
-    container.innerHTML = `
-      <div style="font-size:13px;color:#666;margin-bottom:12px;letter-spacing:1px;">
-        Drag the knob in the sequence shown in the diagram. Complete each move to advance.
-      </div>
-      <div class="lock-container">
-        <div class="lock-diagram">
-          <div class="lock-diagram-label">Sequence Diagram</div>
-          <div style="display:flex;flex-direction:column;gap:6px;align-items:center;">
-            ${sequence.map((arrow, i) => `
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:24px;height:24px;border-radius:50%;background:${i===0?'#00674F':'#ccc'};border:2px solid #004d3a;display:flex;align-items:center;justify-content:center;font-size:11px;color:${i===0?'#fff':'#666'};font-family:monospace;font-weight:bold;" id="seq-num-${i}">${i+1}</div>
-                <div style="font-size:22px;width:32px;text-align:center;">${arrow}</div>
-                <div style="font-size:11px;color:#666;letter-spacing:1px;">${dirNames[i]}</div>
-              </div>
-            `).join("")}
-          </div>
-          <div class="lock-step-sequence" style="margin-top:12px;">
-            ${sequence.map((arrow, i) => `<div class="step-badge ${i===0?'current':''}" id="badge-${i}">${arrow}</div>`).join("")}
-          </div>
+function renderLock(container){
+  const sequence=["↑","→","↓","←"],dirNames=["Up","Right","Down","Left"];
+  const dirVecs={"↑":{x:0,y:-1},"→":{x:1,y:0},"↓":{x:0,y:1},"←":{x:-1,y:0}};
+  let currentStep=0,dragging=false,dragStart={x:0,y:0},stepComplete=false;
+  container.innerHTML=`
+    <div style="font-size:13px;color:#666;margin-bottom:12px;letter-spacing:1px;">Drag the knob in the sequence shown in the diagram. Complete each move to advance.</div>
+    <div class="lock-container">
+      <div class="lock-diagram">
+        <div class="lock-diagram-label">Sequence Diagram</div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:center;">
+          ${sequence.map((arrow,i)=>`
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="width:24px;height:24px;border-radius:50%;background:${i===0?'#00674F':'#ccc'};border:2px solid #004d3a;display:flex;align-items:center;justify-content:center;font-size:11px;color:${i===0?'#fff':'#666'};font-family:monospace;font-weight:bold;" id="seq-num-${i}">${i+1}</div>
+              <div style="font-size:22px;width:32px;text-align:center;">${arrow}</div>
+              <div style="font-size:11px;color:#666;letter-spacing:1px;">${dirNames[i]}</div>
+            </div>`).join("")}
         </div>
-        <div class="lock-arena">
-          <div class="lock-arena-label">Drag the Knob</div>
-          <div class="lock-pad" id="lock-pad">
-            <div class="lock-knob" id="lock-knob" style="left:56px;top:56px;">🔒</div>
-          </div>
-          <div class="lock-status" id="lock-status">Step 1 of 4 — drag ${dirNames[0]}</div>
+        <div class="lock-step-sequence" style="margin-top:12px;">
+          ${sequence.map((arrow,i)=>`<div class="step-badge ${i===0?'current':''}" id="badge-${i}">${arrow}</div>`).join("")}
         </div>
       </div>
-    `;
-
-    const pad = document.getElementById("lock-pad");
-    const knob = document.getElementById("lock-knob");
-
-    function getCenter() {
-      const r = pad.getBoundingClientRect();
-      return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
-    }
-
-    function resetKnob() {
-      knobPos = { x: 56, y: 56 };
-      knob.style.left = knobPos.x + "px";
-      knob.style.top = knobPos.y + "px";
-    }
-
-    function updateDiagram(step) {
-      sequence.forEach((_, i) => {
-        const badge = document.getElementById("badge-" + i);
-        const num = document.getElementById("seq-num-" + i);
-        if (i < step) {
-          badge.className = "step-badge done";
-          if (num) { num.style.background = "#004d3a"; num.style.color = "#fff"; }
-        } else if (i === step) {
-          badge.className = "step-badge current";
-          if (num) { num.style.background = "#00674F"; num.style.color = "#fff"; }
-        } else {
-          badge.className = "step-badge";
-          if (num) { num.style.background = "#ccc"; num.style.color = "#666"; }
-        }
-      });
-    }
-
-    function onMove(clientX, clientY) {
-      if (!dragging) return;
-      const dx = clientX - dragStart.x;
-      const dy = clientY - dragStart.y;
-      const threshold = 35;
-      const expected = dirVecs[sequence[currentStep]];
-
-      // Determine dominant direction
-      let dominant = null;
-      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > threshold) {
-        dominant = dx > 0 ? "→" : "←";
-      } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > threshold) {
-        dominant = dy > 0 ? "↓" : "↑";
-      }
-
-      // Move knob visually (constrained)
-      const newX = Math.max(0, Math.min(112, 56 + dx * 0.5));
-      const newY = Math.max(0, Math.min(112, 56 + dy * 0.5));
-      knob.style.left = newX + "px";
-      knob.style.top = newY + "px";
-
-      if (dominant && dominant === sequence[currentStep] && !stepComplete) {
-        stepComplete = true;
-        // Flash green
-        knob.style.boxShadow = "0 0 16px rgba(0,200,100,0.8)";
-        knob.textContent = "✓";
-        currentStep++;
-        updateDiagram(currentStep);
-
-        setTimeout(() => {
-          knob.style.boxShadow = "2px 2px 6px rgba(0,0,0,0.4)";
-          resetKnob();
-          stepComplete = false;
-          dragging = false;
-          dragStart = { x: 0, y: 0 };
-
-          if (currentStep >= sequence.length) {
-            knob.textContent = "🔓";
-            knob.style.background = "radial-gradient(circle at 35% 35%, #00a06e, #006040)";
-            document.getElementById("lock-status").textContent = "✓ Lock opened!";
-            document.getElementById("player-input").value = "open";
-          } else {
-            knob.textContent = "🔒";
-            document.getElementById("lock-status").textContent =
-              `Step ${currentStep + 1} of ${sequence.length} — drag ${dirNames[currentStep]}`;
-          }
-        }, 400);
-      } else if (dominant && dominant !== sequence[currentStep] && !stepComplete) {
-        // Wrong direction — flash red and reset
-        stepComplete = true;
-        knob.style.boxShadow = "0 0 16px rgba(200,0,0,0.6)";
-        setTimeout(() => {
-          knob.style.boxShadow = "2px 2px 6px rgba(0,0,0,0.4)";
-          resetKnob();
-          stepComplete = false;
-          dragging = false;
-          dragStart = { x: 0, y: 0 };
-          // Reset sequence on wrong move
-          currentStep = 0;
-          knob.textContent = "🔒";
-          updateDiagram(0);
-          document.getElementById("lock-status").textContent = "✗ Wrong direction — start over. Step 1: drag " + dirNames[0];
-        }, 400);
-      }
-    }
-
-    knob.addEventListener("mousedown", e => {
-      dragging = true; stepComplete = false;
-      dragStart = { x: e.clientX, y: e.clientY };
-      e.preventDefault();
-    });
-    document.addEventListener("mousemove", e => onMove(e.clientX, e.clientY));
-    document.addEventListener("mouseup", () => {
-      if (dragging && !stepComplete) { resetKnob(); dragging = false; }
-    });
-
-    knob.addEventListener("touchstart", e => {
-      dragging = true; stepComplete = false;
-      dragStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-      e.preventDefault();
-    }, { passive: false });
-    document.addEventListener("touchmove", e => {
-      if (dragging) onMove(e.touches[0].clientX, e.touches[0].clientY);
-    }, { passive: false });
-    document.addEventListener("touchend", () => {
-      if (dragging && !stepComplete) { resetKnob(); dragging = false; }
+      <div class="lock-arena">
+        <div class="lock-arena-label">Drag the Knob</div>
+        <div class="lock-pad" id="lock-pad"><div class="lock-knob" id="lock-knob" style="left:56px;top:56px;">🔒</div></div>
+        <div class="lock-status" id="lock-status">Step 1 of 4 — drag ${dirNames[0]}</div>
+      </div>
+    </div>`;
+  const pad=document.getElementById("lock-pad"),knob=document.getElementById("lock-knob");
+  function resetKnob(){knob.style.left="56px";knob.style.top="56px";}
+  function updateDiagram(step){
+    sequence.forEach((_,i)=>{
+      const badge=document.getElementById("badge-"+i),num=document.getElementById("seq-num-"+i);
+      if(i<step){badge.className="step-badge done";if(num){num.style.background="#004d3a";num.style.color="#fff";}}
+      else if(i===step){badge.className="step-badge current";if(num){num.style.background="#00674F";num.style.color="#fff";}}
+      else{badge.className="step-badge";if(num){num.style.background="#ccc";num.style.color="#666";}}
     });
   }
-
-  // ── PUZZLE 4: BOOK CIPHER ────────────────────────────────
-  function renderBookCipher(container) {
-    // Code: 3 · 2 · 1 · 5
-    // Chapter 3, Paragraph 2, Sentence 1, Word 5 = "heart"
-    // The book is written so that works out perfectly.
-
-    container.innerHTML = `
-      <div class="book-cover">
-        <div style="font-size:11px;letter-spacing:3px;margin-bottom:8px;color:#c8a87a;">WESTHAVEN ACADEMY PRESS · 1887</div>
-        <div class="book-title">The Chronicles of Westhaven</div>
-        <div style="font-size:11px;color:#8b7355;margin:6px 0;">Being a True Account of the Academy's Most Secret History</div>
-        <div class="book-author">— H. Aldridge, Headmistress —</div>
-      </div>
-      <div class="book-code-display">
-        <div class="book-code-number">3 · 2 · 1 · 5</div>
-        <div class="book-code-legend">Chapter &nbsp;·&nbsp; Paragraph &nbsp;·&nbsp; Sentence &nbsp;·&nbsp; Word</div>
-      </div>
-      <div style="font-size:13px;color:#666;margin-bottom:10px;letter-spacing:1px;">
-        Find Chapter 3 in the book below. Count to the 2nd paragraph, 1st sentence, 5th word.
-      </div>
-      <div class="book-page" id="book-page">
-
-        <div class="chapter-heading">Chapter One — The Founding</div>
-        <p>In the autumn of 1887, the gates of Westhaven Academy opened for the first time. The founders were three in number, as all things at Westhaven must be. Their names were carved above the main entrance in letters of cold iron, though no record survives of who did the carving.</p>
-        <p>The eldest of the three was a woman of considerable learning who had studied at universities that did not yet admit women. She brought with her a leather satchel containing seventeen books, a brass compass, and a single sealed letter she never opened in public.</p>
-        <p>The Academy grounds were chosen for their isolation. Fog came in from the valley on most mornings and did not leave until noon. New students often described their first week as walking through a dream they could not quite remember upon waking.</p>
-
-        <div class="chapter-heading">Chapter Two — The First Students</div>
-        <p>Thirty-three students arrived for the inaugural term. They came from twelve different countries and spoke nine languages between them. What brought them all to a school no one outside a certain circle had ever heard of remained, for each of them, a private mystery.</p>
-        <p>The dormitories were arranged in three wings, and students were assigned to wings by a method no member of staff would explain. Some students spent their entire time at Westhaven without ever entering one of the other two wings. Others claimed to have found passages connecting them — passages that did not appear on any official map.</p>
-        <p>Classes began at seven in the morning and ended at seven in the evening. The hours in between were unscheduled, though certain rooms were always locked by nightfall. Students quickly learned not to ask about the locked rooms. Those who did ask received the same answer from every member of staff: "It is not the right time."</p>
-
-        <div class="chapter-heading">Chapter Three — The Society's First Secret</div>
-        <p>By the third term, a rumour had spread through all three wings. It was said that beneath the library, behind a door disguised as a bookcase, there was a vault. No student had seen it, but everyone had heard of it from someone who had heard of it from someone else, until the vault had become as real as anything with a key and a lock.</p>
-        <p>The vault held only heart. According to those who claimed to know, it did not contain gold or jewels or the usual rewards of legend. It contained instead a single object: a queen of diamonds playing card, placed face-down on a velvet cloth, beside which rested a note reading only the word <em>heart</em> in a hand no one could identify. The Society had placed it there on the night of the school's founding and had not touched it since. To find the vault was to find the Society's first and only secret.</p>
-        <p>Whether any student ever found the vault is not recorded in any document that survives. The bookcase, if it exists, has never been photographed. The door, if there is a door, has never been drawn on any map. And yet, every generation of students at Westhaven knows the vault is there. Some things are too true to require proof.</p>
-
-        <div class="chapter-heading">Chapter Four — The Rule of Three</div>
-        <p>Every tradition at Westhaven runs in threes. Three founding members. Three wings. Three terms in the year. Three candles lit at every ceremony. Outsiders who learn of this habit assume it is mere affectation — the kind of numerology that old institutions adopt as decoration. They are wrong.</p>
-        <p>The rule of three is not decoration. It is instruction. Every puzzle the Society has ever set has contained three parts. Every cipher has used three as its shift. Every message has been hidden in every third letter of an otherwise meaningless text. To know the rule of three is to be able to read everything the Society has ever written — if you know where to look.</p>
-        <p>New initiates are told the rule on their first night. They are not told what it unlocks. That part, the Society believes, should be discovered rather than taught. The difference between those who succeed and those who do not is simply whether they understand, in the deepest sense, that three is not a number. It is a key.</p>
-      </div>
-      <div style="font-size:12px;color:#888;text-align:center;letter-spacing:1px;margin-top:8px;">
-        Scroll to find Chapter 3 · Count paragraphs and sentences carefully
-      </div>
-    `;
-  }
-
-  // ── PUZZLE 5: EVERY THIRD LETTER ────────────────────────
-  function renderEveryThird(container) {
-    const answer = "THEQUEENOFHEARTS";
-    const totalLen = 48;
-    // Build cipher text with answer letters at positions 3,6,9,...
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let result = [], ansIdx = 0;
-    for (let i = 1; i <= totalLen; i++) {
-      if (i % 3 === 0 && ansIdx < answer.length) result.push(answer[ansIdx++]);
-      else result.push(chars[Math.floor(Math.random() * chars.length)]);
-    }
-    const cipher = result.join("");
-
-    // Display with every 3rd highlighted differently
-    let displayHTML = "";
-    for (let i = 0; i < cipher.length; i++) {
-      displayHTML += `<span style="font-size:17px;">${cipher[i]}</span>`;
-      if ((i + 1) % 12 === 0) displayHTML += "<br>";
-      else displayHTML += " ";
-    }
-
-    container.innerHTML = `
-      <div style="font-size:13px;color:#666;margin-bottom:12px;letter-spacing:1px;">
-        Extract every third character. Write them in order to reveal the hidden message.
-      </div>
-      <div style="background:rgba(0,77,58,0.12);border:1px solid #004d3a;border-radius:8px;padding:20px;font-family:'Courier New',monospace;letter-spacing:3px;line-height:2.2;margin-bottom:12px;text-align:center;">
-        ${displayHTML}
-      </div>
-      <div style="font-size:12px;color:#888;text-align:center;letter-spacing:1px;margin-bottom:12px;">
-        Every 3rd character is your clue — count carefully and write them in order
-      </div>
-    `;
-  }
-
-  // ── GAME ENGINE ───────────────────────────────────────────
-  function startGame() {
-    playerName = document.getElementById("player-name").value.trim() || "UNKNOWN";
-    document.getElementById("intro-card").classList.add("hidden");
-    document.getElementById("game-card").classList.remove("hidden");
-    startTime = Date.now();
-    timerInterval = setInterval(updateTimer, 100);
-    loadPuzzle();
-  }
-
-  function updateTimer() {
-    const elapsed = Date.now() - startTime;
-    const remaining = TIME_LIMIT - elapsed;
-    const bar = document.getElementById("timer-bar");
-    const display = document.getElementById("timer-display");
-    if (remaining <= 0) {
-      clearInterval(timerInterval);
-      display.textContent = "00:00";
-      bar.className = "timer-bar danger";
-      timeUsed = TIME_LIMIT;
-      showEnding();
-      return;
-    }
-    display.textContent = formatCountdown(remaining);
-    if (remaining < 60000) bar.className = "timer-bar danger";
-    else if (remaining < 180000) bar.className = "timer-bar warning";
-    else bar.className = "timer-bar";
-  }
-
-  function loadPuzzle() {
-    const p = puzzles[current];
-    updateProgress();
-    updateLives();
-    document.getElementById("clue-label").textContent = p.label;
-    document.getElementById("type-badge").textContent = p.type;
-    document.getElementById("story-text").textContent = p.story;
-    document.getElementById("player-input").value = "";
-    document.getElementById("feedback").className = "feedback";
-    document.getElementById("feedback").textContent = "";
-    const area = document.getElementById("puzzle-area");
-    area.innerHTML = "";
-    p.renderPuzzle(area);
-  }
-
-  function updateProgress() {
-    const dots = document.getElementById("progress-dots");
-    dots.innerHTML = puzzles.map((_, i) => {
-      let cls = i < current ? "done" : i === current ? "current" : "";
-      return `<div class="progress-dot ${cls}"></div>`;
-    }).join("") + `<span class="progress-label">Trial ${current + 1} of ${puzzles.length}</span>`;
-  }
-
-  function updateLives() {
-    document.getElementById("lives-display").innerHTML =
-      "Lives: " + [0,1,2].map(i =>
-        `<span class="life ${i >= lives ? 'lost' : ''}">🕯️</span>`
-      ).join("");
-  }
-
-  function submitAnswer() {
-    const guess = document.getElementById("player-input").value.trim().toLowerCase();
-    const correct = puzzles[current].answer.toLowerCase();
-    const fb = document.getElementById("feedback");
-    if (guess === correct) {
-      fb.className = "feedback correct";
-      fb.textContent = "✓ Correct. The Society is watching.";
-      current++;
-      if (current >= puzzles.length) {
-        caseSolved = true;
-        clearInterval(timerInterval);
-        timeUsed = Date.now() - startTime;
-        setTimeout(showEnding, 1800);
-      } else {
-        setTimeout(loadPuzzle, 1800);
-      }
-    } else {
-      lives--;
-      livesLost++;
-      updateLives();
-      if (lives <= 0) {
-        clearInterval(timerInterval);
-        timeUsed = Date.now() - startTime;
-        fb.className = "feedback wrong";
-        fb.textContent = "✗ Your candle has gone out. The Society does not forget failures.";
-        setTimeout(showEnding, 2200);
-      } else {
-        fb.className = "feedback wrong";
-        fb.textContent = `✗ Wrong. The walls have eyes. ${lives} candle${lives === 1 ? "" : "s"} remaining.`;
-      }
+  function onMove(clientX,clientY){
+    if(!dragging)return;
+    const dx=clientX-dragStart.x,dy=clientY-dragStart.y,threshold=35;
+    let dominant=null;
+    if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>threshold) dominant=dx>0?"→":"←";
+    else if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>threshold) dominant=dy>0?"↓":"↑";
+    knob.style.left=Math.max(0,Math.min(112,56+dx*0.5))+"px";
+    knob.style.top=Math.max(0,Math.min(112,56+dy*0.5))+"px";
+    if(dominant&&dominant===sequence[currentStep]&&!stepComplete){
+      stepComplete=true;knob.style.boxShadow="0 0 16px rgba(0,200,100,0.8)";knob.textContent="✓";currentStep++;updateDiagram(currentStep);
+      setTimeout(()=>{knob.style.boxShadow="2px 2px 6px rgba(0,0,0,0.4)";resetKnob();stepComplete=false;dragging=false;dragStart={x:0,y:0};
+        if(currentStep>=sequence.length){knob.textContent="🔓";knob.style.background="radial-gradient(circle at 35% 35%, #00a06e, #006040)";document.getElementById("lock-status").textContent="✓ Lock opened!";document.getElementById("player-input").value="open";}
+        else{knob.textContent="🔒";document.getElementById("lock-status").textContent=`Step ${currentStep+1} of ${sequence.length} — drag ${dirNames[currentStep]}`;}},400);
+    }else if(dominant&&dominant!==sequence[currentStep]&&!stepComplete){
+      stepComplete=true;knob.style.boxShadow="0 0 16px rgba(200,0,0,0.6)";
+      setTimeout(()=>{knob.style.boxShadow="2px 2px 6px rgba(0,0,0,0.4)";resetKnob();stepComplete=false;dragging=false;dragStart={x:0,y:0};currentStep=0;knob.textContent="🔒";updateDiagram(0);document.getElementById("lock-status").textContent="✗ Wrong — start over. Step 1: drag "+dirNames[0];},400);
     }
   }
+  knob.addEventListener("mousedown",e=>{dragging=true;stepComplete=false;dragStart={x:e.clientX,y:e.clientY};e.preventDefault();});
+  document.addEventListener("mousemove",e=>onMove(e.clientX,e.clientY));
+  document.addEventListener("mouseup",()=>{if(dragging&&!stepComplete){resetKnob();dragging=false;}});
+  knob.addEventListener("touchstart",e=>{dragging=true;stepComplete=false;dragStart={x:e.touches[0].clientX,y:e.touches[0].clientY};e.preventDefault();},{passive:false});
+  document.addEventListener("touchmove",e=>{if(dragging)onMove(e.touches[0].clientX,e.touches[0].clientY);},{passive:false});
+  document.addEventListener("touchend",()=>{if(dragging&&!stepComplete){resetKnob();dragging=false;}});
+}
 
-  function showHint() {
-    if (lives <= 1) {
-      const fb = document.getElementById("feedback");
-      fb.className = "feedback info";
-      fb.textContent = "You cannot afford a hint. Too few candles remain.";
-      return;
-    }
-    lives--;
-    livesLost++;
-    updateLives();
-    const fb = document.getElementById("feedback");
-    fb.className = "feedback info";
-    fb.textContent = "💡 " + puzzles[current].hint;
-  }
+function renderBookCipher(container){
+  container.innerHTML=`
+    <div class="book-cover">
+      <div style="font-size:11px;letter-spacing:3px;margin-bottom:8px;color:#c8a87a;">WESTHAVEN ACADEMY PRESS · 1887</div>
+      <div class="book-title">The Chronicles of Westhaven</div>
+      <div style="font-size:11px;color:#8b7355;margin:6px 0;">Being a True Account of the Academy's Most Secret History</div>
+      <div class="book-author">— H. Aldridge, Headmistress —</div>
+    </div>
+    <div class="book-code-display">
+      <div class="book-code-number">3 · 2 · 1 · 5</div>
+      <div class="book-code-legend">Chapter &nbsp;·&nbsp; Paragraph &nbsp;·&nbsp; Sentence &nbsp;·&nbsp; Word</div>
+    </div>
+    <div style="font-size:13px;color:#666;margin-bottom:10px;letter-spacing:1px;">Find Chapter 3 in the book below. Count to the 2nd paragraph, 1st sentence, 5th word.</div>
+    <div class="book-page" id="book-page">
+      <div class="chapter-heading">Chapter One — The Founding</div>
+      <p>In the autumn of 1887, the gates of Westhaven Academy opened for the first time. The founders were three in number, as all things at Westhaven must be. Their names were carved above the main entrance in letters of cold iron, though no record survives of who did the carving.</p>
+      <p>The eldest of the three was a woman of considerable learning who had studied at universities that did not yet admit women. She brought with her a leather satchel containing seventeen books, a brass compass, and a single sealed letter she never opened in public.</p>
+      <p>The Academy grounds were chosen for their isolation. Fog came in from the valley on most mornings and did not leave until noon. New students often described their first week as walking through a dream they could not quite remember upon waking.</p>
+      <div class="chapter-heading">Chapter Two — The First Students</div>
+      <p>Thirty-three students arrived for the inaugural term. They came from twelve different countries and spoke nine languages between them. What brought them all to a school no one outside a certain circle had ever heard of remained, for each of them, a private mystery.</p>
+      <p>The dormitories were arranged in three wings, and students were assigned to wings by a method no member of staff would explain. Some students spent their entire time at Westhaven without ever entering one of the other two wings. Others claimed to have found passages connecting them — passages that did not appear on any official map.</p>
+      <p>Classes began at seven in the morning and ended at seven in the evening. The hours in between were unscheduled, though certain rooms were always locked by nightfall. Students quickly learned not to ask about the locked rooms. Those who did ask received the same answer from every member of staff: "It is not the right time."</p>
+      <div class="chapter-heading">Chapter Three — The Society's First Secret</div>
+      <p>By the third term, a rumour had spread through all three wings. It was said that beneath the library, behind a door disguised as a bookcase, there was a vault. No student had seen it, but everyone had heard of it from someone who had heard of it from someone else, until the vault had become as real as anything with a key and a lock.</p>
+      <p>The vault held only heart. According to those who claimed to know, it did not contain gold or jewels or the usual rewards of legend. It contained instead a single object: a queen of diamonds playing card, placed face-down on a velvet cloth, beside which rested a note reading only the word <em>heart</em> in a hand no one could identify. The Society had placed it there on the night of the school's founding and had not touched it since. To find the vault was to find the Society's first and only secret.</p>
+      <p>Whether any student ever found the vault is not recorded in any document that survives. The bookcase, if it exists, has never been photographed. The door, if there is a door, has never been drawn on any map. And yet, every generation of students at Westhaven knows the vault is there. Some things are too true to require proof.</p>
+      <div class="chapter-heading">Chapter Four — The Rule of Three</div>
+      <p>Every tradition at Westhaven runs in threes. Three founding members. Three wings. Three terms in the year. Three candles lit at every ceremony. Outsiders who learn of this habit assume it is mere affectation — the kind of numerology that old institutions adopt as decoration. They are wrong.</p>
+      <p>The rule of three is not decoration. It is instruction. Every puzzle the Society has ever set has contained three parts. Every cipher has used three as its shift. Every message has been hidden in every third letter of an otherwise meaningless text. To know the rule of three is to be able to read everything the Society has ever written — if you know where to look.</p>
+      <p>New initiates are told the rule on their first night. They are not told what it unlocks. That part, the Society believes, should be discovered rather than taught. The difference between those who succeed and those who do not is simply whether they understand, in the deepest sense, that three is not a number. It is a key.</p>
+    </div>
+    <div style="font-size:12px;color:#888;text-align:center;letter-spacing:1px;margin-top:8px;">Scroll to find Chapter 3 · Count paragraphs and sentences carefully</div>`;
+}
 
-  function formatTime(ms) {
-    const totalSec = Math.floor(ms / 1000);
-    const min = Math.floor(totalSec / 60);
-    const sec = totalSec % 60;
-    const msec = Math.floor((ms % 1000) / 10);
-    return `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}.${String(msec).padStart(2,"0")}`;
+function renderEveryThird(container){
+  const answer="THEQUEENOFHEARTS",totalLen=48,chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let result=[],ansIdx=0;
+  for(let i=1;i<=totalLen;i++){
+    if(i%3===0&&ansIdx<answer.length)result.push(answer[ansIdx++]);
+    else result.push(chars[Math.floor(Math.random()*chars.length)]);
   }
+  const cipher=result.join("");
+  let displayHTML="";
+  for(let i=0;i<cipher.length;i++){
+    displayHTML+=`<span style="font-size:17px;">${cipher[i]}</span>`;
+    if((i+1)%12===0)displayHTML+="<br>";else displayHTML+=" ";
+  }
+  container.innerHTML=`
+    <div style="font-size:13px;color:#666;margin-bottom:12px;letter-spacing:1px;">Extract every third character. Write them in order to reveal the hidden message.</div>
+    <div style="background:rgba(0,77,58,0.12);border:1px solid #004d3a;border-radius:8px;padding:20px;font-family:'Courier New',monospace;letter-spacing:3px;line-height:2.2;margin-bottom:12px;text-align:center;">${displayHTML}</div>
+    <div style="font-size:12px;color:#888;text-align:center;letter-spacing:1px;margin-bottom:12px;">Every 3rd character is your clue — count carefully and write them in order</div>`;
+}
 
-  function formatCountdown(ms) {
-    const totalSec = Math.ceil(ms / 1000);
-    const min = Math.floor(totalSec / 60);
-    const sec = totalSec % 60;
-    return `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
-  }
+// ── GAME ENGINE ───────────────────────────────────────────
+function startGame(){
+  playerName=document.getElementById("player-name").value.trim()||"UNKNOWN";
+  document.getElementById("intro-card").classList.add("hidden");
+  document.getElementById("game-card").classList.remove("hidden");
+  startTime=Date.now();timerInterval=setInterval(updateTimer,100);
+  loadPuzzle();
+}
 
-  function getLeaderboard() {
-    try { return JSON.parse(localStorage.getItem(CASE_KEY) || "[]"); } catch { return []; }
-  }
+function updateTimer(){
+  const remaining=TIME_LIMIT-(Date.now()-startTime),bar=document.getElementById("timer-bar"),disp=document.getElementById("timer-display");
+  if(remaining<=0){clearInterval(timerInterval);disp.textContent="00:00";bar.className="timer-bar danger";timeUsed=TIME_LIMIT;showEnding();return;}
+  disp.textContent=formatCountdown(remaining);
+  bar.className=remaining<60000?"timer-bar danger":remaining<180000?"timer-bar warning":"timer-bar";
+}
 
-  function saveScore(name, ms) {
-    let board = getLeaderboard();
-    board.push({ name, ms });
-    board.sort((a, b) => a.ms - b.ms);
-    board = board.slice(0, 20);
-    try { localStorage.setItem(CASE_KEY, JSON.stringify(board)); } catch {}
-    return board;
-  }
+function loadPuzzle(){
+  const p=puzzles[current];updateProgress();updateLives();
+  document.getElementById("clue-label").textContent=p.label;
+  document.getElementById("type-badge").textContent=p.type;
+  document.getElementById("story-text").textContent=p.story;
+  document.getElementById("player-input").value="";
+  document.getElementById("feedback").className="feedback";document.getElementById("feedback").textContent="";
+  const area=document.getElementById("puzzle-area");area.innerHTML="";p.renderPuzzle(area);
+}
 
-  function renderLeaderboard(board, myMs) {
-    if (board.length === 0) return "";
-    const top5 = board.slice(0, 5);
-    const rest = board.slice(5);
-    const medals = ["🥇","🥈","🥉","4.","5."];
-    const classes = ["gold","silver","bronze","",""];
-    let html = `<div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;color:#004d3a">🏆 Leaderboard — The Cipher Society</div>`;
-    top5.forEach((e, i) => {
-      const highlight = e.ms === myMs && e.name === playerName ? "border:2px solid #000;" : "";
-      html += `<div class="lb-entry ${classes[i]}" style="${highlight}">${medals[i]} ${e.name}<span>${formatTime(e.ms)}</span></div>`;
-    });
-    if (rest.length > 0) {
-      html += `<div class="lb-dropdown-label" onclick="toggleLbDropdown()">▶ Show all scores</div>`;
-      html += `<div class="lb-dropdown" id="lb-dropdown">`;
-      rest.forEach((e, i) => {
-        html += `<div class="lb-entry">${i+6}. ${e.name}<span>${formatTime(e.ms)}</span></div>`;
-      });
-      html += `</div>`;
-    }
-    return html;
-  }
+function updateProgress(){
+  document.getElementById("progress-dots").innerHTML=puzzles.map((_,i)=>`<div class="progress-dot ${i<current?"done":i===current?"current":""}"></div>`).join("")+`<span class="progress-label">Trial ${current+1} of ${puzzles.length}</span>`;
+}
+function updateLives(){
+  document.getElementById("lives-display").innerHTML="Lives: "+[0,1,2].map(i=>`<span class="life ${i>=lives?"lost":""}">🕯️</span>`).join("");
+}
 
-  function toggleLbDropdown() {
-    const el = document.getElementById("lb-dropdown");
-    const label = document.querySelector(".lb-dropdown-label");
-    el.classList.toggle("open");
-    label.textContent = el.classList.contains("open") ? "▼ Hide scores" : "▶ Show all scores";
+function submitAnswer(){
+  const guess=document.getElementById("player-input").value.trim().toLowerCase(),correct=puzzles[current].answer.toLowerCase(),fb=document.getElementById("feedback");
+  if(guess===correct){
+    playCorrectSound();flashCorrect();
+    fb.className="feedback correct";fb.textContent="✓ Correct. The Society is watching.";current++;
+    if(current>=puzzles.length){caseSolved=true;clearInterval(timerInterval);timeUsed=Date.now()-startTime;setTimeout(showEnding,1800);}
+    else setTimeout(loadPuzzle,1800);
+  }else{
+    lives--;livesLost++;updateLives();playWrongSound();shakeWrong();
+    if(lives<=0){clearInterval(timerInterval);timeUsed=Date.now()-startTime;fb.className="feedback wrong";fb.textContent="✗ Your candle has gone out. The Society does not forget failures.";setTimeout(showEnding,2200);}
+    else{fb.className="feedback wrong";fb.textContent=`✗ Wrong. The walls have eyes. ${lives} candle${lives===1?"":"s"} remaining.`;}
   }
+}
 
-  function showEnding() {
-    document.getElementById("game-card").classList.add("hidden");
-    document.getElementById("ending-card").classList.remove("hidden");
-    let rank, desc, stars, msg;
-    if (!caseSolved) {
-      rank = "FORGOTTEN";
-      desc = "You failed too many times. The vault remains sealed. The black envelope you received tonight will be the last.";
-      stars = "🕯️";
-      msg = "YOU WERE NOT READY\nTHE VAULT REMAINS SEALED";
-    } else if (livesLost === 0) {
-      rank = "THE GRANDMASTER";
-      desc = "Flawless. Every cipher broken without hesitation. The Society has not seen a mind like yours in a generation.";
-      stars = "🕯️🕯️🕯️🕯️🕯️";
-      msg = "THE VAULT IS OPEN\nWELCOME TO THE CIPHER SOCIETY";
-    } else if (livesLost <= 2) {
-      rank = "CIPHER INITIATE";
-      desc = "Well done. You stumbled but recovered. The Society admits you on probation.";
-      stars = "🕯️🕯️🕯️🕯️";
-      msg = "YOU HAVE BEEN ACCEPTED\nON PROBATION";
-    } else {
-      rank = "THE UNINITIATED";
-      desc = "You solved the trials but left too many traces. The Society is watching.";
-      stars = "🕯️🕯️🕯️";
-      msg = "THE SOCIETY IS WATCHING\nTRY AGAIN";
-    }
-    const pwHint = caseSolved ? `<br><br><div style="font-size:12px;color:#333;margin-top:12px;letter-spacing:2px">PASSWORD TO UNLOCK CASE 03:</div><div style="font-size:18px;font-weight:bold;letter-spacing:2px;margin-top:6px">THE QUEEN OF HEARTS</div>` : "";
-    const timeStr = caseSolved ? `<br><div style="font-size:13px;color:#333;margin-top:12px;letter-spacing:2px">YOUR TIME: <strong>${formatTime(timeUsed)}</strong></div>` : "";
-    document.getElementById("final-message").innerHTML =
-      `<div style="color:#000;font-size:11px;letter-spacing:3px;margin-bottom:12px">FINAL TRANSMISSION</div>${msg}${timeStr}${pwHint}`;
-    document.getElementById("ending-stars").textContent = stars;
-    document.getElementById("rank-name").textContent = rank;
-    document.getElementById("rank-desc").textContent = desc;
-    if (caseSolved) {
-      const board = saveScore(playerName, timeUsed);
-      document.getElementById("leaderboard-preview").innerHTML = renderLeaderboard(board, timeUsed);
-    }
-  }
+function showHint(){
+  if(lives<=1){const fb=document.getElementById("feedback");fb.className="feedback info";fb.textContent="You cannot afford a hint. Too few candles remain.";return;}
+  lives--;livesLost++;updateLives();playWrongSound();
+  const fb=document.getElementById("feedback");fb.className="feedback info";fb.textContent="💡 "+puzzles[current].hint;
+}
 
-  function restartGame() {
-    current = 0; lives = 3; livesLost = 0;
-    caseSolved = false; timeUsed = 0;
-    clearInterval(timerInterval);
-    document.getElementById("ending-card").classList.add("hidden");
-    document.getElementById("intro-card").classList.remove("hidden");
-    document.getElementById("leaderboard-preview").innerHTML = "";
-    document.getElementById("main-title").innerHTML = "";
-    document.getElementById("intro-text").style.opacity = "0";
-    document.getElementById("player-name").style.opacity = "0";
-    document.getElementById("start-btn").style.opacity = "0";
-    setTimeout(typeTitle, 400);
-  }
+function formatTime(ms){const s=Math.floor(ms/1000);return`${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}.${String(Math.floor((ms%1000)/10)).padStart(2,"0")}`;}
+function formatCountdown(ms){const s=Math.ceil(ms/1000);return`${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;}
+function getLeaderboard(){try{return JSON.parse(localStorage.getItem(CASE_KEY)||"[]");}catch{return[];}}
+function saveScore(name,ms){let b=getLeaderboard();b.push({name,ms});b.sort((a,c)=>a.ms-c.ms);b=b.slice(0,20);try{localStorage.setItem(CASE_KEY,JSON.stringify(b));}catch{}return b;}
+
+function renderLeaderboard(board,myMs){
+  if(!board.length)return"";
+  const medals=["🥇","🥈","🥉","4.","5."],cls=["gold","silver","bronze","",""];
+  let html=`<div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;color:#004d3a">🏆 Leaderboard — The Cipher Society</div>`;
+  board.slice(0,5).forEach((e,i)=>{const h=e.ms===myMs&&e.name===playerName?"border:2px solid #000;":"";html+=`<div class="lb-entry ${cls[i]}" style="${h}">${medals[i]} ${e.name}<span>${formatTime(e.ms)}</span></div>`;});
+  if(board.length>5){html+=`<div class="lb-dropdown-label" onclick="toggleLbDropdown()">▶ Show all scores</div><div class="lb-dropdown" id="lb-dropdown">`;board.slice(5).forEach((e,i)=>{html+=`<div class="lb-entry">${i+6}. ${e.name}<span>${formatTime(e.ms)}</span></div>`;});html+=`</div>`;}
+  return html;
+}
+function toggleLbDropdown(){const el=document.getElementById("lb-dropdown"),label=document.querySelector(".lb-dropdown-label");el.classList.toggle("open");label.textContent=el.classList.contains("open")?"▼ Hide scores":"▶ Show all scores";}
+
+function showEnding(){
+  document.getElementById("game-card").classList.add("hidden");document.getElementById("ending-card").classList.remove("hidden");
+  let rank,desc,stars,msg;
+  if(!caseSolved){rank="FORGOTTEN";desc="You failed too many times. The vault remains sealed. The black envelope you received tonight will be the last.";stars="🕯️";msg="YOU WERE NOT READY\nTHE VAULT REMAINS SEALED";}
+  else if(livesLost===0){rank="THE GRANDMASTER";desc="Flawless. Every cipher broken without hesitation. The Society has not seen a mind like yours in a generation.";stars="🕯️🕯️🕯️🕯️🕯️";msg="THE VAULT IS OPEN\nWELCOME TO THE CIPHER SOCIETY";}
+  else if(livesLost<=2){rank="CIPHER INITIATE";desc="Well done. You stumbled but recovered. The Society admits you on probation.";stars="🕯️🕯️🕯️🕯️";msg="YOU HAVE BEEN ACCEPTED\nON PROBATION";}
+  else{rank="THE UNINITIATED";desc="You solved the trials but left too many traces. The Society is watching.";stars="🕯️🕯️🕯️";msg="THE SOCIETY IS WATCHING\nTRY AGAIN";}
+  const pw=caseSolved?`<br><br><div style="font-size:12px;color:#333;margin-top:12px;letter-spacing:2px">PASSWORD TO UNLOCK CASE 03:</div><div style="font-size:18px;font-weight:bold;letter-spacing:2px;margin-top:6px">THE QUEEN OF HEARTS</div>`:"";
+  const ts=caseSolved?`<br><div style="font-size:13px;color:#333;margin-top:12px;letter-spacing:2px">YOUR TIME: <strong>${formatTime(timeUsed)}</strong></div>`:"";
+  document.getElementById("final-message").innerHTML=`<div style="color:#000;font-size:11px;letter-spacing:3px;margin-bottom:12px">FINAL TRANSMISSION</div>${msg}${ts}${pw}`;
+  document.getElementById("ending-stars").textContent=stars;document.getElementById("rank-name").textContent=rank;document.getElementById("rank-desc").textContent=desc;
+  if(caseSolved){const board=saveScore(playerName,timeUsed);document.getElementById("leaderboard-preview").innerHTML=renderLeaderboard(board,timeUsed);}
+}
+
+function restartGame(){
+  current=0;lives=3;livesLost=0;caseSolved=false;timeUsed=0;clearInterval(timerInterval);
+  document.getElementById("ending-card").classList.add("hidden");document.getElementById("intro-card").classList.remove("hidden");
+  document.getElementById("leaderboard-preview").innerHTML="";document.getElementById("main-title").innerHTML="";
+  document.getElementById("subtitle").style.opacity="0";
+  document.getElementById("intro-text").style.opacity="0";document.getElementById("player-name").style.opacity="0";document.getElementById("start-btn").style.opacity="0";
+  setTimeout(runIntro,200);
+}
 </script>
 </body>
 </html>
