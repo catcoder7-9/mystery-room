@@ -187,7 +187,7 @@ function startAmbientSound(){
   windGain=ctx.createGain();windGain.gain.value=0;
   noiseSource.connect(lp);lp.connect(windGain);windGain.connect(ctx.destination);
   noiseSource.start();
-  windGain.gain.linearRampToValueAtTime(0.06,ctx.currentTime+3);
+  windGain.gain.linearRampToValueAtTime(0.18,ctx.currentTime+3);
 
   // Ambient: wind only
 }
