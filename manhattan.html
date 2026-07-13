@@ -187,33 +187,16 @@ function triggerLightning(){
 }
 setTimeout(triggerLightning, 8000+Math.random()*10000);
 
-// ── RAIN SOUND ────────────────────────────────────────────
-let rainAudio=null, audioStarted=false;
+const rainAudio = new Audio('dragon-studio-gentle-rain-01-437305.mp3');
+rainAudio.loop = true;
+rainAudio.volume = 0;
 function startRainSound(){
-  if(audioStarted)return; audioStarted=true;
-  const sr=22050,dur=5,n=sr*dur,pcm=new Float32Array(n);
-  for(let d=0;d<4000;d++){
-    const start=Math.floor(Math.random()*n),impLen=Math.floor(sr*(0.005+Math.random()*0.03)),amp=0.015+Math.random()*0.08,freq=300+Math.random()*4000;
-    for(let j=0;j<impLen&&start+j<n;j++){ const decay=Math.pow(1-j/impLen,2.5); pcm[start+j]+=(Math.sin(2*Math.PI*freq*j/sr)*0.6+(Math.random()-0.5)*0.4)*amp*decay; }
-  }
-  for(let i=0;i<n;i++) pcm[i]+=(Math.random()-0.5)*0.035;
-  for(let i=4;i<n;i++) pcm[i]=(pcm[i]+pcm[i-1]+pcm[i-2]+pcm[i-3])/4;
-  let peak=0; for(let i=0;i<n;i++) peak=Math.max(peak,Math.abs(pcm[i]));
-  const norm=peak>0?0.85/peak:1; for(let i=0;i<n;i++) pcm[i]*=norm;
-  const buf=new ArrayBuffer(44+n*2),v=new DataView(buf);
-  const ws=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i));};
-  ws(0,'RIFF');v.setUint32(4,36+n*2,true);ws(8,'WAVE');ws(12,'fmt ');
-  v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
-  v.setUint32(24,sr,true);v.setUint32(28,sr*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);
-  ws(36,'data');v.setUint32(40,n*2,true);
-  for(let i=0;i<n;i++){const s=Math.max(-1,Math.min(1,pcm[i]));v.setInt16(44+i*2,s<0?s*32768:s*32767,true);}
-  const blob=new Blob([buf],{type:'audio/wav'});
-  rainAudio=new Audio(URL.createObjectURL(blob)); rainAudio.loop=true; rainAudio.volume=0;
   rainAudio.play().catch(()=>{});
-  let vol=0; const fi=setInterval(()=>{ vol=Math.min(0.55,vol+0.015); rainAudio.volume=vol; if(vol>=0.55)clearInterval(fi); },80);
-  function gust(){ if(!rainAudio)return; const target=0.55+Math.random()*0.3; let cv=rainAudio.volume; const up=setInterval(()=>{ cv=Math.min(target,cv+0.02); rainAudio.volume=cv; if(cv>=target)clearInterval(up); },80); setTimeout(()=>{ const dn=setInterval(()=>{ cv=Math.max(0.55,cv-0.01); rainAudio.volume=cv; if(cv<=0.55)clearInterval(dn); },100); },2500+Math.random()*1500); setTimeout(gust,6000+Math.random()*10000); }
-  setTimeout(gust,4000);
+  let vol=0;
+  const fi=setInterval(()=>{ vol=Math.min(0.6,vol+0.015); rainAudio.volume=vol; if(vol>=0.6)clearInterval(fi); },80);
 }
+document.addEventListener("click",startRainSound,{once:true});
+document.addEventListener("touchstart",startRainSound,{once:true});
 
 // ── SOUND EFFECTS ─────────────────────────────────────────
 let audioCtx=null;
