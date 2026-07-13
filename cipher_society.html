@@ -189,24 +189,7 @@ function startAmbientSound(){
   noiseSource.start();
   windGain.gain.linearRampToValueAtTime(0.06,ctx.currentTime+3);
 
-  // Occasional deep wood creak — no clicking
-  function creak(){
-    const c=getCtx();
-    [30+Math.random()*15,45+Math.random()*10].forEach((freq,i)=>{
-      const osc=c.createOscillator(),g=c.createGain();
-      osc.connect(g);g.connect(c.destination);
-      osc.type='sine';
-      osc.frequency.setValueAtTime(freq,c.currentTime);
-      osc.frequency.linearRampToValueAtTime(freq*0.85,c.currentTime+1.2);
-      g.gain.setValueAtTime(0,c.currentTime);
-      g.gain.linearRampToValueAtTime(0.04-i*0.01,c.currentTime+0.3);
-      g.gain.linearRampToValueAtTime(0.03-i*0.01,c.currentTime+0.8);
-      g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+1.8);
-      osc.start();osc.stop(c.currentTime+2);
-    });
-    setTimeout(creak,12000+Math.random()*15000);
-  }
-  setTimeout(creak,8000);
+  // Ambient: wind only
 }
 
 // ── SOUND EFFECTS ─────────────────────────────────────────
