@@ -318,19 +318,25 @@ function startAmbientSound(){
   // Fade wind in
   windGain.gain.linearRampToValueAtTime(0.06, ctx.currentTime+3);
 
-  // Creak — periodic low sine burst
+  // Creak — rare, slow, very low frequency groan
   function creak(){
     const ctx2=getCtx();
-    const osc=ctx2.createOscillator(), g=ctx2.createGain();
-    osc.connect(g); g.connect(ctx2.destination);
-    osc.type='sine'; osc.frequency.value=55+Math.random()*30;
-    g.gain.setValueAtTime(0,ctx2.currentTime);
-    g.gain.linearRampToValueAtTime(0.08,ctx2.currentTime+0.05);
-    g.gain.exponentialRampToValueAtTime(0.001,ctx2.currentTime+0.4);
-    osc.start(); osc.stop(ctx2.currentTime+0.5);
-    setTimeout(creak, 5000+Math.random()*8000);
+    // Layer two very low oscillators for a wood-groan texture
+    [30+Math.random()*15, 45+Math.random()*10].forEach((freq, i) => {
+      const osc=ctx2.createOscillator(), g=ctx2.createGain();
+      osc.connect(g); g.connect(ctx2.destination);
+      osc.type='sine';
+      osc.frequency.setValueAtTime(freq, ctx2.currentTime);
+      osc.frequency.linearRampToValueAtTime(freq*0.85, ctx2.currentTime+1.2);
+      g.gain.setValueAtTime(0, ctx2.currentTime);
+      g.gain.linearRampToValueAtTime(0.04-i*0.01, ctx2.currentTime+0.3);
+      g.gain.linearRampToValueAtTime(0.03-i*0.01, ctx2.currentTime+0.8);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx2.currentTime+1.8);
+      osc.start(); osc.stop(ctx2.currentTime+2);
+    });
+    setTimeout(creak, 12000+Math.random()*15000);
   }
-  setTimeout(creak, 3000);
+  setTimeout(creak, 8000);
 
   // Clock tick
   function tick(){
