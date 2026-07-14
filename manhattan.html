@@ -58,17 +58,12 @@
     .lb-dropdown.open { display: block; }
     .title-cursor { display: inline-block; width: 3px; height: 32px; background: #ffffff; margin-left: 4px; animation: blink 0.7s infinite; vertical-align: middle; }
     @keyframes blink { 0%,100%{opacity:1;}50%{opacity:0;} }
-
     #rain-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
     #lightning-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 2; background: rgba(220,230,255,0); transition: background 0.05s; }
-
-
-
     @keyframes correctFlash { 0%{background:#f5e6c8;}30%{background:#c8e8c0;}100%{background:#f5e6c8;} }
     .card.flash-correct { animation: correctFlash 0.6s ease forwards !important; }
     @keyframes wrongShake { 0%,100%{transform:translateX(0);}20%{transform:translateX(-8px);}40%{transform:translateX(8px);}60%{transform:translateX(-5px);}80%{transform:translateX(5px);} }
     .card.shake-wrong { animation: wrongShake 0.4s ease forwards !important; }
-
     .dark-room { position: relative; width: 100%; height: 280px; background: #000; border-radius: 4px; overflow: hidden; cursor: none; margin-bottom: 16px; border: 1px solid #5c3a10; }
     .flashlight-mask { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
     .hidden-letter { position: absolute; font-family: 'Courier New', monospace; font-size: 52px; font-weight: bold; color: #f5f0e8; text-shadow: 0 0 20px rgba(255,255,200,0.8); user-select: none; pointer-events: none; }
@@ -97,12 +92,14 @@
   </style>
 </head>
 <body>
-<div id="loading-screen" style="position:fixed;inset:0;background:#000;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity 0.8s ease;">
+
+<div id="loading-screen" style="position:fixed;inset:0;background:#000;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;">
   <div style="font-size:48px;">🎧</div>
   <div style="font-family:'Georgia',serif;color:#ffffff;font-size:18px;letter-spacing:3px;text-transform:uppercase;">Headphones Recommended</div>
   <div style="font-family:'Georgia',serif;color:#aaaaaa;font-size:13px;letter-spacing:2px;">Turn your volume up for the full experience</div>
-  <div style="margin-top:24px;font-family:'Georgia',serif;color:#666;font-size:12px;letter-spacing:2px;animation:blink 1.2s infinite;">Click anywhere to begin</div>
+  <div style="margin-top:24px;font-family:'Georgia',serif;color:#666;font-size:12px;letter-spacing:2px;">Click anywhere to begin</div>
 </div>
+
 <canvas id="rain-canvas"></canvas>
 <div id="lightning-overlay"></div>
 
@@ -161,118 +158,93 @@
     </div>
   </div>
 </div>
-document.addEventListener("click", function dismissLoader(){
-  const s = document.getElementById("loading-screen");
-  s.style.opacity = "0";
-  setTimeout(()=>s.remove(), 800);
-  document.removeEventListener("click", dismissLoader);
-}, {once:true});
+
 <script>
-  (function(){
-  const s = document.getElementById("loading-screen");
-  s.style.transition = "opacity 0.8s ease";
+// ── LOADING SCREEN ────────────────────────────────────────
+(function(){
+  const s=document.getElementById("loading-screen");
+  s.style.transition="opacity 0.8s ease";
   function dismiss(){
-    s.style.opacity = "0";
-    setTimeout(()=>s.remove(), 800);
-    window.removeEventListener("pointerdown", dismiss);
+    s.style.opacity="0";
+    setTimeout(()=>s.remove(),800);
+    window.removeEventListener("pointerdown",dismiss);
   }
-  window.addEventListener("pointerdown", dismiss);
+  window.addEventListener("pointerdown",dismiss);
 })();
-const CASE_KEY = "lb_manhattan";
-const TIME_LIMIT = 20 * 60 * 1000;
-const TITLE = "DEATH IN MANHATTAN";
+
+const CASE_KEY="lb_manhattan",TIME_LIMIT=20*60*1000,TITLE="DEATH IN MANHATTAN";
 
 // ── RAIN CANVAS ───────────────────────────────────────────
-const rainCanvas = document.getElementById("rain-canvas");
-const rctx = rainCanvas.getContext("2d");
-function resizeRain(){ rainCanvas.width=window.innerWidth; rainCanvas.height=window.innerHeight; }
-resizeRain(); window.addEventListener("resize", resizeRain);
-class RainDrop {
-  constructor(){ this.reset(true); }
-  reset(rand){ this.x=Math.random()*rainCanvas.width; this.y=rand?Math.random()*rainCanvas.height:-20; this.len=14+Math.random()*28; this.speed=12+Math.random()*16; this.opacity=0.15+Math.random()*0.45; this.width=0.5+Math.random()*1.2; }
-  update(){ this.y+=this.speed; this.x+=this.speed*0.2; if(this.y>rainCanvas.height+20)this.reset(false); }
-  draw(){ rctx.beginPath(); rctx.moveTo(this.x,this.y); rctx.lineTo(this.x-this.len*0.2,this.y-this.len); rctx.strokeStyle=`rgba(190,210,255,${this.opacity})`; rctx.lineWidth=this.width; rctx.stroke(); }
+const rainCanvas=document.getElementById("rain-canvas"),rctx=rainCanvas.getContext("2d");
+function resizeRain(){rainCanvas.width=window.innerWidth;rainCanvas.height=window.innerHeight;}
+resizeRain();window.addEventListener("resize",resizeRain);
+class RainDrop{
+  constructor(){this.reset(true);}
+  reset(rand){this.x=Math.random()*rainCanvas.width;this.y=rand?Math.random()*rainCanvas.height:-20;this.len=14+Math.random()*28;this.speed=12+Math.random()*16;this.opacity=0.15+Math.random()*0.45;this.width=0.5+Math.random()*1.2;}
+  update(){this.y+=this.speed;this.x+=this.speed*0.2;if(this.y>rainCanvas.height+20)this.reset(false);}
+  draw(){rctx.beginPath();rctx.moveTo(this.x,this.y);rctx.lineTo(this.x-this.len*0.2,this.y-this.len);rctx.strokeStyle=`rgba(190,210,255,${this.opacity})`;rctx.lineWidth=this.width;rctx.stroke();}
 }
-const drops = Array.from({length:300}, ()=>new RainDrop());
-function animateRain(){ rctx.clearRect(0,0,rainCanvas.width,rainCanvas.height); drops.forEach(d=>{d.update();d.draw();}); requestAnimationFrame(animateRain); }
+const drops=Array.from({length:300},()=>new RainDrop());
+function animateRain(){rctx.clearRect(0,0,rainCanvas.width,rainCanvas.height);drops.forEach(d=>{d.update();d.draw();});requestAnimationFrame(animateRain);}
 animateRain();
 
 // ── LIGHTNING ─────────────────────────────────────────────
-const lightningEl = document.getElementById("lightning-overlay");
+const lightningEl=document.getElementById("lightning-overlay");
 function triggerLightning(){
   lightningEl.style.background="rgba(220,230,255,0.35)";
   setTimeout(()=>lightningEl.style.background="rgba(220,230,255,0)",80);
-  setTimeout(()=>{ lightningEl.style.background="rgba(220,230,255,0.2)"; setTimeout(()=>lightningEl.style.background="rgba(220,230,255,0)",60); },120);
-  setTimeout(triggerLightning, 15000+Math.random()*25000);
+  setTimeout(()=>{lightningEl.style.background="rgba(220,230,255,0.2)";setTimeout(()=>lightningEl.style.background="rgba(220,230,255,0)",60);},120);
+  setTimeout(triggerLightning,15000+Math.random()*25000);
 }
-setTimeout(triggerLightning, 8000+Math.random()*10000);
+setTimeout(triggerLightning,8000+Math.random()*10000);
 
-const rainAudio = new Audio('dragon-studio-gentle-rain-01-437305.mp3');
-rainAudio.loop = true;
-rainAudio.volume = 0;
+// ── RAIN SOUND ────────────────────────────────────────────
+const rainAudio=new Audio('dragon-studio-gentle-rain-01-437305.mp3');
+rainAudio.loop=true;rainAudio.volume=0;
 function startRainSound(){
   rainAudio.play().catch(()=>{});
-  let vol=0;
-  const fi=setInterval(()=>{ vol=Math.min(0.6,vol+0.015); rainAudio.volume=vol; if(vol>=0.6)clearInterval(fi); },80);
+  let vol=0;const fi=setInterval(()=>{vol=Math.min(0.6,vol+0.015);rainAudio.volume=vol;if(vol>=0.6)clearInterval(fi);},80);
 }
 document.addEventListener("click",startRainSound,{once:true});
 document.addEventListener("touchstart",startRainSound,{once:true});
 
 // ── SOUND EFFECTS ─────────────────────────────────────────
 let audioCtx=null;
-function getCtx(){ if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)(); return audioCtx; }
+function getCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
 function playCorrectSound(){
   const ctx=getCtx();
-  [523.25,659.25,783.99].forEach((freq,i)=>{ const osc=ctx.createOscillator(),g=ctx.createGain(); osc.connect(g);g.connect(ctx.destination); osc.type="sine";osc.frequency.value=freq; const t=ctx.currentTime+i*0.12; g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.3,t+0.02);g.gain.exponentialRampToValueAtTime(0.001,t+0.8); osc.start(t);osc.stop(t+0.8); });
+  [523.25,659.25,783.99].forEach((freq,i)=>{const osc=ctx.createOscillator(),g=ctx.createGain();osc.connect(g);g.connect(ctx.destination);osc.type="sine";osc.frequency.value=freq;const t=ctx.currentTime+i*0.12;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.3,t+0.02);g.gain.exponentialRampToValueAtTime(0.001,t+0.8);osc.start(t);osc.stop(t+0.8);});
 }
 function playWrongSound(){
-  const ctx=getCtx(); const osc=ctx.createOscillator(),g=ctx.createGain(); osc.connect(g);g.connect(ctx.destination); osc.type="sawtooth"; osc.frequency.setValueAtTime(120,ctx.currentTime);osc.frequency.exponentialRampToValueAtTime(40,ctx.currentTime+0.3); g.gain.setValueAtTime(0.35,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.4); osc.start();osc.stop(ctx.currentTime+0.4);
+  const ctx=getCtx();const osc=ctx.createOscillator(),g=ctx.createGain();osc.connect(g);g.connect(ctx.destination);osc.type="sawtooth";osc.frequency.setValueAtTime(120,ctx.currentTime);osc.frequency.exponentialRampToValueAtTime(40,ctx.currentTime+0.3);g.gain.setValueAtTime(0.35,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.4);osc.start();osc.stop(ctx.currentTime+0.4);
 }
 
-// ── DROPLETS REMOVED ──
-
 // ── FEEDBACK ──────────────────────────────────────────────
-function flashCorrect(){ const c=document.querySelector("#game-card .card"); if(!c)return; c.classList.remove("shake-wrong");c.classList.add("flash-correct"); setTimeout(()=>c.classList.remove("flash-correct"),600); }
-function shakeWrong(){ const c=document.querySelector("#game-card .card"); if(!c)return; c.classList.remove("flash-correct");c.classList.add("shake-wrong"); setTimeout(()=>c.classList.remove("shake-wrong"),400); }
+function flashCorrect(){const c=document.querySelector("#game-card .card");if(!c)return;c.classList.remove("shake-wrong");c.classList.add("flash-correct");setTimeout(()=>c.classList.remove("flash-correct"),600);}
+function shakeWrong(){const c=document.querySelector("#game-card .card");if(!c)return;c.classList.remove("flash-correct");c.classList.add("shake-wrong");setTimeout(()=>c.classList.remove("shake-wrong"),400);}
 
-// ── INTRO SEQUENCE ────────────────────────────────────────
-document.addEventListener("click", startRainSound, {once:true});
-document.addEventListener("touchstart", startRainSound, {once:true});
-window.addEventListener("load", runIntro);
-
+// ── INTRO ─────────────────────────────────────────────────
+window.addEventListener("load",runIntro);
 function runIntro(){
   typeTitle(()=>{
     document.getElementById("subtitle").style.opacity="1";
     setTimeout(()=>{
       const card=document.getElementById("intro-card");
-      card.style.opacity="1"; card.style.transform="translateY(0)";
+      card.style.opacity="1";card.style.transform="translateY(0)";
       setTimeout(()=>{
-        const suspects=[0,1,2,3].map(i=>document.getElementById("s"+i));
-        suspects.forEach((s,i)=>{
+        [0,1,2,3].map(i=>document.getElementById("s"+i)).forEach((s,i)=>{
           setTimeout(()=>{
             s.classList.add("visible");
-            if(i===suspects.length-1){
-              setTimeout(()=>{
-                document.getElementById("closing-text").style.opacity="1";
-                setTimeout(()=>{
-                  document.getElementById("player-name").style.opacity="1";
-                  setTimeout(()=>document.getElementById("start-btn").style.opacity="1",200);
-                },400);
-              },400);
-            }
+            if(i===3){setTimeout(()=>{document.getElementById("closing-text").style.opacity="1";setTimeout(()=>{document.getElementById("player-name").style.opacity="1";setTimeout(()=>document.getElementById("start-btn").style.opacity="1",200);},400);},400);}
           },i*300);
         });
       },900);
     },300);
   });
 }
-
 function typeTitle(onDone){
-  const el=document.getElementById("main-title"); let i=0;
-  function t(){
-    if(i<=TITLE.length){ el.innerHTML=TITLE.slice(0,i)+'<span class="title-cursor"></span>'; i++; setTimeout(t,80); }
-    else{ el.innerHTML=TITLE; if(onDone)onDone(); }
-  }
+  const el=document.getElementById("main-title");let i=0;
+  function t(){if(i<=TITLE.length){el.innerHTML=TITLE.slice(0,i)+'<span class="title-cursor"></span>';i++;setTimeout(t,80);}else{el.innerHTML=TITLE;if(onDone)onDone();}}
   t();
 }
 
@@ -284,7 +256,6 @@ const puzzles=[
   {label:"Clue 04 — The Attorney's Briefcase",type:"🪞 Mirror Writing",story:"Sylvia Moss left a document on the lobby desk. A single word is written across the page — but each letter is only half drawn. Hold a mirror below the edge to complete each letter.",answer:"checked",hint:"Hold a real mirror flat below the bottom edge. The word uses only symmetric letters — B, C, D, E, H, I, K, O, X.",renderPuzzle:renderMirror},
   {label:"Clue 05 — The Open Window",type:"🔐 Caesar Cipher",story:"On the windowsill, barely visible in the rain, someone scratched letters into the paint. Victor left one final message — his killer's full name. He always shifted by three.",answer:"james whitmore",hint:"Shift every letter back by 3. D becomes A, E becomes B, F becomes C.",renderPuzzle:renderCaesar}
 ];
-
 let current=0,lives=3,livesLost=0,caseSolved=false,startTime,timerInterval,timeUsed=0,playerName="";
 
 function renderFlashlight(container){
@@ -356,27 +327,22 @@ function startGame(){
   playerName=document.getElementById("player-name").value.trim()||"UNKNOWN";
   document.getElementById("intro-card").classList.add("hidden");
   document.getElementById("game-card").classList.remove("hidden");
-  startTime=Date.now(); timerInterval=setInterval(updateTimer,100);
-  loadPuzzle();
+  startTime=Date.now();timerInterval=setInterval(updateTimer,100);loadPuzzle();
 }
-
 function updateTimer(){
   const remaining=TIME_LIMIT-(Date.now()-startTime),bar=document.getElementById("timer-bar"),disp=document.getElementById("timer-display");
   if(remaining<=0){clearInterval(timerInterval);disp.textContent="00:00";bar.className="timer-bar danger";timeUsed=TIME_LIMIT;showEnding();return;}
   disp.textContent=formatCountdown(remaining);
   bar.className=remaining<60000?"timer-bar danger":remaining<180000?"timer-bar warning":"timer-bar";
 }
-
 function loadPuzzle(){
   const p=puzzles[current];updateProgress();updateLives();
   document.getElementById("clue-label").textContent=p.label;document.getElementById("type-badge").textContent=p.type;document.getElementById("story-text").textContent=p.story;
   document.getElementById("player-input").value="";document.getElementById("feedback").className="feedback";document.getElementById("feedback").textContent="";
   const area=document.getElementById("puzzle-area");area.innerHTML="";p.renderPuzzle(area);
 }
-
 function updateProgress(){document.getElementById("progress-dots").innerHTML=puzzles.map((_,i)=>`<div class="progress-dot ${i<current?"done":i===current?"current":""}"></div>`).join("")+`<span class="progress-label">Clue ${current+1} of ${puzzles.length}</span>`;}
 function updateLives(){document.getElementById("lives-display").innerHTML="Lives: "+[0,1,2].map(i=>`<span class="life ${i>=lives?"lost":""}">🔍</span>`).join("");}
-
 function submitAnswer(){
   const guess=document.getElementById("player-input").value.trim().toLowerCase(),correct=puzzles[current].answer.toLowerCase(),fb=document.getElementById("feedback");
   if(guess===correct){
@@ -389,17 +355,14 @@ function submitAnswer(){
     else{fb.className="feedback wrong";fb.textContent=`✗ Wrong. The evidence doesn't add up. ${lives} chance${lives===1?"":"s"} remaining.`;}
   }
 }
-
 function showHint(){
   if(lives<=1){const fb=document.getElementById("feedback");fb.className="feedback info";fb.textContent="Not enough lives to use a hint.";return;}
   lives--;livesLost++;updateLives();playWrongSound();const fb=document.getElementById("feedback");fb.className="feedback info";fb.textContent="💡 "+puzzles[current].hint;
 }
-
 function formatTime(ms){const s=Math.floor(ms/1000);return`${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}.${String(Math.floor((ms%1000)/10)).padStart(2,"0")}`;}
 function formatCountdown(ms){const s=Math.ceil(ms/1000);return`${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;}
 function getLeaderboard(){try{return JSON.parse(localStorage.getItem(CASE_KEY)||"[]");}catch{return[];}}
 function saveScore(name,ms){let b=getLeaderboard();b.push({name,ms});b.sort((a,c)=>a.ms-c.ms);b=b.slice(0,20);try{localStorage.setItem(CASE_KEY,JSON.stringify(b));}catch{}return b;}
-
 function renderLeaderboard(board,myMs){
   if(!board.length)return"";
   const medals=["🥇","🥈","🥉","4.","5."],cls=["gold","silver","bronze","",""];
@@ -409,7 +372,6 @@ function renderLeaderboard(board,myMs){
   return html;
 }
 function toggleLbDropdown(){const el=document.getElementById("lb-dropdown"),label=document.querySelector(".lb-dropdown-label");el.classList.toggle("open");label.textContent=el.classList.contains("open")?"▼ Hide scores":"▶ Show all scores";}
-
 function showEnding(){
   document.getElementById("game-card").classList.add("hidden");document.getElementById("ending-card").classList.remove("hidden");
   let rank,desc,stars,msg;
@@ -423,20 +385,13 @@ function showEnding(){
   document.getElementById("ending-stars").textContent=stars;document.getElementById("rank-name").textContent=rank;document.getElementById("rank-desc").textContent=desc;
   if(caseSolved){const board=saveScore(playerName,timeUsed);document.getElementById("leaderboard-preview").innerHTML=renderLeaderboard(board,timeUsed);}
 }
-
 function restartGame(){
   current=0;lives=3;livesLost=0;caseSolved=false;timeUsed=0;clearInterval(timerInterval);
-  document.getElementById("ending-card").classList.add("hidden");
-  document.getElementById("intro-card").classList.remove("hidden");
-  document.getElementById("intro-card").style.opacity="0";
-  document.getElementById("intro-card").style.transform="translateY(16px)";
-  document.getElementById("subtitle").style.opacity="0";
-  document.getElementById("leaderboard-preview").innerHTML="";
-  document.getElementById("main-title").innerHTML="";
+  document.getElementById("ending-card").classList.add("hidden");document.getElementById("intro-card").classList.remove("hidden");
+  document.getElementById("intro-card").style.opacity="0";document.getElementById("intro-card").style.transform="translateY(16px)";
+  document.getElementById("subtitle").style.opacity="0";document.getElementById("leaderboard-preview").innerHTML="";document.getElementById("main-title").innerHTML="";
   [0,1,2,3].forEach(i=>document.getElementById("s"+i).classList.remove("visible"));
-  document.getElementById("closing-text").style.opacity="0";
-  document.getElementById("player-name").style.opacity="0";
-  document.getElementById("start-btn").style.opacity="0";
+  document.getElementById("closing-text").style.opacity="0";document.getElementById("player-name").style.opacity="0";document.getElementById("start-btn").style.opacity="0";
   setTimeout(runIntro,200);
 }
 </script>
