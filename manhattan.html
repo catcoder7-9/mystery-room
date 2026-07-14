@@ -168,6 +168,16 @@ document.addEventListener("click", function dismissLoader(){
   document.removeEventListener("click", dismissLoader);
 }, {once:true});
 <script>
+  (function(){
+  const s = document.getElementById("loading-screen");
+  s.style.transition = "opacity 0.8s ease";
+  function dismiss(){
+    s.style.opacity = "0";
+    setTimeout(()=>s.remove(), 800);
+    window.removeEventListener("pointerdown", dismiss);
+  }
+  window.addEventListener("pointerdown", dismiss);
+})();
 const CASE_KEY = "lb_manhattan";
 const TIME_LIMIT = 20 * 60 * 1000;
 const TITLE = "DEATH IN MANHATTAN";
