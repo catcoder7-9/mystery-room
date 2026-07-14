@@ -101,7 +101,12 @@
   </style>
 </head>
 <body>
-
+<div id="loading-screen" style="position:fixed;inset:0;background:#000;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity 0.8s ease;">
+  <div style="font-size:48px;">🎧</div>
+  <div style="font-family:'Georgia',serif;color:#ffffff;font-size:18px;letter-spacing:3px;text-transform:uppercase;">Headphones Recommended</div>
+  <div style="font-family:'Georgia',serif;color:#aaaaaa;font-size:13px;letter-spacing:2px;">Turn your volume up for the full experience</div>
+  <div style="margin-top:24px;font-family:'Georgia',serif;color:#666;font-size:12px;letter-spacing:2px;animation:blink 1.2s infinite;">Click anywhere to begin</div>
+</div>
 <canvas id="ocean-canvas"></canvas>
 
 <div class="container">
@@ -159,7 +164,12 @@
     </div>
   </div>
 </div>
-
+document.addEventListener("click", function dismissLoader(){
+  const s = document.getElementById("loading-screen");
+  s.style.opacity = "0";
+  setTimeout(()=>s.remove(), 800);
+  document.removeEventListener("click", dismissLoader);
+}, {once:true});
 <script>
 const CASE_KEY="lb_voyage",TIME_LIMIT=20*60*1000,TITLE="THE LAST VOYAGE";
 
