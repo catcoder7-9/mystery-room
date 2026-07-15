@@ -174,32 +174,7 @@ const oceanCanvas=document.getElementById("ocean-canvas"),octx=oceanCanvas.getCo
 function resizeOcean(){oceanCanvas.width=window.innerWidth;oceanCanvas.height=window.innerHeight;}
 resizeOcean();window.addEventListener("resize",resizeOcean);
 
-// Wave particles drifting across screen
-const waves=[];
-class Wave{
-  constructor(){this.reset(true);}
-  reset(rand){
-    this.y=rand?Math.random()*oceanCanvas.height:oceanCanvas.height+10;
-    this.x=Math.random()*oceanCanvas.width;
-    this.w=40+Math.random()*120;
-    this.h=2+Math.random()*4;
-    this.speed=0.2+Math.random()*0.4;
-    this.opacity=0.04+Math.random()*0.08;
-    this.phase=Math.random()*Math.PI*2;
-  }
-  update(){
-    this.y-=this.speed;
-    this.x+=Math.sin(this.phase+=0.01)*0.3;
-    if(this.y<-10)this.reset(false);
-  }
-  draw(){
-    octx.beginPath();
-    octx.ellipse(this.x,this.y,this.w/2,this.h/2,0,0,Math.PI*2);
-    octx.fillStyle=`rgba(100,160,220,${this.opacity})`;
-    octx.fill();
-  }
-}
-for(let i=0;i<80;i++){const w=new Wave();w.y=Math.random()*oceanCanvas.height;waves.push(w);}
+
 
 // Vignette — dark edges like looking through a porthole
 let vigPhase=0;
@@ -216,7 +191,6 @@ function drawOceanVignette(){
 function animateOcean(){
   octx.clearRect(0,0,oceanCanvas.width,oceanCanvas.height);
   drawOceanVignette();
-  waves.forEach(w=>{w.update();w.draw();});
   requestAnimationFrame(animateOcean);
 }
 animateOcean();
