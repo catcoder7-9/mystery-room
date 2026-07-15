@@ -6,7 +6,7 @@
   <title>The Last Voyage</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Georgia', serif; background-image: url('ocean.jpeg'); background-size: cover; background-position: center; color: #000000; display: flex; justify-content: center; padding: 40px 20px; min-height: 100vh; }
+    body { font-family: 'Georgia', serif; background-image: url('escaperoom.jpg'); background-size: cover; background-position: center; color: #000000; display: flex; justify-content: center; padding: 40px 20px; min-height: 100vh; }
     .container { width: 100%; max-width: 680px; }
     h1 { text-align: center; font-size: 34px; color: #ffffff; text-shadow: 2px 2px 0px #000000; letter-spacing: 5px; margin-bottom: 4px; min-height: 44px; }
     .subtitle { text-align: center; color: #ffffff; font-size: 12px; margin-bottom: 28px; letter-spacing: 3px; text-transform: uppercase; opacity: 0; transition: opacity 0.8s ease; }
@@ -101,11 +101,12 @@
   </style>
 </head>
 <body>
-<div id="loading-screen" style="position:fixed;inset:0;background:#000;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity 0.8s ease;">
+
+<div id="loading-screen" onclick="this.style.opacity='0';setTimeout(()=>this.remove(),800);startAmbientSound();" style="position:fixed;inset:0;background:#000;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity 0.8s ease;cursor:pointer;">
   <div style="font-size:48px;">🎧</div>
   <div style="font-family:'Georgia',serif;color:#ffffff;font-size:18px;letter-spacing:3px;text-transform:uppercase;">Headphones Recommended</div>
   <div style="font-family:'Georgia',serif;color:#aaaaaa;font-size:13px;letter-spacing:2px;">Turn your volume up for the full experience</div>
-  <div style="margin-top:24px;font-family:'Georgia',serif;color:#666;font-size:12px;letter-spacing:2px;animation:blink 1.2s infinite;">Click anywhere to begin</div>
+  <div style="margin-top:24px;font-family:'Georgia',serif;color:#666;font-size:12px;letter-spacing:2px;">Click anywhere to begin</div>
 </div>
 <canvas id="ocean-canvas"></canvas>
 
@@ -164,12 +165,7 @@
     </div>
   </div>
 </div>
-document.addEventListener("click", function dismissLoader(){
-  const s = document.getElementById("loading-screen");
-  s.style.opacity = "0";
-  setTimeout(()=>s.remove(), 800);
-  document.removeEventListener("click", dismissLoader);
-}, {once:true});
+
 <script>
 const CASE_KEY="lb_voyage",TIME_LIMIT=20*60*1000,TITLE="THE LAST VOYAGE";
 
@@ -177,6 +173,33 @@ const CASE_KEY="lb_voyage",TIME_LIMIT=20*60*1000,TITLE="THE LAST VOYAGE";
 const oceanCanvas=document.getElementById("ocean-canvas"),octx=oceanCanvas.getContext("2d");
 function resizeOcean(){oceanCanvas.width=window.innerWidth;oceanCanvas.height=window.innerHeight;}
 resizeOcean();window.addEventListener("resize",resizeOcean);
+
+// Wave particles drifting across screen
+const waves=[];
+class Wave{
+  constructor(){this.reset(true);}
+  reset(rand){
+    this.y=rand?Math.random()*oceanCanvas.height:oceanCanvas.height+10;
+    this.x=Math.random()*oceanCanvas.width;
+    this.w=40+Math.random()*120;
+    this.h=2+Math.random()*4;
+    this.speed=0.2+Math.random()*0.4;
+    this.opacity=0.04+Math.random()*0.08;
+    this.phase=Math.random()*Math.PI*2;
+  }
+  update(){
+    this.y-=this.speed;
+    this.x+=Math.sin(this.phase+=0.01)*0.3;
+    if(this.y<-10)this.reset(false);
+  }
+  draw(){
+    octx.beginPath();
+    octx.ellipse(this.x,this.y,this.w/2,this.h/2,0,0,Math.PI*2);
+    octx.fillStyle=`rgba(100,160,220,${this.opacity})`;
+    octx.fill();
+  }
+}
+for(let i=0;i<80;i++){const w=new Wave();w.y=Math.random()*oceanCanvas.height;waves.push(w);}
 
 // Vignette — dark edges like looking through a porthole
 let vigPhase=0;
@@ -193,6 +216,7 @@ function drawOceanVignette(){
 function animateOcean(){
   octx.clearRect(0,0,oceanCanvas.width,oceanCanvas.height);
   drawOceanVignette();
+  waves.forEach(w=>{w.update();w.draw();});
   requestAnimationFrame(animateOcean);
 }
 animateOcean();
@@ -290,7 +314,7 @@ function renderMorse(container){
     const btn=document.getElementById("morse-play-btn");btn.disabled=true;btn.textContent="📡 Transmitting...";
     const ctx=new(window.AudioContext||window.webkitAudioContext)();
     const dot=0.08,dash=0.24,gap=0.08,lgap=0.28;let t=ctx.currentTime+0.3;
-    function beep(start,dur){const osc=ctx.createOscillator(),g=ctx.createGain();osc.connect(g);g.connect(ctx.destination);osc.type="sine";osc.frequency.value=600;g.gain.setValueAtTime(0,start);g.gain.linearRampToValueAtTime(0.8,start+0.01);g.gain.setValueAtTime(0.3,start+dur-0.01);g.gain.linearRampToValueAtTime(0,start+dur);osc.start(start);osc.stop(start+dur);}
+    function beep(start,dur){const osc=ctx.createOscillator(),g=ctx.createGain();osc.connect(g);g.connect(ctx.destination);osc.type="sine";osc.frequency.value=600;g.gain.setValueAtTime(0,start);g.gain.linearRampToValueAtTime(0.3,start+0.01);g.gain.setValueAtTime(0.3,start+dur-0.01);g.gain.linearRampToValueAtTime(0,start+dur);osc.start(start);osc.stop(start+dur);}
     groups.forEach(morse=>{morse.split("").forEach(sym=>{const d=sym==="."?dot:dash;beep(t,d);t+=d+gap;});t+=lgap;});
     setTimeout(()=>{btn.disabled=false;btn.innerHTML="🔊 Play Again";},(t-ctx.currentTime)*1000+300);
   };
