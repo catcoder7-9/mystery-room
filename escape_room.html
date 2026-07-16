@@ -184,16 +184,8 @@
     if(!arr.includes(num)){arr.push(num);saveUnlocked(arr);}
   }
 
-  // Also check if case leaderboards exist — means player completed that case
-  function checkCompletedCases(){
-    const unlocked=getUnlocked();
-    if(localStorage.getItem("lb_manhattan")){if(!unlocked.includes(2)){unlocked.push(2);saveUnlocked(unlocked);}}
-    if(localStorage.getItem("lb_cipher")){if(!unlocked.includes(3)){unlocked.push(3);saveUnlocked(unlocked);}}
-    return unlocked;
-  }
-
   function applyUnlockState(){
-    const unlocked=checkCompletedCases();
+    const unlocked=getUnlocked();
     if(unlocked.includes(2)){
       document.getElementById("case2-card").classList.remove("locked");
       document.getElementById("case2-lock").style.display="none";
