@@ -6,311 +6,66 @@
   <title>Mystery Room</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Georgia', serif;
-      background-image: url('escaperoom.jpg');
-      background-size: cover;
-      background-position: center;
-      color: #000000;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-      overflow-x: hidden;
-    }
-
-    /* ── ANIMATED OVERLAY ── */
-    #bg-canvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 720px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .header {
-      text-align: center;
-      margin-bottom: 48px;
-      animation: fadeDown 1s ease forwards;
-    }
-
-    .header .seal {
-      font-size: 56px;
-      margin-bottom: 16px;
-      display: inline-block;
-      animation: rotateSeal 20s linear infinite;
-      transform-origin: center;
-    }
-
-    @keyframes rotateSeal {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .header h1 {
-      font-size: 48px;
-      letter-spacing: 8px;
-      color: #ffffff;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-      text-shadow: 2px 2px 0px #000000;
-      animation: titlePulse 4s ease-in-out infinite;
-    }
-
-    @keyframes titlePulse {
-      0%, 100% { text-shadow: 2px 2px 0px #000000; }
-      50% { text-shadow: 2px 2px 20px rgba(255,255,255,0.4), 2px 2px 0px #000000; }
-    }
-
-    .header .tagline {
-      font-size: 13px;
-      letter-spacing: 4px;
-      color: #ffffff;
-      text-transform: uppercase;
-    }
-
-    .divider {
-      width: 60px;
-      height: 1px;
-      background: #ffffff;
-      margin: 16px auto;
-      animation: expandDivider 1.5s ease 0.5s forwards;
-      width: 0;
-    }
-
-    @keyframes expandDivider {
-      from { width: 0; }
-      to { width: 60px; }
-    }
-
-    .cases-label {
-      font-size: 11px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: #ffffff;
-      margin-bottom: 16px;
-      text-align: center;
-    }
-
-    .cases {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .case-card {
-      background: rgba(255,255,255,0.88);
-      border: 1px solid rgba(0,0,0,0.2);
-      border-radius: 12px;
-      padding: 24px;
-      cursor: pointer;
-      transition: all 0.3s;
-      animation: fadeUp 0.8s ease forwards;
-      opacity: 0;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Shimmer sweep on hover */
-    .case-card::after {
-      content: "";
-      position: absolute;
-      top: 0; left: -100%;
-      width: 60%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      transform: skewX(-20deg);
-      transition: none;
-      pointer-events: none;
-    }
-
-    .case-card:hover::after {
-      animation: shimmer 0.6s ease forwards;
-    }
-
-    @keyframes shimmer {
-      from { left: -100%; }
-      to { left: 150%; }
-    }
-
-    .case-card:nth-child(1) { animation-delay: 0.2s; }
-    .case-card:nth-child(2) { animation-delay: 0.4s; }
-    .case-card:nth-child(3) { animation-delay: 0.6s; }
-
-    .case-card:hover {
-      background: rgba(255,255,255,0.98);
-      transform: translateY(-3px) scale(1.01);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.2);
-    }
-
-    .case-card.locked {
-      opacity: 0.5 !important;
-      cursor: not-allowed;
-    }
-
-    .case-card.locked:hover {
-      transform: none;
-      box-shadow: none;
-    }
-
-    .case-icon {
-      font-size: 36px;
-      min-width: 50px;
-      text-align: center;
-      transition: transform 0.3s;
-    }
-
-    .case-card:hover .case-icon {
-      transform: scale(1.2) rotate(-5deg);
-    }
-
+    body { font-family: 'Georgia', serif; background-image: url('escaperoom.jpg'); background-size: cover; background-position: center; color: #000000; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; overflow-x: hidden; }
+    #bg-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .container { width: 100%; max-width: 720px; position: relative; z-index: 1; }
+    .header { text-align: center; margin-bottom: 48px; animation: fadeDown 1s ease forwards; }
+    .header .seal { font-size: 56px; margin-bottom: 16px; display: inline-block; animation: rotateSeal 20s linear infinite; transform-origin: center; }
+    @keyframes rotateSeal { from{transform:rotate(0deg);}to{transform:rotate(360deg);} }
+    .header h1 { font-size: 48px; letter-spacing: 8px; color: #ffffff; text-transform: uppercase; margin-bottom: 8px; text-shadow: 2px 2px 0px #000000; animation: titlePulse 4s ease-in-out infinite; }
+    @keyframes titlePulse { 0%,100%{text-shadow:2px 2px 0px #000000;}50%{text-shadow:2px 2px 20px rgba(255,255,255,0.4),2px 2px 0px #000000;} }
+    .header .tagline { font-size: 13px; letter-spacing: 4px; color: #ffffff; text-transform: uppercase; }
+    .divider { width: 60px; height: 1px; background: #ffffff; margin: 16px auto; animation: expandDivider 1.5s ease 0.5s forwards; width: 0; }
+    @keyframes expandDivider { from{width:0;}to{width:60px;} }
+    .cases-label { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #ffffff; margin-bottom: 16px; text-align: center; }
+    .cases { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+    .case-card { background: rgba(255,255,255,0.88); border: 1px solid rgba(0,0,0,0.2); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.3s; animation: fadeUp 0.8s ease forwards; opacity: 0; display: flex; align-items: center; gap: 20px; position: relative; overflow: hidden; }
+    .case-card::after { content:""; position:absolute; top:0; left:-100%; width:60%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent); transform:skewX(-20deg); pointer-events:none; }
+    .case-card:hover::after { animation: shimmer 0.6s ease forwards; }
+    @keyframes shimmer { from{left:-100%;}to{left:150%;} }
+    .case-card:nth-child(1){animation-delay:0.2s;} .case-card:nth-child(2){animation-delay:0.4s;} .case-card:nth-child(3){animation-delay:0.6s;}
+    .case-card:hover { background: rgba(255,255,255,0.98); transform: translateY(-3px) scale(1.01); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
+    .case-card.locked { opacity: 0.5 !important; cursor: not-allowed; }
+    .case-card.locked:hover { transform: none; box-shadow: none; }
+    .case-card.completed { border-left: 4px solid #00674F; }
+    .case-icon { font-size: 36px; min-width: 50px; text-align: center; transition: transform 0.3s; }
+    .case-card:hover .case-icon { transform: scale(1.2) rotate(-5deg); }
     .case-info { flex: 1; }
-
-    .case-number {
-      font-size: 10px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: #555555;
-      margin-bottom: 4px;
-    }
-
-    .case-title {
-      font-size: 20px;
-      color: #000000;
-      margin-bottom: 6px;
-      letter-spacing: 1px;
-    }
-
-    .case-teaser {
-      font-size: 13px;
-      color: #333333;
-      line-height: 1.5;
-      margin-bottom: 10px;
-    }
-
-    .case-meta {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .difficulty {
-      font-size: 11px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 20px;
-      border: 1px solid;
-    }
-
+    .case-number { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #555555; margin-bottom: 4px; }
+    .case-title { font-size: 20px; color: #000000; margin-bottom: 6px; letter-spacing: 1px; }
+    .case-teaser { font-size: 13px; color: #333333; line-height: 1.5; margin-bottom: 10px; }
+    .case-meta { display: flex; gap: 12px; align-items: center; }
+    .difficulty { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; border: 1px solid; }
     .difficulty.beginner { color: #00674F; border-color: #00674F; }
     .difficulty.intermediate { color: #8B4513; border-color: #8B4513; }
     .difficulty.expert { color: #8B0000; border-color: #8B0000; }
-
     .case-status { font-size: 11px; color: #666; letter-spacing: 1px; }
-
     .lock-icon { font-size: 24px; opacity: 0.4; }
-
-    .footer {
-      text-align: center;
-      font-size: 11px;
-      letter-spacing: 2px;
-      color: #ffffff;
-      text-transform: uppercase;
-      animation: fadeUp 1s ease 0.8s forwards;
-      opacity: 0;
-    }
-
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── MODALS ── */
-    .modal-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.6);
-      display: none; align-items: center;
-      justify-content: center; z-index: 100; padding: 20px;
-      backdrop-filter: blur(4px);
-    }
+    .footer { text-align: center; font-size: 11px; letter-spacing: 2px; color: #ffffff; text-transform: uppercase; animation: fadeUp 1s ease 0.8s forwards; opacity: 0; }
+    @keyframes fadeDown { from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);} }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 100; padding: 20px; backdrop-filter: blur(4px); }
     .modal-overlay.open { display: flex; animation: modalIn 0.3s ease; }
-    @keyframes modalIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .modal {
-      background: #fff; border-radius: 12px; padding: 32px;
-      max-width: 420px; width: 100%; text-align: center;
-      border: 1px solid #004d3a;
-      animation: modalSlide 0.3s ease;
-    }
-    @keyframes modalSlide {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
+    @keyframes modalIn { from{opacity:0;transform:scale(0.95);}to{opacity:1;transform:scale(1);} }
+    .modal { background: #fff; border-radius: 12px; padding: 32px; max-width: 420px; width: 100%; text-align: center; border: 1px solid #004d3a; }
     .modal-icon { font-size: 40px; margin-bottom: 12px; }
     .modal h2 { font-size: 20px; letter-spacing: 2px; margin-bottom: 8px; color: #000000; }
     .modal p { font-size: 14px; color: #333; line-height: 1.6; margin-bottom: 24px; }
     .modal-buttons { display: flex; gap: 12px; justify-content: center; }
-    .modal button {
-      padding: 10px 24px; border: none; border-radius: 8px;
-      background: #000000; color: #ffffff; font-size: 14px;
-      cursor: pointer; font-family: 'Georgia', serif;
-      letter-spacing: 1px; transition: all 0.2s;
-    }
+    .modal button { padding: 10px 24px; border: none; border-radius: 8px; background: #000000; color: #ffffff; font-size: 14px; cursor: pointer; font-family: 'Georgia', serif; letter-spacing: 1px; transition: all 0.2s; }
     .modal button:hover { background: #333333; transform: translateY(-1px); }
     .modal .cancel-btn { background: transparent; color: #666; border: 1px solid #ccc; }
     .modal .cancel-btn:hover { background: #eee; color: #000; transform: none; }
-
-    .password-modal {
-      background: #fff; border-radius: 12px; padding: 32px;
-      max-width: 420px; width: 100%; text-align: center;
-      border: 1px solid #000;
-      animation: modalSlide 0.3s ease;
-    }
+    .password-modal { background: #fff; border-radius: 12px; padding: 32px; max-width: 420px; width: 100%; text-align: center; border: 1px solid #000; }
     .password-modal h2 { font-size: 18px; margin-bottom: 8px; letter-spacing: 2px; }
     .password-modal p { font-size: 13px; color: #555; margin-bottom: 16px; line-height: 1.6; }
-    .password-modal input {
-      width: 100%; padding: 10px; border: 1px solid #ccc;
-      border-radius: 8px; font-size: 15px; margin-bottom: 16px;
-      text-align: center; font-family: 'Georgia', serif;
-      transition: border-color 0.2s;
-    }
+    .password-modal input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 15px; margin-bottom: 16px; text-align: center; font-family: 'Georgia', serif; transition: border-color 0.2s; }
     .password-modal input:focus { outline: none; border-color: #000; }
-    .password-modal .error { color: #8B0000; font-size: 13px; margin-bottom: 12px; display: none; animation: shake 0.4s ease; }
-    @keyframes shake {
-      0%,100% { transform: translateX(0); }
-      25% { transform: translateX(-6px); }
-      75% { transform: translateX(6px); }
-    }
+    .password-modal .error { color: #8B0000; font-size: 13px; margin-bottom: 12px; display: none; }
   </style>
 </head>
 <body>
-
-<!-- Animated particle canvas -->
 <canvas id="bg-canvas"></canvas>
-
 <div class="container">
   <div class="header">
     <span class="seal">🔍</span>
@@ -318,12 +73,10 @@
     <div class="divider"></div>
     <p class="tagline">Solve the case. Crack the cipher. Find the truth.</p>
   </div>
-
   <p class="cases-label">— Select a Case —</p>
   <p style="text-align:center;color:#ffffff;font-size:13px;margin-bottom:16px;letter-spacing:1px;">Have a password? Click a locked case to enter it.</p>
-
   <div class="cases">
-    <div class="case-card" onclick="openCase(1)">
+    <div class="case-card" id="case1-card" onclick="openCase(1)">
       <div class="case-icon">🏙️</div>
       <div class="case-info">
         <div class="case-number">Case 01</div>
@@ -331,11 +84,10 @@
         <div class="case-teaser">A wealthy developer is found dead in his luxury apartment on the 34th floor. Four suspects. One killer.</div>
         <div class="case-meta">
           <span class="difficulty beginner">Beginner</span>
-          <span class="case-status">🔓 Available</span>
+          <span class="case-status" id="case1-status">🔓 Available</span>
         </div>
       </div>
     </div>
-
     <div class="case-card locked" id="case2-card" onclick="openCase(2)">
       <div class="case-icon">🕯️</div>
       <div class="case-info">
@@ -349,7 +101,6 @@
       </div>
       <div class="lock-icon" id="case2-lock">🔒</div>
     </div>
-
     <div class="case-card locked" id="case3-card" onclick="openCase(3)">
       <div class="case-icon">🚢</div>
       <div class="case-info">
@@ -364,7 +115,6 @@
       <div class="lock-icon" id="case3-lock">🔒</div>
     </div>
   </div>
-
   <div class="footer">— Mystery Room — Est. 2026 —</div>
 </div>
 
@@ -399,153 +149,116 @@
 
 <script>
   // ── PARTICLE BACKGROUND ──────────────────────────────────
-  const canvas = document.getElementById("bg-canvas");
-  const ctx = canvas.getContext("2d");
-
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  const canvas=document.getElementById("bg-canvas"),ctx=canvas.getContext("2d");
+  function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+  resize();window.addEventListener("resize",resize);
+  const particles=[];
+  class Particle{
+    constructor(){this.reset(true);}
+    reset(randomY=false){this.x=Math.random()*canvas.width;this.y=randomY?Math.random()*canvas.height:canvas.height+10;this.size=Math.random()*2.5+0.5;this.speedY=Math.random()*0.4+0.1;this.speedX=(Math.random()-0.5)*0.3;this.opacity=Math.random()*0.4+0.05;this.flicker=Math.random()*Math.PI*2;this.flickerSpeed=Math.random()*0.02+0.005;}
+    update(){this.y-=this.speedY;this.x+=this.speedX;this.flicker+=this.flickerSpeed;this.currentOpacity=this.opacity+Math.sin(this.flicker)*0.05;if(this.y<-10)this.reset();}
+    draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,220,${this.currentOpacity})`;ctx.fill();}
   }
-  resize();
-  window.addEventListener("resize", resize);
-
-  const particles = [];
-  const NUM_PARTICLES = 60;
-
-  class Particle {
-    constructor() { this.reset(true); }
-    reset(randomY = false) {
-      this.x = Math.random() * canvas.width;
-      this.y = randomY ? Math.random() * canvas.height : canvas.height + 10;
-      this.size = Math.random() * 2.5 + 0.5;
-      this.speedY = Math.random() * 0.4 + 0.1;
-      this.speedX = (Math.random() - 0.5) * 0.3;
-      this.opacity = Math.random() * 0.4 + 0.05;
-      this.flicker = Math.random() * Math.PI * 2;
-      this.flickerSpeed = Math.random() * 0.02 + 0.005;
-    }
-    update() {
-      this.y -= this.speedY;
-      this.x += this.speedX;
-      this.flicker += this.flickerSpeed;
-      this.currentOpacity = this.opacity + Math.sin(this.flicker) * 0.05;
-      if (this.y < -10) this.reset();
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,220,${this.currentOpacity})`;
-      ctx.fill();
-    }
-  }
-
-  for (let i = 0; i < NUM_PARTICLES; i++) particles.push(new Particle());
-
-  // Vignette pulse
-  let vignettePhase = 0;
-
-  function drawVignette() {
-    vignettePhase += 0.005;
-    const intensity = 0.55 + Math.sin(vignettePhase) * 0.05;
-    const grad = ctx.createRadialGradient(
-      canvas.width/2, canvas.height/2, canvas.height * 0.2,
-      canvas.width/2, canvas.height/2, canvas.height * 0.85
-    );
-    grad.addColorStop(0, "rgba(0,0,0,0)");
-    grad.addColorStop(1, `rgba(0,0,0,${intensity})`);
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-  }
-
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawVignette();
-    particles.forEach(p => { p.update(); p.draw(); });
-    requestAnimationFrame(animate);
-  }
+  for(let i=0;i<60;i++)particles.push(new Particle());
+  let vignettePhase=0;
+  function drawVignette(){vignettePhase+=0.005;const intensity=0.55+Math.sin(vignettePhase)*0.05;const grad=ctx.createRadialGradient(canvas.width/2,canvas.height/2,canvas.height*0.2,canvas.width/2,canvas.height/2,canvas.height*0.85);grad.addColorStop(0,"rgba(0,0,0,0)");grad.addColorStop(1,`rgba(0,0,0,${intensity})`);ctx.fillStyle=grad;ctx.fillRect(0,0,canvas.width,canvas.height);}
+  function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);drawVignette();particles.forEach(p=>{p.update();p.draw();});requestAnimationFrame(animate);}
   animate();
 
-  // ── CASE LOGIC ───────────────────────────────────────────
-  const passwords = { 2: "the will", 3: "the queen of hearts" };
-  const caseFiles = { 1: "manhattan.html", 2: "cipher_society.html", 3: "last_voyage.html" };
+  // ── UNLOCK STATE ─────────────────────────────────────────
+  const UNLOCK_KEY = "mystery_room_unlocked";
+  const passwords = {2:"the will",3:"the queen of hearts"};
+  const caseFiles = {1:"manhattan.html",2:"cipher_society.html",3:"last_voyage.html"};
   const caseInfo = {
-    1: { icon: "🏙️", title: "Death in Manhattan", body: "A wealthy developer. Four suspects. One truth hidden in the ciphers. Are you ready to enter the room?" },
-    2: { icon: "🕯️", title: "The Cipher Society", body: "Westhaven Academy keeps its secrets well. Five trials stand between you and the truth. There are always three." },
-    3: { icon: "🚢", title: "The Last Voyage", body: "Somewhere in international waters, a killer walks free among the passengers. You have until port to find them." }
+    1:{icon:"🏙️",title:"Death in Manhattan",body:"A wealthy developer. Four suspects. One truth hidden in the ciphers. Are you ready to enter the room?"},
+    2:{icon:"🕯️",title:"The Cipher Society",body:"Westhaven Academy keeps its secrets well. Five trials stand between you and the truth. There are always three."},
+    3:{icon:"🚢",title:"The Last Voyage",body:"Somewhere in international waters, a killer walks free among the passengers. You have until port to find them."}
   };
 
-  let selectedCase = null, pendingCase = null;
+  // Load saved unlocks
+  function getUnlocked(){try{return JSON.parse(localStorage.getItem(UNLOCK_KEY)||"[1]");}catch{return[1];}}
+  function saveUnlocked(arr){try{localStorage.setItem(UNLOCK_KEY,JSON.stringify(arr));}catch{}}
 
-  function openCase(num) {
-    if (num === 2 && document.getElementById("case2-card").classList.contains("locked")) {
-      pendingCase = 2;
-      document.getElementById("pw-title").textContent = "CASE 02 LOCKED";
-      document.getElementById("pw-body").textContent = "You must complete Case 01 to unlock this case. The password is hidden in the investigation.";
-      document.getElementById("pw-input").value = "";
-      document.getElementById("pw-error").style.display = "none";
-      document.getElementById("password-modal").classList.add("open");
-      return;
+  function unlockCase(num){
+    const arr=getUnlocked();
+    if(!arr.includes(num)){arr.push(num);saveUnlocked(arr);}
+  }
+
+  // Also check if case leaderboards exist — means player completed that case
+  function checkCompletedCases(){
+    const unlocked=getUnlocked();
+    if(localStorage.getItem("lb_manhattan")){if(!unlocked.includes(2)){unlocked.push(2);saveUnlocked(unlocked);}}
+    if(localStorage.getItem("lb_cipher")){if(!unlocked.includes(3)){unlocked.push(3);saveUnlocked(unlocked);}}
+    return unlocked;
+  }
+
+  function applyUnlockState(){
+    const unlocked=checkCompletedCases();
+    if(unlocked.includes(2)){
+      document.getElementById("case2-card").classList.remove("locked");
+      document.getElementById("case2-lock").style.display="none";
+      document.getElementById("case2-status").textContent="🔓 Available";
     }
-    if (num === 3 && document.getElementById("case3-card").classList.contains("locked")) {
-      pendingCase = 3;
-      document.getElementById("pw-title").textContent = "CASE 03 LOCKED";
-      document.getElementById("pw-body").textContent = "You must complete Case 02 to unlock this case. The password is hidden in the investigation.";
-      document.getElementById("pw-input").value = "";
-      document.getElementById("pw-error").style.display = "none";
-      document.getElementById("password-modal").classList.add("open");
-      return;
+    if(unlocked.includes(3)){
+      document.getElementById("case3-card").classList.remove("locked");
+      document.getElementById("case3-lock").style.display="none";
+      document.getElementById("case3-status").textContent="🔓 Available";
     }
-    selectedCase = num;
-    const info = caseInfo[num];
-    document.getElementById("modal-icon").textContent = info.icon;
-    document.getElementById("modal-title").textContent = info.title;
-    document.getElementById("modal-body").textContent = info.body;
+    // Mark completed cases
+    if(localStorage.getItem("lb_manhattan"))document.getElementById("case1-card").classList.add("completed");
+    if(localStorage.getItem("lb_cipher"))document.getElementById("case2-card").classList.add("completed");
+    if(localStorage.getItem("lb_voyage"))document.getElementById("case3-card").classList.add("completed");
+  }
+
+  applyUnlockState();
+
+  let selectedCase=null,pendingCase=null;
+
+  function openCase(num){
+    if(num===2&&document.getElementById("case2-card").classList.contains("locked")){
+      pendingCase=2;
+      document.getElementById("pw-title").textContent="CASE 02 LOCKED";
+      document.getElementById("pw-body").textContent="You must complete Case 01 to unlock this case. The password is hidden in the investigation.";
+      document.getElementById("pw-input").value="";document.getElementById("pw-error").style.display="none";
+      document.getElementById("password-modal").classList.add("open");return;
+    }
+    if(num===3&&document.getElementById("case3-card").classList.contains("locked")){
+      pendingCase=3;
+      document.getElementById("pw-title").textContent="CASE 03 LOCKED";
+      document.getElementById("pw-body").textContent="You must complete Case 02 to unlock this case. The password is hidden in the investigation.";
+      document.getElementById("pw-input").value="";document.getElementById("pw-error").style.display="none";
+      document.getElementById("password-modal").classList.add("open");return;
+    }
+    selectedCase=num;
+    const info=caseInfo[num];
+    document.getElementById("modal-icon").textContent=info.icon;
+    document.getElementById("modal-title").textContent=info.title;
+    document.getElementById("modal-body").textContent=info.body;
     document.getElementById("modal").classList.add("open");
   }
 
-  function checkPassword() {
-    const input = document.getElementById("pw-input").value.trim().toLowerCase();
-    if (input === passwords[pendingCase]) {
+  function checkPassword(){
+    const input=document.getElementById("pw-input").value.trim().toLowerCase();
+    if(input===passwords[pendingCase]){
       document.getElementById("password-modal").classList.remove("open");
-      if (pendingCase === 2) {
-        document.getElementById("case2-card").classList.remove("locked");
-        document.getElementById("case2-lock").style.display = "none";
-        document.getElementById("case2-status").textContent = "🔓 Available";
-      }
-      if (pendingCase === 3) {
-        document.getElementById("case3-card").classList.remove("locked");
-        document.getElementById("case3-lock").style.display = "none";
-        document.getElementById("case3-status").textContent = "🔓 Available";
-      }
-      selectedCase = pendingCase;
-      const info = caseInfo[pendingCase];
-      document.getElementById("modal-icon").textContent = info.icon;
-      document.getElementById("modal-title").textContent = info.title;
-      document.getElementById("modal-body").textContent = info.body;
+      unlockCase(pendingCase);
+      if(pendingCase===2){document.getElementById("case2-card").classList.remove("locked");document.getElementById("case2-lock").style.display="none";document.getElementById("case2-status").textContent="🔓 Available";}
+      if(pendingCase===3){document.getElementById("case3-card").classList.remove("locked");document.getElementById("case3-lock").style.display="none";document.getElementById("case3-status").textContent="🔓 Available";}
+      selectedCase=pendingCase;
+      const info=caseInfo[pendingCase];
+      document.getElementById("modal-icon").textContent=info.icon;
+      document.getElementById("modal-title").textContent=info.title;
+      document.getElementById("modal-body").textContent=info.body;
       document.getElementById("modal").classList.add("open");
-    } else {
-      document.getElementById("pw-error").style.display = "block";
+    }else{
+      document.getElementById("pw-error").style.display="block";
     }
   }
 
-  function closePasswordModal() {
-    document.getElementById("password-modal").classList.remove("open");
-    pendingCase = null;
-  }
-
-  function closeModal() {
-    document.getElementById("modal").classList.remove("open");
-    selectedCase = null;
-  }
-
-  function goToCase() {
-    if (selectedCase) window.location.href = caseFiles[selectedCase];
-  }
-
-  // Enter key for password
-  document.getElementById("pw-input").addEventListener("keydown", e => {
-    if (e.key === "Enter") checkPassword();
-  });
+  function closePasswordModal(){document.getElementById("password-modal").classList.remove("open");pendingCase=null;}
+  function closeModal(){document.getElementById("modal").classList.remove("open");selectedCase=null;}
+  function goToCase(){if(selectedCase)window.location.href=caseFiles[selectedCase];}
+  document.getElementById("pw-input").addEventListener("keydown",e=>{if(e.key==="Enter")checkPassword();});
 </script>
 </body>
 </html>
