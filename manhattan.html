@@ -273,15 +273,40 @@ function renderFlashlight(container){
 }
 
 function renderNumberText(container){
-  const segs=[{text:"Ordered for table ",plain:true},{word:"nineteen",digit:"1"},{text:": one bottle of Merlot — ",plain:true},{word:"ninth",digit:"9"},{text:" on the list — to arrive before ",plain:true},{word:"nineteen",digit:"1"},{text:" past the ",plain:true},{word:"seventh",digit:"7"},{text:" hour.",plain:true}];
-  container.innerHTML=`<div style="font-size:13px;color:#6b4c1e;margin-bottom:10px;letter-spacing:1px;">A number-word is hidden inside each underlined word. Click each one in order.</div><div class="number-sequence" id="num-seq">${[0,1,2,3].map(i=>`<div class="num-box" id="nbox-${i}"></div>`).join("")}</div><div class="number-text" id="num-text"></div><button class="secondary-btn" style="margin-bottom:12px" onclick="resetNumbers()">Reset</button>`;
+  const segs=[
+    {text:"Ordered for table ",plain:true},
+    {word:"nineteen",digits:["1","9"]},
+    {text:": one bottle of Merlot, preferably by ",plain:true},
+    {word:"one",digits:["1"]},
+    {text:" o'clock — no later than ",plain:true},
+    {word:"seven",digits:["7"]},
+    {text:" minutes past the hour.",plain:true}
+  ];
+  container.innerHTML=`<div style="font-size:13px;color:#6b4c1e;margin-bottom:10px;letter-spacing:1px;">Number-words are hidden inside the note. Click each one in order.</div><div class="number-sequence" id="num-seq">${[0,1,2,3].map(i=>`<div class="num-box" id="nbox-${i}"></div>`).join("")}</div><div class="number-text" id="num-text"></div><button class="secondary-btn" style="margin-bottom:12px" onclick="resetNumbers()">Reset</button>`;
   let html='<em style="font-size:12px;letter-spacing:1px;color:#a07840;display:block;margin-bottom:8px;">— Belmont Bar, Late Order Slip —</em>';
-  segs.forEach(s=>{if(s.plain)html+=s.text;else html+=`<span class="number-word" data-digit="${s.digit}" onclick="pickNumberWord(this)">${s.word}</span>`;});
+  segs.forEach(s=>{
+    if(s.plain) html+=s.text;
+    else html+=`<span class="number-word" data-digits="${s.digits.join(",")}" onclick="pickNumberWord(this)">${s.word}</span>`;
+  });
   document.getElementById("num-text").innerHTML=html;
 }
-window.pickNumberWord=function(el){if(el.classList.contains("selected"))return;if(document.querySelectorAll(".number-word.selected").length>=4)return;el.classList.add("selected");const idx=document.querySelectorAll(".number-word.selected").length-1;const box=document.getElementById("nbox-"+idx);box.textContent=el.dataset.digit;box.classList.add("filled");document.getElementById("player-input").value=Array.from(document.querySelectorAll(".num-box.filled")).map(b=>b.textContent).join("");};
-window.resetNumbers=function(){document.querySelectorAll(".number-word.selected").forEach(e=>e.classList.remove("selected"));document.querySelectorAll(".num-box").forEach(b=>{b.textContent="";b.classList.remove("filled");});document.getElementById("player-input").value="";};
-
+window.pickNumberWord=function(el){
+  if(el.classList.contains("selected"))return;
+  const digits=el.dataset.digits.split(",");
+  const filled=document.querySelectorAll(".num-box.filled").length;
+  if(filled+digits.length>4)return;
+  el.classList.add("selected");
+  digits.forEach((d,i)=>{
+    const box=document.getElementById("nbox-"+(filled+i));
+    box.textContent=d;box.classList.add("filled");
+  });
+  document.getElementById("player-input").value=Array.from(document.querySelectorAll(".num-box.filled")).map(b=>b.textContent).join("");
+};
+window.resetNumbers=function(){
+  document.querySelectorAll(".number-word.selected").forEach(e=>e.classList.remove("selected"));
+  document.querySelectorAll(".num-box").forEach(b=>{b.textContent="";b.classList.remove("filled");});
+  document.getElementById("player-input").value="";
+};
 function renderDragDials(container){
   const answer="JAMES IS MY SON HE WANTS EVERYTHING",encoded=caesarShift(answer,3),chars=encoded.split(""),decodedChars=answer.split("");
   container.innerHTML=`<div style="font-size:13px;color:#6b4c1e;margin-bottom:12px;letter-spacing:1px;">Drag each dial ↑ or ↓. Each dial shows its decoded letter. Glow green = correct. Get all green to unlock.</div><div style="background:rgba(0,0,0,0.85);border-radius:8px;padding:20px;margin-bottom:12px;overflow-x:auto;"><div class="spinner-container" id="spinner-container"></div></div><div style="font-size:12px;color:#a07840;letter-spacing:1px;text-align:center;margin-bottom:12px;" id="dial-status">0 / ${decodedChars.filter(c=>c!==" ").length} dials aligned</div>`;
