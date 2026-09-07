@@ -273,14 +273,14 @@ function renderFlashlight(container){
 }
 
 function renderNumberText(container){
-  const segs=[
+    const segs=[
     {text:"Ordered for table ",plain:true},
     {word:"nineteen",digits:["1","9"]},
-    {text:": one bottle of Merlot, preferably by ",plain:true},
+    {text:": ",plain:true},
     {word:"one",digits:["1"]},
-    {text:" o'clock — no later than ",plain:true},
+    {text:" bottle of Merlot, preferably by ",plain:true},
     {word:"seven",digits:["7"]},
-    {text:" minutes past the hour.",plain:true}
+    {text:" o'clock.",plain:true}
   ];
   container.innerHTML=`<div style="font-size:13px;color:#6b4c1e;margin-bottom:10px;letter-spacing:1px;">Number-words are hidden inside the note. Click each one in order.</div><div class="number-sequence" id="num-seq">${[0,1,2,3].map(i=>`<div class="num-box" id="nbox-${i}"></div>`).join("")}</div><div class="number-text" id="num-text"></div><button class="secondary-btn" style="margin-bottom:12px" onclick="resetNumbers()">Reset</button>`;
   let html='<em style="font-size:12px;letter-spacing:1px;color:#a07840;display:block;margin-bottom:8px;">— Belmont Bar, Late Order Slip —</em>';
