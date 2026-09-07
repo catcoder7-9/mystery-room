@@ -271,8 +271,21 @@ function renderMorse(container){
   const word="CONTRACT";
   const groups=word.split("").map(c=>morseMap[c]);
   let audioVisible=false;
+  let morseNodes=[];
+  let morsePaused=false;
+  let morsePauseTime=0;
+  let morseStartTime=0;
+  let morseTotalDuration=0;
+  let morseCtx=null;
+
   container.innerHTML=`
-    <div style="text-align:center;margin-bottom:14px;"><button class="morse-audio-btn" id="morse-play-btn" onclick="playMorseAudio()">🔊 Play Transmission</button></div>
+    <div style="text-align:center;margin-bottom:14px;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
+        <button class="morse-audio-btn" id="morse-play-btn" onclick="playMorseAudio()">🔊 Play Transmission</button>
+        <button class="morse-audio-btn" id="morse-pause-btn" onclick="pauseMorseAudio()" style="display:none;">⏸ Pause</button>
+        <button class="morse-audio-btn" id="morse-rewind-btn" onclick="rewindMorseAudio()" style="display:none;">⏮ Rewind</button>
+      </div>
+    </div>
     <div style="text-align:center;margin-bottom:12px;"><span class="morse-toggle" onclick="toggleMorseVisual()">Can't listen now? Show the signal visually</span></div>
     <div class="hidden" id="morse-visual">
       <div style="font-size:11px;letter-spacing:2px;color:#888;text-transform:uppercase;text-align:center;margin-bottom:8px;">Intercepted Signal — Letter by Letter</div>
@@ -283,14 +296,111 @@ function renderMorse(container){
     <div class="morse-reference">
       ${[["A",".-"],["B","-..."],["C","-.-."],["D","-.."],["E","."],["F","..-."],["G","--."],["H","...."],["I",".."],["J",".---"],["K","-.-"],["L",".-.."],["M","--"],["N","-."],["O","---"],["P",".--."],["Q","--.-"],["R",".-."],["S","..."],["T","-"],["U","..-"],["V","...-"],["W",".--"],["X","-..-"],["Y","-.--"],["Z","--.."]].map(([l,m])=>`<div class="morse-ref-row"><span>${l}</span><div class="morse-symbols">${m.split("").map(s=>s==="."?'<div class="m-dot"></div>':'<div class="m-dash"></div>').join("")}</div></div>`).join("")}
     </div>`;
+
   window.toggleMorseVisual=function(){audioVisible=!audioVisible;document.getElementById("morse-visual").classList.toggle("hidden",!audioVisible);};
+
+  function stopAllNodes(){
+    morseNodes.forEach(n=>{try{n.stop();}catch(e){}});
+    morseNodes=[];
+  }
+
+  function scheduleMorse(offsetSeconds){
+    if(!morseCtx) morseCtx=new(window.AudioContext||window.webkitAudioContext)();
+    if(morseCtx.state==='suspended') morseCtx.resume();
+
+    const dot=0.08,dash=0.24,gap=0.08,lgap=0.28;
+    // Build a timeline of all beep events
+    const timeline=[];
+    let t=0;
+    groups.forEach(morse=>{
+      morse.split("").forEach(sym=>{
+        const d=sym==="."?dot:dash;
+        timeline.push({start:t,dur:d});
+        t+=d+gap;
+      });
+      t+=lgap;
+    });
+    morseTotalDuration=t;
+
+    // Schedule only beeps that start after the offset
+    const now=morseCtx.currentTime+0.05;
+    morseStartTime=now-offsetSeconds;
+
+    timeline.forEach(({start,dur})=>{
+      if(start<offsetSeconds-0.01) return; // skip already-played
+      const when=now+(start-offsetSeconds);
+      const osc=morseCtx.createOscillator(),g=morseCtx.createGain();
+      osc.connect(g);g.connect(morseCtx.destination);
+      osc.type="sine";osc.frequency.value=600;
+      g.gain.setValueAtTime(0,when);
+      g.gain.linearRampToValueAtTime(0.3,when+0.01);
+      g.gain.setValueAtTime(0.3,when+dur-0.01);
+      g.gain.linearRampToValueAtTime(0,when+dur);
+      osc.start(when);osc.stop(when+dur);
+      morseNodes.push(osc);
+    });
+
+    const remaining=(morseTotalDuration-offsetSeconds)*1000+300;
+    setTimeout(()=>{
+      const pb=document.getElementById("morse-play-btn");
+      const pauseBtn=document.getElementById("morse-pause-btn");
+      const rwBtn=document.getElementById("morse-rewind-btn");
+      if(pb&&!morsePaused){
+        pb.disabled=false;pb.innerHTML="🔊 Play Again";
+        if(pauseBtn) pauseBtn.style.display="none";
+        if(rwBtn) rwBtn.style.display="none";
+      }
+    },remaining);
+  }
+
   window.playMorseAudio=function(){
-    const btn=document.getElementById("morse-play-btn");btn.disabled=true;btn.textContent="📡 Transmitting...";
-    const ctx=new(window.AudioContext||window.webkitAudioContext)();
-    const dot=0.08,dash=0.24,gap=0.08,lgap=0.28;let t=ctx.currentTime+0.3;
-    function beep(start,dur){const osc=ctx.createOscillator(),g=ctx.createGain();osc.connect(g);g.connect(ctx.destination);osc.type="sine";osc.frequency.value=600;g.gain.setValueAtTime(0,start);g.gain.linearRampToValueAtTime(1.5,start+0.01);g.gain.setValueAtTime(0.3,start+dur-0.01);g.gain.linearRampToValueAtTime(0,start+dur);osc.start(start);osc.stop(start+dur);}
-    groups.forEach(morse=>{morse.split("").forEach(sym=>{const d=sym==="."?dot:dash;beep(t,d);t+=d+gap;});t+=lgap;});
-    setTimeout(()=>{btn.disabled=false;btn.innerHTML="🔊 Play Again";},(t-ctx.currentTime)*1000+300);
+    stopAllNodes();
+    morsePaused=false;
+    morsePauseTime=0;
+    const pb=document.getElementById("morse-play-btn");
+    const pauseBtn=document.getElementById("morse-pause-btn");
+    const rwBtn=document.getElementById("morse-rewind-btn");
+    pb.disabled=true;pb.textContent="📡 Transmitting...";
+    if(pauseBtn){pauseBtn.style.display="inline-flex";pauseBtn.textContent="⏸ Pause";}
+    if(rwBtn) rwBtn.style.display="inline-flex";
+    scheduleMorse(0);
+  };
+
+  window.pauseMorseAudio=function(){
+    const pauseBtn=document.getElementById("morse-pause-btn");
+    const pb=document.getElementById("morse-play-btn");
+    if(!morseCtx) return;
+    if(!morsePaused){
+      // Pause: record how far we are and suspend
+      morsePauseTime=morseCtx.currentTime-morseStartTime;
+      if(morsePauseTime<0) morsePauseTime=0;
+      stopAllNodes();
+      morseCtx.suspend();
+      morsePaused=true;
+      if(pauseBtn) pauseBtn.textContent="▶ Resume";
+      if(pb){pb.disabled=true;}
+    } else {
+      // Resume from where we paused
+      morseCtx.resume().then(()=>{
+        morsePaused=false;
+        if(pauseBtn) pauseBtn.textContent="⏸ Pause";
+        const pb2=document.getElementById("morse-play-btn");
+        if(pb2){pb2.disabled=true;pb2.textContent="📡 Transmitting...";}
+        scheduleMorse(morsePauseTime);
+      });
+    }
+  };
+
+  window.rewindMorseAudio=function(){
+    stopAllNodes();
+    if(morseCtx) morseCtx.resume();
+    morsePaused=false;
+    morsePauseTime=0;
+    const pb=document.getElementById("morse-play-btn");
+    const pauseBtn=document.getElementById("morse-pause-btn");
+    if(pb){pb.disabled=true;pb.textContent="📡 Transmitting...";}
+    if(pauseBtn) pauseBtn.textContent="⏸ Pause";
+    scheduleMorse(0);
   };
 }
 
